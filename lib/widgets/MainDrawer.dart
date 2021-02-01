@@ -1,0 +1,44 @@
+import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
+
+import '../screens/UserDetailsScreen.dart';
+
+class MainDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+      child: Container(
+        color: AppTheme().primaryColor,
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            ListTile(
+              title: Text(
+                'Survey Screen 1',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white
+                ),
+              ),
+              onTap: (){
+                Navigator.pushReplacementNamed(context, '/');
+              },
+            ),
+            ListTile(
+              title: Text(
+                'User Details Screen',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white
+                ),
+              ),
+              onTap: (){
+                Navigator.pushReplacementNamed(context, UserDetailsScreen.routeName);
+              },
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}

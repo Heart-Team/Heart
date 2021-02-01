@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../theme.dart';
 // widgets
+import '../widgets/MainDrawer.dart';
 import '../widgets/SurveyGridItem.dart';
 
 class SurveyScreen extends StatelessWidget {
@@ -45,6 +46,7 @@ class SurveyScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: MainDrawer(),
       body: Container(
         width: double.infinity,
         padding: EdgeInsets.only(top: 60, left: 20, right: 20, bottom: 20),
@@ -70,12 +72,12 @@ class SurveyScreen extends StatelessWidget {
               child: Expanded(
                 child: GridView(
                   physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.symmetric(horizontal: 5, vertical: 30),
+                  padding: EdgeInsets.symmetric(horizontal: 10, vertical: 30),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,
                     childAspectRatio: 1/1,
-                    crossAxisSpacing: 25,
-                    mainAxisSpacing: 25
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing: 15
                   ),
                   children: categoryArray.map((e) => SurveyGridItem(e['name'], e['image'])).toList(), 
                 ),
@@ -84,7 +86,7 @@ class SurveyScreen extends StatelessWidget {
             Container(
               margin: EdgeInsets.only(top: 15),
               child: MaterialButton(
-                color: AppTheme.primaryColor,
+                color: AppTheme().primaryColor,
                 minWidth: 175,
                 splashColor: Colors.red[200],
                 elevation: 0,

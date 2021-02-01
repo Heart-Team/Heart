@@ -30,7 +30,7 @@ class _SurveyGridItemState extends State<SurveyGridItem> {
         // margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(15),
-          color: _selected ? AppTheme.primaryColor.withOpacity(0.3) : Colors.white,
+          color: _selected ? AppTheme().primaryColor.withOpacity(0.3) : Colors.white,
           boxShadow: _selected ? null : [BoxShadow(color: Colors.black26.withOpacity(0.15), blurRadius: 8)]
         ),
         child: GridTile(
