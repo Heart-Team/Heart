@@ -54,6 +54,10 @@ flutter:
     - assets/images/health.png
     - assets/images/mastercard.png
     - assets/images/visa.png
+    - assets/images/login_screen/heart_figure.png
+    - assets/images/login_screen/Dont have an account_ Sign Upsignup_line.png
+    - assets/images/login_screen/fb_logo.png
+    - assets/images/login_screen/twitter_logo.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

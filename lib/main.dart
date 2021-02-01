@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/LoginScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 // screens
 import './screens/SurveyScreen.dart';
@@ -18,10 +19,8 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       // temporarily made survey screen the home screen
-      home: SurveyScreen(),
-      routes: {
-        UserDetailsScreen.routeName: (_) => UserDetailsScreen()
-      },
+      home: LoginScreen(),
+      routes: {UserDetailsScreen.routeName: (_) => UserDetailsScreen()},
     );
   }
 }
