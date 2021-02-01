@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/widgets/MainDrawer.dart';
 
 import '../theme.dart';
 import '../widgets/CreditCard.dart';
@@ -33,6 +34,7 @@ class UserDetailsScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: Colors.white,
+      drawer: MainDrawer(),
       body: Stack(
         children: [
           Positioned(
