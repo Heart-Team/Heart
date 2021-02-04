@@ -57,7 +57,7 @@ class LoginScreen extends StatelessWidget {
                           height: 48,
                           child: TextFormField(
                               decoration: InputDecoration(
-                            labelText: "",
+                            // labelText: "",
                             fillColor: Colors.white,
                             border: OutlineInputBorder(
                               borderSide: BorderSide(),
@@ -121,6 +121,15 @@ class LoginScreen extends StatelessWidget {
                           )
                         ],
                       ),
+                      SizedBox(
+                        height: 90,
+                      ),
+                      Center(
+                        child: Image.asset(
+                          "assets/images/login_screen/Dont have an account_ Sign Upsignup_line.png",
+                          width: size.width * 0.5,
+                        ),
+                      )
                     ]))
           ],
         ),
