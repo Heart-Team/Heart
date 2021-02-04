@@ -25,7 +25,7 @@ class LoginScreen extends StatelessWidget {
               ),
             ),
             Padding(
-                padding: EdgeInsets.only(top: 260.0, left: 30, right: 30),
+                padding: EdgeInsets.only(top: 240.0, left: 30, right: 30),
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -35,27 +35,34 @@ class LoginScreen extends StatelessWidget {
                             fontSize: 68, fontWeight: FontWeight.w600),
                       ),
                       SizedBox(height: 20),
-                      Text("Email", style: TextStyle(fontSize: 22)),
-                      SizedBox(height: 10),
-                      TextFormField(
-                          decoration: InputDecoration(
-                        labelText: "john@doe.com",
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(),
-                        ),
-                        //fillColor: Colors.green
-                      )),
-                      SizedBox(height: 10),
-                      Text("Password", style: TextStyle(fontSize: 22)),
-                      TextFormField(
-                          decoration: InputDecoration(
-                        labelText: "",
-                        fillColor: Colors.white,
-                        border: OutlineInputBorder(
-                          borderSide: BorderSide(),
-                        ),
-                      )),
+                      Text("Email",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w600)),
+                      SizedBox(height: 5),
+                      Container(
+                          height: 48,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                            labelText: "john@doe.com",
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(),
+                            ),
+                          ))),
+                      SizedBox(height: 15),
+                      Text("Password",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.w600)),
+                      Container(
+                          height: 48,
+                          child: TextFormField(
+                              decoration: InputDecoration(
+                            labelText: "",
+                            fillColor: Colors.white,
+                            border: OutlineInputBorder(
+                              borderSide: BorderSide(),
+                            ),
+                          ))),
                       Text("Forgot password?",
                           style: TextStyle(fontSize: 16, color: Colors.red)),
                       SizedBox(height: 30),
@@ -69,20 +76,50 @@ class LoginScreen extends StatelessWidget {
                               borderRadius:
                                   BorderRadius.all(Radius.circular(10)),
                               gradient: LinearGradient(
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
                                 colors: <Color>[
                                   Color(0xFFFF6464),
                                   Color(0xFFFBBEBE),
-                                  Color(0xFFFF6464),
                                 ],
                               ),
                             ),
                             padding: const EdgeInsets.symmetric(
-                                horizontal: 90.0, vertical: 8),
+                                horizontal: 140.0, vertical: 10),
                             child: const Text('Login',
                                 style: TextStyle(
-                                    fontSize: 18, fontWeight: FontWeight.w600)),
+                                    fontSize: 20, fontWeight: FontWeight.w600)),
                           ),
                         ),
+                      ),
+                      SizedBox(height: 12),
+                      Center(
+                        child: Text(
+                          "Login with",
+                          style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.grey),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Image.asset(
+                            "assets/images/login_screen/fb_logo.png",
+                            width: size.width * 0.03,
+                          ),
+                          SizedBox(
+                            width: 8,
+                          ),
+                          Image.asset(
+                            "assets/images/login_screen/twitter_logo.png",
+                            width: size.width * 0.06,
+                          )
+                        ],
                       ),
                     ]))
           ],
