@@ -20,7 +20,10 @@ class MyApp extends StatelessWidget {
       ),
       // temporarily made survey screen the home screen
       home: LoginScreen(),
-      routes: {UserDetailsScreen.routeName: (_) => UserDetailsScreen()},
+      routes: {
+        SurveyScreen.routeName: (_) => SurveyScreen(),
+        UserDetailsScreen.routeName: (_) => UserDetailsScreen()
+      },
     );
   }
 }

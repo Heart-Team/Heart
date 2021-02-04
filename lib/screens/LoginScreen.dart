@@ -4,10 +4,14 @@ import '../widgets/MainDrawer.dart';
 import '../widgets/SurveyGridItem.dart';
 
 class LoginScreen extends StatelessWidget {
+
+  static const routeName = '/auth';
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: MainDrawer(),
       body: Container(
         width: double.infinity,
         height: size.height,
