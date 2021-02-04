@@ -4,7 +4,6 @@ import '../widgets/MainDrawer.dart';
 import '../widgets/SurveyGridItem.dart';
 
 class LoginScreen extends StatelessWidget {
-
   static const routeName = '/auth';
 
   @override
