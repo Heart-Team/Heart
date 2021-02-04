@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/SurveyScreen.dart';
 import 'package:heart_app/theme.dart';
 
+import '../screens/LoginScreen.dart';
 import '../screens/UserDetailsScreen.dart';
 
 class MainDrawer extends StatelessWidget {
@@ -21,7 +23,7 @@ class MainDrawer extends StatelessWidget {
                 ),
               ),
               onTap: (){
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushReplacementNamed(context, SurveyScreen.routeName);
               },
             ),
             ListTile(
@@ -34,6 +36,18 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: (){
                 Navigator.pushReplacementNamed(context, UserDetailsScreen.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Login Screen',
+                style: TextStyle(
+                  fontSize: 24,
+                  color: Colors.white
+                ),
+              ),
+              onTap: (){
+                Navigator.pushReplacementNamed(context, '/');
               },
             )
           ],
