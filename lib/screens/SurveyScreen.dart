@@ -6,6 +6,8 @@ import '../widgets/SurveyGridItem.dart';
 
 class SurveyScreen extends StatelessWidget {
 
+  static const routeName = '/survey';
+
   final categoryArray = [
     {
       'name': 'Environment',
