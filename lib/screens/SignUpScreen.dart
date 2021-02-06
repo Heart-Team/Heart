@@ -134,17 +134,15 @@ class SignUpScreen extends StatelessWidget {
                               color: Colors.black,
                               fontSize: 20,
                               fontWeight: FontWeight.bold)),
-                      FlatButton(
-                          onPressed: () {},
-                          child: Container(
-                              padding: EdgeInsets.zero,
-                              child: Text(
-                                "Login",
-                                style: TextStyle(
-                                    color: Color(0xFFFF6464),
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.bold),
-                              )))
+                      GestureDetector(
+                          onTap: () {},
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Color(0xFFFF6464),
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold),
+                          )),
                     ],
                   )
                 ]),
