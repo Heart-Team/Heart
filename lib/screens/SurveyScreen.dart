@@ -106,10 +106,10 @@ class SurveyScreen extends StatelessWidget {
                   borderRadius: BorderRadius.circular(10)
                 ),
               ),
-            )
+            ),
           ],
         )
-      )
+      ) 
     );
   }
 }
