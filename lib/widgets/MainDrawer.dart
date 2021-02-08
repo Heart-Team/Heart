@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/SurveyScreen1.dart';
+import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/SurveyScreen.dart';
 import 'package:heart_app/theme.dart';
@@ -22,6 +24,15 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pushReplacementNamed(context, SurveyScreen.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Survey Screen 2',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, SurveyScreen2.routeName);
               },
             ),
             ListTile(
