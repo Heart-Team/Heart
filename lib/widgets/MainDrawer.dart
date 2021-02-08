@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/SurveyScreen.dart';
 import 'package:heart_app/theme.dart';
 
@@ -40,6 +41,16 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pushReplacementNamed(context, '/');
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Charity Info Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, CharityInfoScreen.routeName);
               },
             )
           ],
