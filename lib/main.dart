@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/screens/AuthScreen.dart';
 // screens
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       routes: {
         SurveyScreen.routeName: (_) => SurveyScreen(),
         UserDetailsScreen.routeName: (_) => UserDetailsScreen(),
+        CharityInfoScreen.routeName: (_) => CharityInfoScreen(),
       },
     );
   }
