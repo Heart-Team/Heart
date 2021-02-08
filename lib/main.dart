@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/HomeScreen.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
@@ -28,6 +29,7 @@ class MyApp extends StatelessWidget {
         SurveyScreen2.routeName: (_) => SurveyScreen2(),
         UserDetailsScreen.routeName: (_) => UserDetailsScreen(),
         HomeScreen.routeName: (_) => HomeScreen()
+        CharityInfoScreen.routeName: (_) => CharityInfoScreen(),
       },
     );
   }
