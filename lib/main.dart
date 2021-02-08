@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
         SurveyScreen.routeName: (_) => SurveyScreen(),
         SurveyScreen2.routeName: (_) => SurveyScreen2(),
         UserDetailsScreen.routeName: (_) => UserDetailsScreen(),
-        HomeScreen.routeName: (_) => HomeScreen()
+        HomeScreen.routeName: (_) => HomeScreen(),
         CharityInfoScreen.routeName: (_) => CharityInfoScreen(),
       },
     );

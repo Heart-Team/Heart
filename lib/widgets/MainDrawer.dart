@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
-import 'package:heart_app/screens/SurveyScreen.dart';
+import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/theme.dart';
 
 import '../screens/UserDetailsScreen.dart';
