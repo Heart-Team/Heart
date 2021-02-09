@@ -30,8 +30,7 @@ class CharityInfoScreen extends StatelessWidget {
                 child: null,
               ),
               Container(
-                  padding: EdgeInsets.only(
-                      top: size.height * 0.08, left: size.width * 0.08),
+                  padding: EdgeInsets.only(top: size.height * 0.08, left: 10),
                   alignment: Alignment.centerLeft,
                   child: Image.asset(
                     "assets/images/charity_info_screen/trending_flat_24px.png",
@@ -44,16 +43,20 @@ class CharityInfoScreen extends StatelessWidget {
                     height: size.height * 0.66,
                     width: size.width,
                     child: new Card(
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26),
+                      ),
+
                       color: Colors.white,
-                      elevation: 4.0,
+                      // elevation: 3.0,
                       child: SingleChildScrollView(
                         physics: BouncingScrollPhysics(),
                         child: CharityInfo(
                             'Childrens Charity',
-                            'New York, NY',
-                            'mission',
-                            'sample\n\n\n\nsample',
-                            'Total Assets - \$ 100,213.00',
+                            ' New York, NY',
+                            'Supporting children all over U.S.',
+                            '    sample starts here...\n\n\nsample\n\nsample',
+                            'Total Assets - \$ 100,213.00\nYearly Income - \$ 2, 130.00\nTax Subsection - 501(c)(3)',
                             'https://google.com'),
                       ),
                     )),
