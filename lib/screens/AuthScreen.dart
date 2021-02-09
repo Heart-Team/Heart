@@ -24,10 +24,10 @@ class AuthScreen extends StatelessWidget{
               alignment: Alignment.centerRight,
               child: Image.asset(
                 "assets/images/login_screen/heart_figure.png",
-                height: size.height * 0.32,
+                height: size.height * 0.3,
               ),
             ),
-            AuthForm(size.height - size.height * 0.32),
+            AuthForm(size.height - size.height * 0.3),
           ])
         ),
       )

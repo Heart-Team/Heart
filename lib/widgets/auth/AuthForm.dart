@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
 
 class AuthForm extends StatefulWidget {
 
@@ -9,7 +10,6 @@ class AuthForm extends StatefulWidget {
   @override
   _AuthFormState createState() => _AuthFormState();
 }
-
 class _AuthFormState extends State<AuthForm> {
 
   String selectedField = '';
@@ -35,49 +35,70 @@ class _AuthFormState extends State<AuthForm> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  if(!_isLogin)
-                    Text(
-                      "Full Name",
-                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
-                    ),
-                  if(!_isLogin)
-                    Container(
-                      padding: EdgeInsets.symmetric(horizontal: 5),
-                      decoration: BoxDecoration(
-                        boxShadow: [
-                          selectedField == 'fullName' ? BoxShadow(
-                            color: Colors.black12.withOpacity(0.15),
-                            blurRadius: 20
-                          ) : BoxShadow(color: Colors.transparent)
-                        ]
+                  
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 200),
+                      child: _isLogin ? SizedBox.shrink() : Text(
+                        "Full Name",
+                        style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                       ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          TextField(
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.account_circle_outlined,
-                                    color: Colors.black),
-
-                                filled: true,
-                                fillColor: Colors.white,
-                                focusedBorder: OutlineInputBorder(
+                    ),
+                  
+                    AnimatedSwitcher(
+                      duration: Duration(milliseconds: 200),
+                      child: _isLogin ? SizedBox.shrink() : Container(
+                        decoration: BoxDecoration(
+                          boxShadow: [
+                            selectedField == 'fullName' ? BoxShadow(
+                              color: Colors.black12.withOpacity(0.15),
+                              blurRadius: 20
+                            ) : BoxShadow(color: Colors.transparent)
+                          ]
+                        ),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TextField(
+                              decoration: InputDecoration(
+                                  prefixIcon: Icon(
+                                    Icons.account_circle_outlined,
+                                    color: selectedField =='fullName' ? AppTheme().primaryColor : Colors.grey
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      borderSide: BorderSide(style: BorderStyle.none)),
+                                  enabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.grey[300],
+                                      width: 0.8
+                                    ),
                                     borderRadius: BorderRadius.circular(10),
-                                    borderSide: BorderSide(style: BorderStyle.none)),
-                                enabledBorder: UnderlineInputBorder(),
-                                disabledBorder: UnderlineInputBorder(),
-                                focusColor: Colors.red,
-                                hintText: "John Doe",
-                                contentPadding:
-                                    EdgeInsets.symmetric(vertical: 13, horizontal: 10)
+                                  ),
+                                  disabledBorder: UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                      color: Colors.grey[300],
+                                      width: 0.8
+                                    )
+                                  ),
+                                  focusColor: Colors.red,
+                                  hintText: "John Doe", 
+                                  hintStyle: TextStyle(
+                                    color: Colors.grey,
+                                    fontWeight: FontWeight.w600
+                                  ),
+                                  contentPadding:
+                                      EdgeInsets.symmetric(vertical: 13, horizontal: 10)
+                              ),
+                              onTap: (){
+                                setState(() {
+                                  selectedField = 'fullName';
+                                });
+                              },
                             ),
-                            onTap: (){
-                              setState(() {
-                                selectedField = 'fullName';
-                              });
-                            },
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
                     ),
                   SizedBox(height: 10,),
@@ -86,7 +107,6 @@ class _AuthFormState extends State<AuthForm> {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
                       decoration: BoxDecoration(
                         boxShadow: [
                           selectedField == 'email' ? BoxShadow(
@@ -97,16 +117,34 @@ class _AuthFormState extends State<AuthForm> {
                       ),
                     child: TextField(
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.email_outlined,
-                              color: Colors.black),
+                          prefixIcon: Icon(
+                            Icons.email_outlined,
+                            color: selectedField =='email' ? AppTheme().primaryColor : Colors.grey
+                          ),
                           filled: true,
                           fillColor: Colors.white,
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(style: BorderStyle.none)),
-                          enabledBorder: UnderlineInputBorder(),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey[300],
+                                width: 0.8
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          disabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey[300],
+                                width: 0.8
+                              )
+                            ),
                           focusColor: Colors.red,
                           hintText: "JohnDoe@email.com",
+                          hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w600
+                                ),
                           contentPadding:
                               EdgeInsets.symmetric(vertical: 13, horizontal: 10)
                         ),
@@ -123,7 +161,6 @@ class _AuthFormState extends State<AuthForm> {
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
                   ),
                   Container(
-                    padding: EdgeInsets.symmetric(horizontal: 5),
                     decoration: BoxDecoration(
                       boxShadow: [
                         selectedField == 'password' ? BoxShadow(
@@ -134,16 +171,34 @@ class _AuthFormState extends State<AuthForm> {
                     ),
                     child: TextField(
                       decoration: InputDecoration(
-                          prefixIcon: Icon(Icons.lock_open_outlined,
-                              color: Colors.black),
+                          prefixIcon: Icon(
+                            Icons.lock_open_outlined,
+                            color: selectedField =='password' ? AppTheme().primaryColor : Colors.grey
+                          ),
                           filled: true,
                           fillColor: Colors.white,
                           focusedBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(style: BorderStyle.none)),
-                          enabledBorder: UnderlineInputBorder(),
+                          enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey[300],
+                                width: 0.8
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                          disabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Colors.grey[300],
+                                width: 0.8
+                              )
+                            ),
                           focusColor: Colors.red,
                           hintText: "Password",
+                          hintStyle: TextStyle(
+                                  color: Colors.grey,
+                                  fontWeight: FontWeight.w600
+                                ),
                           contentPadding:
                               EdgeInsets.symmetric(vertical: 13, horizontal: 10)
                       ),
@@ -198,7 +253,7 @@ class _AuthFormState extends State<AuthForm> {
                     _isLogin ? 'Don\'t have an account' : "Already have an account?",
                     style: TextStyle(
                         color: Colors.black,
-                        fontSize: 20,
+                        fontSize: 18,
                         fontWeight: FontWeight.bold)),
                     GestureDetector(
                     onTap: () {
@@ -210,14 +265,14 @@ class _AuthFormState extends State<AuthForm> {
                       _isLogin ? " Sign Up" : ' Log In',
                       style: TextStyle(
                           color: Color(0xFFFF6464),
-                          fontSize: 20,
+                          fontSize: 18,
                           fontWeight: FontWeight.bold),
                     )
                   )
                 ],
               ),
             ),
-            SizedBox(height: 15)
+            SizedBox(height: 20)
         ],
       ),
     );
