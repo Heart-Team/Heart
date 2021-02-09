@@ -3,6 +3,7 @@ import 'package:heart_app/widgets/MainDrawer.dart';
 
 import '../theme.dart';
 import '../widgets/CreditCard.dart';
+import '../widgets/charity_info/CharityInfo.dart';
 
 class CharityInfoScreen extends StatelessWidget {
   static const routeName = '/charity-info';
@@ -37,19 +38,26 @@ class CharityInfoScreen extends StatelessWidget {
                     height: size.height * 0.03,
                   )),
               Container(
-                  alignment: Alignment.topCenter,
-                  padding: EdgeInsets.only(top: size.height * 0.22),
-                  child: new Container(
+                alignment: Alignment.topCenter,
+                padding: EdgeInsets.only(top: size.height * 0.22),
+                child: new Container(
                     height: size.height * 0.66,
                     width: size.width,
                     child: new Card(
                       color: Colors.white,
                       elevation: 4.0,
                       child: SingleChildScrollView(
-                          physics: BouncingScrollPhysics(),
-                          child: Column(children: [])),
-                    ),
-                  )),
+                        physics: BouncingScrollPhysics(),
+                        child: CharityInfo(
+                            'Childrens Charity',
+                            'New York, NY',
+                            'mission',
+                            'sample\n\n\n\nsample',
+                            'Total Assets - \$ 100,213.00',
+                            'https://google.com'),
+                      ),
+                    )),
+              )
             ],
           ),
           Container(
