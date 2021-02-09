@@ -20,7 +20,8 @@ class CharityInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: <Widget>[Text('Children\'s Charity')],
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[Text(this.charityName)],
     );
   }
 }
