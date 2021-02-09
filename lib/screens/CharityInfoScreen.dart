@@ -40,7 +40,7 @@ class CharityInfoScreen extends StatelessWidget {
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(top: size.height * 0.22),
                 child: new Container(
-                    height: size.height * 0.66,
+                    height: size.height * 0.68,
                     width: size.width,
                     child: new Card(
                       shape: RoundedRectangleBorder(
@@ -74,7 +74,7 @@ class CharityInfoScreen extends StatelessWidget {
               ),
               height: size.height * 0.05,
               width: size.width * 0.6,
-              margin: EdgeInsets.only(top: 20),
+              margin: EdgeInsets.only(top: 10),
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   gradient: LinearGradient(

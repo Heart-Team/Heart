@@ -22,7 +22,7 @@ class CharityInfo extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Padding(
-      padding: EdgeInsets.only(left: 10),
+      padding: EdgeInsets.only(left: 18),
       child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
@@ -42,7 +42,7 @@ class CharityInfo extends StatelessWidget {
                 padding: EdgeInsets.only(right: 26),
                 child: Image.asset(
                   'assets/images/charity_info_screen/favorite_24px.png',
-                  height: size.height * 0.036,
+                  height: size.height * 0.034,
                 ),
               )
             ]),
