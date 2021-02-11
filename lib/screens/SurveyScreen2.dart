@@ -133,7 +133,7 @@ class SurveyScreen2 extends StatelessWidget {
                 ),
                 onPressed: (){
                   Navigator.of(context).pushNamedAndRemoveUntil(
-                    HomeScreen.routeName, (route) => false
+                    '/', (route) => false
                   );
                 },
                 shape: RoundedRectangleBorder(
