@@ -4,6 +4,7 @@ import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/theme.dart';
+import 'package:heart_app/screens/Cart.dart';
 
 import '../screens/UserDetailsScreen.dart';
 import '../screens/AuthScreen.dart';
@@ -32,7 +33,8 @@ class MainDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               onTap: () {
-                Navigator.pushReplacementNamed(context, SurveyScreen2.routeName);
+                Navigator.pushReplacementNamed(
+                    context, SurveyScreen2.routeName);
               },
             ),
             ListTile(
@@ -62,6 +64,15 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacementNamed(
                     context, CharityInfoScreen.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Cart Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Cart.routeName);
               },
             )
           ],
