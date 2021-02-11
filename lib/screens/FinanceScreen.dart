@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
+import '../widgets/finance_info/FinanceInfo.dart';
 
 class FinanceScreen extends StatelessWidget {
   static const routeName = '/finance';
@@ -9,13 +10,17 @@ class FinanceScreen extends StatelessWidget {
     final Size deviceSize = MediaQuery.of(context).size;
 
     return Scaffold(
-        backgroundColor: Colors.white,
-        drawer: MainDrawer(),
-        body: Container(
+      backgroundColor: Colors.white,
+      drawer: MainDrawer(),
+      body: Column(children: [
+        Container(
           padding: EdgeInsets.only(top: deviceSize.height * 0.1),
           alignment: Alignment.topCenter,
           child: Text('Monthly Payment',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
-        ));
+        ),
+        Container(child: FinanceInfo({'Childrens Charities': 600}))
+      ]),
+    );
   }
 }
