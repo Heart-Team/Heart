@@ -5,6 +5,7 @@ import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/screens/Cart.dart';
+import "package:heart_app/screens/TabsScreen.dart";
 
 import '../screens/UserDetailsScreen.dart';
 import '../screens/AuthScreen.dart';
@@ -73,6 +74,15 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pushReplacementNamed(context, Cart.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Tab Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, TabScreen.routeName);
               },
             )
           ],
