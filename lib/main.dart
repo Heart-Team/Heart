@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/HomeScreen.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
+import 'package:heart_app/screens/TabsScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/screens/AuthScreen.dart';
 import 'package:heart_app/screens/Cart.dart';
@@ -24,13 +25,12 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      // temporarily made survey screen the home screen
-      home: AuthScreen(),
+      home: TabScreen(), 
       routes: {
         SurveyScreen.routeName: (_) => SurveyScreen(),
         SurveyScreen2.routeName: (_) => SurveyScreen2(),
         UserDetailsScreen.routeName: (_) => UserDetailsScreen(),
-        HomeScreen.routeName: (_) => HomeScreen(),
+        AuthScreen.routeName: (_) => AuthScreen(),
         CharityInfoScreen.routeName: (_) => CharityInfoScreen(),
         Cart.routeName: (_) => Cart(),
       },

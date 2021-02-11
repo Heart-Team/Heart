@@ -53,7 +53,7 @@ class MainDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               onTap: () {
-                Navigator.pushReplacementNamed(context, '/');
+                Navigator.pushReplacementNamed(context, AuthScreen.routeName);
               },
             ),
             ListTile(

@@ -95,7 +95,7 @@ class UserDetailsScreen extends StatelessWidget {
                       Row(
                         children: [
                           Text(
-                            'Kamy Doe',
+                            'Jane Doe',
                             style: TextStyle(
                               fontWeight: FontWeight.w600,
                               fontSize: 22
