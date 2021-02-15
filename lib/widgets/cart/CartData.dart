@@ -20,6 +20,7 @@ class CartData extends StatelessWidget {
           Container(
             margin: EdgeInsets.only(top: 10, left: 10),
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 Text(
                   title,
@@ -30,7 +31,6 @@ class CartData extends StatelessWidget {
                   child: Row(
                     children: [
                       Container(
-                        alignment: Alignment.topLeft,
                         child: Text(
                           "Amount ",
                           textAlign: TextAlign.left,
