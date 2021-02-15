@@ -19,7 +19,13 @@ class FinanceScreen extends StatelessWidget {
           child: Text('Monthly Payment',
               style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
         ),
-        Container(child: FinanceInfo({'Childrens Charities': 600}))
+        SizedBox(
+          height: deviceSize.height * 0.4,
+        ),
+        Container(
+            // alignment: Alignment.topLeft,
+            padding: EdgeInsets.symmetric(horizontal: 40),
+            child: FinanceInfo('Childrens Charities', 600))
       ]),
     );
   }

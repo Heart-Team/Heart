@@ -3,19 +3,21 @@ import 'dart:collection';
 import 'package:flutter/material.dart';
 
 class FinanceInfo extends StatelessWidget {
-  final Map<String, int> payments;
+  final String organization;
+  final double payment;
 
-  FinanceInfo(
-    this.payments,
-  );
+  FinanceInfo(this.organization, this.payment);
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
     // TODO: implement build
-    return Column(
-      children: [Container(height: size.height * 0.15, child: null)],
-    );
+    return Container(
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+        ),
+        height: size.height * 0.05,
+        child: Text(organization));
   }
 }
