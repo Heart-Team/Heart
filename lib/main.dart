@@ -6,6 +6,7 @@ import 'package:heart_app/screens/TabsScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/screens/AuthScreen.dart';
 import 'package:heart_app/screens/Cart.dart';
+import "package:heart_app/screens/TabsScreen.dart";
 // screens
 import 'screens/SurveyScreen1.dart';
 import 'screens/AuthScreen.dart';
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
         fontFamily: 'Poppins',
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: TabScreen(), 
+      home: TabScreen(),
       routes: {
         SurveyScreen.routeName: (_) => SurveyScreen(),
         SurveyScreen2.routeName: (_) => SurveyScreen2(),
@@ -33,6 +34,7 @@ class MyApp extends StatelessWidget {
         AuthScreen.routeName: (_) => AuthScreen(),
         CharityInfoScreen.routeName: (_) => CharityInfoScreen(),
         Cart.routeName: (_) => Cart(),
+        TabScreen.routeName: (_) => TabScreen()
       },
     );
   }

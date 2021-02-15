@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
-// import "package:heart_app/bottomnav/BottomNavigation.dart";
+import "package:heart_app/widgets/cart/EmptyCart.dart";
+import "package:heart_app/widgets/cart/CartData.dart";
 
 class Cart extends StatefulWidget {
   static const routeName = '/cart';
@@ -9,6 +10,25 @@ class Cart extends StatefulWidget {
 }
 
 class _CartState extends State<Cart> {
+  final cartData = [
+    {
+      "title": "Cancer Awarness",
+      "img": "assets/images/cart/cartimage1.png",
+      "amount": "15"
+    },
+    {
+      "title": "Animals Charity",
+      "img": "assets/images/cart/cartimage2.png",
+      "amount": "15"
+    },
+    {
+      "title": "Childrens Charity",
+      "img": "assets/images/cart/cartimage3.png",
+      "amount": "15"
+    }
+  ];
+//  final cartData = [];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -29,20 +49,31 @@ class _CartState extends State<Cart> {
           SizedBox(
             height: 30,
           ),
-          Image.asset('assets/images/cart/emptycart.png'),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              "Go Checkout some",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
-          ),
-          Container(
-            alignment: Alignment.center,
-            child: Text(
-              "good Causes",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-            ),
+          Column(
+            children: [
+              cartData.isEmpty
+                  ? EmptyCart()
+                  : Container(
+                      alignment: Alignment.topLeft,
+                      margin: EdgeInsets.only(left: 30),
+                      child: Text(
+                        '${cartData.length} items',
+                        style: TextStyle(fontSize: 20, color: Colors.grey),
+                      ),
+                    ),
+              Container(
+                height: 420,
+                child: ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  itemBuilder: (ctx, index) => CartData(
+                    cartData[index]['title'],
+                    cartData[index]['amount'],
+                    cartData[index]['img'],
+                  ),
+                  itemCount: cartData.length,
+                ),
+              )
+            ],
           ),
           Container(
             margin: EdgeInsets.only(top: 10),
@@ -58,7 +89,7 @@ class _CartState extends State<Cart> {
             child: GestureDetector(
               onTap: () {},
               child: Text(
-                "Go Now",
+                cartData.isEmpty ? "Go Now" : "Next",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
