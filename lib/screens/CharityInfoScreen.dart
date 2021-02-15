@@ -11,6 +11,7 @@ class CharityInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final productInfo = ModalRoute.of(context).settings.arguments as Map<String, String>;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -19,36 +20,48 @@ class CharityInfoScreen extends StatelessWidget {
         children: [
           Stack(
             children: <Widget>[
-              Container(
-                decoration: BoxDecoration(
+              Hero(
+                tag: productInfo['title'],
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.black,
                     image: DecorationImage(
-                  image: AssetImage(
-                      "assets/images/charity_info_screen/poverty.jpg"),
-                  fit: BoxFit.cover,
-                )),
-                padding: EdgeInsets.only(top: size.height * 0.3),
-                child: null,
+                      image: NetworkImage(
+                          productInfo['imageUrl'],
+                      ),
+                      colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.85), BlendMode.dstATop),
+                      fit: BoxFit.cover,
+                    )
+                  ), 
+                  padding: EdgeInsets.only(top: size.height * 0.3),
+                  child: null,
+                ),
+              ),
+              Positioned(
+                top: MediaQuery.of(context).viewPadding.top,
+                child: IconButton(
+                  color: Colors.red,
+                  icon: Icon(
+                    Icons.keyboard_backspace, 
+                    color: Colors.white,
+                    size: 35,
+                  ), 
+                  onPressed: (){
+                    Navigator.of(context).pop();
+                  }
+                )
               ),
               Container(
-                  padding: EdgeInsets.only(top: size.height * 0.08, left: 10),
-                  alignment: Alignment.centerLeft,
-                  child: Image.asset(
-                    "assets/images/charity_info_screen/trending_flat_24px.png",
-                    height: size.height * 0.03,
-                  )),
-              Container(
                 alignment: Alignment.topCenter,
-                padding: EdgeInsets.only(top: size.height * 0.22),
+                padding: EdgeInsets.only(top: size.height * 0.23),
                 child: new Container(
                     height: size.height * 0.68,
                     width: size.width,
-                    child: new Card(
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(26),
+                    child: new Container(
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.vertical(top: Radius.circular(25))
                       ),
-
-                      color: Colors.white,
-                      // elevation: 3.0,
                       child: SingleChildScrollView(
                         physics: BouncingScrollPhysics(),
                         child: CharityInfo(

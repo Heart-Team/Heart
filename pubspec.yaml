@@ -28,6 +28,7 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
   flutter_snake_navigationbar: ^0.4.4
+  rflutter_alert: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -45,25 +46,25 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-    - assets/images/animals.png
-    - assets/images/arts_culture.png
-    - assets/images/education.png
-    - assets/images/environment.png
-    - assets/images/human_services.png
-    - assets/images/health.png
-    - assets/images/mastercard.png
-    - assets/images/visa.png
-    - assets/images/login_screen/heart_figure.png
-    - assets/images/login_screen/Dont have an account_ Sign Upsignup_line.png
-    - assets/images/login_screen/fb_logo.png
-    - assets/images/login_screen/twitter_logo.png
-    - assets/images/charity_info_screen/favorite_24px.png
-    - assets/images/charity_info_screen/trending_flat_24px.png
-    - assets/images/charity_info_screen/poverty.jpg
-    - assets/images/cart/emptycart.png
-    - assets/images/cart/cartimage1.png
-    - assets/images/cart/cartimage2.png
-    - assets/images/cart/cartimage3.png
+    - assets/images/
+    # - assets/images/arts_culture.png
+    # - assets/images/education.png
+    # - assets/images/environment.png
+    # - assets/images/human_services.png
+    # - assets/images/health.png
+    # - assets/images/mastercard.png
+    # - assets/images/visa.png
+    # - assets/images/login_screen/heart_figure.png
+    # - assets/images/login_screen/Dont have an account_ Sign Upsignup_line.png
+    # - assets/images/login_screen/fb_logo.png
+    # - assets/images/login_screen/twitter_logo.png
+    # - assets/images/charity_info_screen/favorite_24px.png
+    # - assets/images/charity_info_screen/trending_flat_24px.png
+    # - assets/images/charity_info_screen/poverty.jpg
+    # - assets/images/cart/emptycart.png
+    # - assets/images/cart/cartimage1.png
+    # - assets/images/cart/cartimage2.png
+    # - assets/images/cart/cartimage3.png
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
