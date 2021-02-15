@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
+import 'package:heart_app/widgets/surveys/SurveyChip.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 // widgets
 import '../widgets/MainDrawer.dart';
 import '../widgets/home/Searchbar.dart';
@@ -39,6 +42,19 @@ class HomeScreen extends StatelessWidget {
       'isFavorite': false,
       'image': 'https://miro.medium.com/max/11326/1*6vDpSiK73AwHk6kG47ZrqQ.jpeg'
     },
+  ];
+  
+  final filters = [
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
+    {'name': 'Name'},
   ];
 
   @override
@@ -101,7 +117,97 @@ class HomeScreen extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: (){
-                    print('Filtering');
+                    Alert(
+                      context: context,
+                      title: 'Filters',
+                      buttons: [
+                        DialogButton(
+                          child: Text(
+                            "Apply",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                          color: AppTheme().primaryColor,
+                          radius: BorderRadius.circular(10.0),
+                        ),
+                        DialogButton(
+                          child: Text(
+                            "Cancel",
+                            style: TextStyle(color: Colors.white, fontSize: 20),
+                          ),
+                          onPressed: () => Navigator.pop(context),
+                          color: Colors.grey,
+                          radius: BorderRadius.circular(10.0),
+                        ),
+                      ],
+                      content: Container(
+                        height: device.size.height * 0.55,
+                        width: double.infinity,
+                        child: SingleChildScrollView(
+                          physics: BouncingScrollPhysics(),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                'Cause Name',
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: AppTheme().primaryColor,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              Wrap(
+                                runSpacing: 10,
+                                spacing: 8,
+                                children: filters.map((e) => SurveyChip(e['name'])).toList(),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                'Cause Name', 
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: AppTheme().primaryColor,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              Wrap(
+                                runSpacing: 10,
+                                spacing: 8,
+                                children: filters.map((e) => SurveyChip(e['name'])).toList(),
+                              ),
+                              SizedBox(height: 20,),
+                              Text(
+                                'Cause Name', 
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: AppTheme().primaryColor,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              SizedBox(height: 10,),
+                              Wrap(
+                                runSpacing: 10,
+                                spacing: 8,
+                                children: filters.map((e) => SurveyChip(e['name'])).toList(),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      style: AlertStyle(
+                        animationType: AnimationType.grow,
+                        backgroundColor: Colors.white.withOpacity(0.85),
+                        overlayColor: Colors.black12.withOpacity(0.8),
+                        titleStyle: TextStyle(
+                          color: Colors.black87,
+                          fontSize: 26,
+                          fontWeight: FontWeight.w600
+                        ),
+                        
+                      )
+                    ).show();
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 9),
@@ -111,20 +217,36 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                GestureDetector(
-                  onTap: (){
-                    print('Sorting By');
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 9),
-                    child: Text(
-                      'Sort By',
-                      style: TextStyle(
-                        color: Colors.grey,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w600
-                      ),
-                    ),
+                // GestureDetector(
+                //   onTap: (){
+                //     print('Sorting By');
+                //   },
+                //   child: Padding(
+                //     padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 9),
+                //     child: Text(
+                //       'Sort By',
+                //       style: TextStyle(
+                //         color: Colors.grey,
+                //         fontSize: 16,
+                //         fontWeight: FontWeight.w600
+                //       ),
+                //     ),
+                //   ),
+                // )
+                Container(
+                  margin: EdgeInsets.only(right: 10),
+                  child: DropdownButton<String>(
+                      value: 'Sort By',
+                      elevation: 16,
+                      items: ['Sort By', 'One', 'Two', 'Three', 'Four'].map((e) => DropdownMenuItem(
+                        value: e,
+                        child: Text(
+                          e,
+                          style: TextStyle(color: Colors.grey),
+                        ),
+                      )
+                    ).toList(),
+                    onChanged: (value){},
                   ),
                 )
               ],
