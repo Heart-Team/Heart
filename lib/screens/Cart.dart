@@ -90,7 +90,7 @@ class _CartState extends State<Cart> {
             child: GestureDetector(
               onTap: () {},
               child: Text(
-                "Go Now",
+                cartData.isEmpty ? "Go Now" : "Next",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
             ),
