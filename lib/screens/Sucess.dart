@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 // import "package:heart_app/bottomnav/BottomNavigation.dart";
 
@@ -15,6 +16,7 @@ class _SucState extends State<Suc> {
       backgroundColor: Colors.white,
       drawer: MainDrawer(),
       body: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SizedBox(
             height: 30,
@@ -23,7 +25,7 @@ class _SucState extends State<Suc> {
             alignment: Alignment.center,
             child: Text(
               "Donation Successful",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w400),
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
             ),
           ),
           SizedBox(
@@ -33,18 +35,30 @@ class _SucState extends State<Suc> {
           Container(
             alignment: Alignment.center,
             child: Text(
-              "Thank you for",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+              "Thank you for\nyour donation",
+              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600),
             ),
           ),
-          Container(
-            alignment: Alignment.center,
+          SizedBox(height: 30),
+          MaterialButton(
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10)
+            ),
+            padding: EdgeInsets.symmetric(horizontal: 30, vertical: 6),
+            color: AppTheme().primaryColor,
             child: Text(
-              "your donation",
-              style: TextStyle(fontSize: 22, fontWeight: FontWeight.w500),
+              'All Done',
+              style: TextStyle(
+                fontSize: 20,
+                color: Colors.white
+              )
             ),
-          ),
-         ] ),
-          );
+            onPressed: (){
+              Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+            }
+          )
+        ] 
+      ),
+    );
   }
 }

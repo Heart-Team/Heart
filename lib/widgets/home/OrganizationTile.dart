@@ -33,25 +33,34 @@ class OrganizationTile extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            ListTile( 
-              onTap: (){
-                Navigator.of(context).pushNamed(CharityInfoScreen.routeName);
-              },
-              contentPadding: EdgeInsets.all(10),
-              tileColor: Colors.black.withOpacity(0.25),
-              title: Text( 
-                title,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 22,
-                  fontWeight: FontWeight.w600
+            Hero(
+              tag: title,
+              child: ListTile( 
+                onTap: (){
+                  Navigator.of(context).pushNamed(
+                    CharityInfoScreen.routeName,
+                    arguments: {
+                      'title': title,
+                      'imageUrl': imageUrl
+                    }
+                  );
+                },
+                contentPadding: EdgeInsets.all(10),
+                tileColor: Colors.black.withOpacity(0.25),
+                title: Text( 
+                  title,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600
+                  ),
                 ),
-              ),
-              subtitle: Text(
-                category,
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16
+                subtitle: Text(
+                  category,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16
+                  ),
                 ),
               ),
             ),

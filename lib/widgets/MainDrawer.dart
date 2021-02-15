@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
@@ -83,6 +84,15 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pushReplacementNamed(context, TabScreen.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Succ Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, Suc.routeName);
               },
             )
           ],

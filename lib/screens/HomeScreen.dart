@@ -36,12 +36,6 @@ class HomeScreen extends StatelessWidget {
       'isFavorite': false,
       'image': 'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
     },
-    {
-      'name': 'Childrens Charity',
-      'category': 'Social work',
-      'isFavorite': false,
-      'image': 'https://miro.medium.com/max/11326/1*6vDpSiK73AwHk6kG47ZrqQ.jpeg'
-    },
   ];
   
   final filters = [
