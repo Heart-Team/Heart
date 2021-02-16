@@ -12,12 +12,12 @@ class FinanceInfo extends StatelessWidget {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
 
-    // TODO: implement build
-    return Container(
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20),
-        ),
-        height: size.height * 0.05,
-        child: Text(organization));
+    return Scaffold(
+        body: Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            height: size.height * 0.05,
+            child: Text(organization)));
   }
 }
