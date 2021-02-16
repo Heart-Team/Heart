@@ -8,6 +8,7 @@ import 'package:heart_app/theme.dart';
 import 'package:heart_app/screens/Cart.dart';
 import "package:heart_app/screens/TabsScreen.dart";
 
+import '../screens/FinanceScreen.dart';
 import '../screens/UserDetailsScreen.dart';
 import '../screens/AuthScreen.dart';
 
@@ -93,6 +94,16 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pushReplacementNamed(context, Suc.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Finance Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, FinanceScreen.routeName);
               },
             )
           ],
