@@ -5,10 +5,11 @@ import '../widgets/finance_info/FinanceInfo.dart';
 class FinanceScreen extends StatelessWidget {
   static const routeName = '/finance';
 
-  final List<Map<String, double>> financeInfos = [
-    {'Childrens Charity': 150.10},
-    {'Tech Charity': 62.05},
-    {'Animal Charity': 100.85}
+  final List<Map<String, String>> financeInfos = [
+    {'organization': 'Childrens Charity', 'payment': '150.10'},
+    {'organization': 'Tech Charity', 'payment': '62.05'},
+    {'organization': 'Animal Charity', 'payment': '100.85'},
+    {'organization': 'Childrens Charity', 'payment': '150.10'}
   ];
 
   @override
@@ -28,10 +29,17 @@ class FinanceScreen extends StatelessWidget {
           SizedBox(
             height: deviceSize.height * 0.4,
           ),
-          Container(
-            // alignment: Alignment.topLeft,
-            padding: EdgeInsets.symmetric(horizontal: 40),
-            child: Column(children: []),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 10),
+              child: ListView.builder(
+                physics: BouncingScrollPhysics(),
+                itemBuilder: (ctx, index) => FinanceInfo(
+                    financeInfos[index]['organization'],
+                    financeInfos[index]['payment']),
+                itemCount: financeInfos.length,
+              ),
+            ),
           )
         ]));
   }
