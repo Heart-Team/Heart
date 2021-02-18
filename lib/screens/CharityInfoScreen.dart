@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
-
-import '../theme.dart';
-import '../widgets/CreditCard.dart';
 import '../widgets/charity_info/CharityInfo.dart';
 
 class CharityInfoScreen extends StatelessWidget {

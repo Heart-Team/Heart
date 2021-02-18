@@ -4,7 +4,6 @@ import 'package:heart_app/screens/Cart.dart';
 
 import 'package:heart_app/screens/HomeScreen.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
-import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/theme.dart';
 
