@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/screens/FinanceScreen.dart';
 import 'package:heart_app/screens/HomeScreen.dart';
+import 'package:heart_app/screens/SavedCharitiesScreen.dart';
 import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/TabsScreen.dart';
@@ -38,6 +39,7 @@ class MyApp extends StatelessWidget {
         Cart.routeName: (_) => Cart(),
         TabScreen.routeName: (_) => TabScreen(),
         Suc.routeName: (_) => Suc(),
+        SavedCharitiesScreen.routeName: (_) => SavedCharitiesScreen(),
         FinanceScreen.routeName: (_) => FinanceScreen()
       },
     );

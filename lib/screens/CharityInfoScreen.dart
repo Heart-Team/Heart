@@ -23,6 +23,7 @@ class CharityInfoScreen extends StatelessWidget {
               Hero(
                 tag: productInfo['title'],
                 child: Container(
+                  height: 200,
                   decoration: BoxDecoration(
                     color: Colors.black,
                     image: DecorationImage(
@@ -38,7 +39,8 @@ class CharityInfoScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).viewPadding.top,
+                top: MediaQuery.of(context).viewPadding.top + 5,
+                left: 10,
                 child: IconButton(
                   color: Colors.red,
                   icon: Icon(
