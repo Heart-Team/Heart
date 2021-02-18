@@ -35,6 +35,12 @@ class HomeScreen extends StatelessWidget {
       'category': 'Social Work',
       'isFavorite': false,
       'image': 'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
+    }, 
+    {
+      'name': 'Charity Support',
+      'category': 'Social Work',
+      'isFavorite': false,
+      'image': 'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
     },
   ];
   
@@ -58,7 +64,6 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       drawer: MainDrawer(),
-      // bottomNavigationBar: ,
       backgroundColor: Colors.white,
       body: Container(
         padding: EdgeInsets.fromLTRB(20, device.padding.top + 15, 20, 20),
@@ -211,36 +216,22 @@ class HomeScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                // GestureDetector(
-                //   onTap: (){
-                //     print('Sorting By');
-                //   },
-                //   child: Padding(
-                //     padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 9),
-                //     child: Text(
-                //       'Sort By',
-                //       style: TextStyle(
-                //         color: Colors.grey,
-                //         fontSize: 16,
-                //         fontWeight: FontWeight.w600
-                //       ),
-                //     ),
-                //   ),
-                // )
                 Container(
                   margin: EdgeInsets.only(right: 10),
-                  child: DropdownButton<String>(
-                      value: 'Sort By',
-                      elevation: 16,
-                      items: ['Sort By', 'One', 'Two', 'Three', 'Four'].map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(
-                          e,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      )
-                    ).toList(),
-                    onChanged: (value){},
+                  child: DropdownButtonHideUnderline(
+                    child: DropdownButton<String>(
+                        value: 'Sort By',
+                        elevation: 16,
+                        items: ['Sort By', 'One', 'Two', 'Three', 'Four'].map((e) => DropdownMenuItem(
+                          value: e,
+                          child: Text(
+                            e,
+                            style: TextStyle(color: Colors.grey),
+                          ),
+                        )
+                      ).toList(),
+                      onChanged: (value){},
+                    ),
                   ),
                 )
               ],
@@ -252,7 +243,6 @@ class HomeScreen extends StatelessWidget {
                   charities[index]['name'], 
                   charities[index]['category'], 
                   charities[index]['image'], 
-                  charities[index]['isFavorite'], 
                 ),
                 itemCount: charities.length,
               ),
