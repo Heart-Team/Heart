@@ -18,8 +18,8 @@ class FinanceInfo extends StatelessWidget {
         width: double.infinity,
         height: size.height * 0.08,
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(15),
-        ),
+            border: Border.all(color: Colors.black),
+            borderRadius: BorderRadius.all(Radius.circular(15))),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
