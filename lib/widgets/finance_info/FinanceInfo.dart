@@ -13,13 +13,17 @@ class FinanceInfo extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Container(
-        padding: EdgeInsets.symmetric(horizontal: 50),
-        // margin: EdgeInsets.only(left: 10, right: 10),
+        padding: EdgeInsets.symmetric(horizontal: 30),
         width: double.infinity,
         height: size.height * 0.08,
         decoration: BoxDecoration(
-            border: Border.all(color: Colors.black),
-            borderRadius: BorderRadius.all(Radius.circular(15))),
+          color: Colors.white,
+          border: Border.all(color: Colors.white),
+          borderRadius: BorderRadius.all(Radius.circular(15)),
+          boxShadow: [
+            BoxShadow(color: Colors.black12.withOpacity(0.25), blurRadius: 15)
+          ],
+        ),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
