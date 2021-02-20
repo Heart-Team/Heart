@@ -1,10 +1,12 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class FinanceInfo extends StatelessWidget {
   final String organization;
   final String payment;
+  final String perc;
 
-  FinanceInfo(this.organization, this.payment);
+  FinanceInfo(this.organization, this.payment, this.perc);
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +31,18 @@ class FinanceInfo extends StatelessWidget {
               SizedBox(
                 width: size.width * 0.10,
               ),
-              Text(
-                payment,
-                textAlign: TextAlign.right,
-                style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+              Column(
+                children: [
+                  Text(
+                    perc,
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                  ),
+                  Text(
+                    '\$ ' + payment,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                  )
+                ],
               )
             ]));
   }

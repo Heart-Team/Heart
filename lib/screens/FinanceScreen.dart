@@ -6,10 +6,13 @@ class FinanceScreen extends StatelessWidget {
   static const routeName = '/finance';
 
   final List<Map<String, String>> financeInfos = [
-    {'organization': 'Childrens Charity', 'payment': '150.10'},
-    {'organization': 'Tech Charity', 'payment': '62.05'},
-    {'organization': 'Animal Charity', 'payment': '100.85'},
-    {'organization': 'Childrens Charity', 'payment': '150.10'}
+    {
+      'organization': 'Childrens Charity',
+      'payment': '150.10',
+      'perc': '47.95%'
+    },
+    {'organization': 'Tech Charity', 'payment': '62.05', 'perc': '19.83%'},
+    {'organization': 'Animal Charity', 'payment': '100.85', 'perc': '32.22%'},
   ];
 
   @override
@@ -36,7 +39,8 @@ class FinanceScreen extends StatelessWidget {
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (ctx, index) => FinanceInfo(
                     financeInfos[index]['organization'],
-                    financeInfos[index]['payment']),
+                    financeInfos[index]['payment'],
+                    financeInfos[index]['perc']),
                 itemCount: financeInfos.length,
               ),
             ),
