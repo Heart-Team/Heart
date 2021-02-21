@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/SavedCharitiesScreen.dart';
 import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
-import 'package:heart_app/screens/CharityInfoScreen.dart';
-import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/screens/Cart.dart';
 import "package:heart_app/screens/TabsScreen.dart";
 
+import '../screens/FinanceScreen.dart';
 import '../screens/UserDetailsScreen.dart';
 import '../screens/AuthScreen.dart';
 
@@ -60,16 +60,6 @@ class MainDrawer extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                'Charity Info Screen',
-                style: TextStyle(fontSize: 24, color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, CharityInfoScreen.routeName);
-              },
-            ),
-            ListTile(
-              title: Text(
                 'Cart Screen',
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
@@ -88,11 +78,30 @@ class MainDrawer extends StatelessWidget {
             ),
             ListTile(
               title: Text(
-                'Succ Screen',
+                'Success Screen',
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               onTap: () {
                 Navigator.pushReplacementNamed(context, Suc.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Saved Charity Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, SavedCharitiesScreen.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Finance Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, FinanceScreen.routeName);
               },
             )
           ],

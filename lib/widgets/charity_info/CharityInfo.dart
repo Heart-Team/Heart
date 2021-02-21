@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
 
 class CharityInfo extends StatelessWidget {
   final String charityName;
@@ -40,10 +41,11 @@ class CharityInfo extends StatelessWidget {
               Container(
                 alignment: Alignment.centerRight,
                 padding: EdgeInsets.only(right: 26),
-                child: Image.asset(
-                  'assets/images/charity_info_screen/favorite_24px.png',
-                  height: size.height * 0.034,
-                ),
+                child: Icon(
+                  Icons.favorite_rounded,
+                  size: 30,
+                  color: AppTheme().primaryColor,
+                )
               )
             ]),
             SizedBox(

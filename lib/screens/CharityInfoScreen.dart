@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
-
-import '../theme.dart';
-import '../widgets/CreditCard.dart';
 import '../widgets/charity_info/CharityInfo.dart';
 
 class CharityInfoScreen extends StatelessWidget {
@@ -23,6 +20,7 @@ class CharityInfoScreen extends StatelessWidget {
               Hero(
                 tag: productInfo['title'],
                 child: Container(
+                  height: 200,
                   decoration: BoxDecoration(
                     color: Colors.black,
                     image: DecorationImage(
@@ -38,7 +36,8 @@ class CharityInfoScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).viewPadding.top,
+                top: MediaQuery.of(context).viewPadding.top + 5,
+                left: 10,
                 child: IconButton(
                   color: Colors.red,
                   icon: Icon(

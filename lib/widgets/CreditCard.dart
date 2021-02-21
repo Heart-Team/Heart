@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 class CreditCard extends StatelessWidget {
-
   final String cardNumber;
   final String expDate;
   final List<int> colorsSelected;
@@ -19,8 +18,6 @@ class CreditCard extends StatelessWidget {
     this.colorsSelected,
   );
 
-
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -31,19 +28,12 @@ class CreditCard extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
-          colors: [
-            colors[colorsSelected[0]],
-            colors[colorsSelected[1]]
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0,1]
-        ),
+            colors: [colors[colorsSelected[0]], colors[colorsSelected[1]]],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            stops: [0, 1]),
         boxShadow: [
-          BoxShadow(
-            color: Colors.black12.withOpacity(0.25),
-            blurRadius: 10
-          ) 
+          BoxShadow(color: Colors.black12.withOpacity(0.25), blurRadius: 10)
         ],
       ),
       child: Column(
@@ -67,10 +57,7 @@ class CreditCard extends StatelessWidget {
                 ),
                 Text(
                   '**** **** **** 1234',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 16
-                  ),
+                  style: TextStyle(color: Colors.white, fontSize: 16),
                 ),
                 SizedBox(
                   height: 15,

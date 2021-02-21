@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:heart_app/screens/HomeScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/surveys/SurveyChip.dart';
