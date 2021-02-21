@@ -78,7 +78,7 @@ class PaymethodScreen extends StatelessWidget {
                         "Total",
                         style: TextStyle(fontSize: 20),
                       ),
-                      Text("\$${totalAmount}", style: TextStyle(fontSize: 20))
+                      Text("\$$totalAmount", style: TextStyle(fontSize: 20))
                     ],
                   ),
                   Container(

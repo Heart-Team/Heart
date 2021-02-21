@@ -43,24 +43,34 @@ class HomeScreen extends StatelessWidget {
       'image': 'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
     },
   ];
-  
-  final filters = [
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
-    {'name': 'Name'},
+  final categoryNames = [
+    {'name': 'Human Services'},
+    {'name': 'Education'},
+    {'name': 'International'},
+    {'name': 'Human and Civil Rights'},
+    {'name': 'Religion'},
+    {'name': 'Animals'},
+    {'name': 'Arts, Culture, Humanities'},
+    {'name': 'Health'},
+    {'name': 'Community Development'},
+    {'name': 'Environment'},
+    {'name': 'Research and Public Policy'},
+  ];
+  final states = [
+    'Alabama','Alaska','American Samoa','Arizona','Arkansas','California','Colorado','Connecticut','Delaware','District of Columbia','Federated States of Micronesia','Florida','Georgia','Guam','Hawaii','Idaho','Illinois','Indiana','Iowa','Kansas','Kentucky','Louisiana','Maine','Marshall Islands','Maryland','Massachusetts','Michigan','Minnesota','Mississippi','Missouri','Montana','Nebraska','Nevada','New Hampshire','New Jersey','New Mexico','New York','North Carolina','North Dakota','Northern Mariana Islands','Ohio','Oklahoma','Oregon','Palau','Pennsylvania','Puerto Rico','Rhode Island','South Carolina','South Dakota','Tennessee','Texas','Utah','Vermont','Virgin Island','Virginia','Washington','West Virginia','Wisconsin','Wyoming'];
+  final ratings = [
+    Icon(Icons.star),
+    Icon(Icons.star),
+    Icon(Icons.star),
+    Icon(Icons.star),
+    Icon(Icons.star),
   ];
 
   @override
   Widget build(BuildContext context) {
 
     final device = MediaQuery.of(context);
+    bool taxExempt = false;
 
     return Scaffold(
       drawer: MainDrawer(),
@@ -159,11 +169,11 @@ class HomeScreen extends StatelessWidget {
                               Wrap(
                                 runSpacing: 10,
                                 spacing: 8,
-                                children: filters.map((e) => SurveyChip(e['name'])).toList(),
+                                children: categoryNames.map((e) => SurveyChip(e['name'])).toList(),
                               ),
                               SizedBox(height: 20,),
                               Text(
-                                'Cause Name', 
+                                'Tax Exempt', 
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: AppTheme().primaryColor,
@@ -171,14 +181,15 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 10,),
-                              Wrap(
-                                runSpacing: 10,
-                                spacing: 8,
-                                children: filters.map((e) => SurveyChip(e['name'])).toList(),
+                              Switch.adaptive(
+                                value: taxExempt, 
+                                onChanged: (val){
+                                  taxExempt = val;
+                                }
                               ),
                               SizedBox(height: 20,),
                               Text(
-                                'Cause Name', 
+                                'Location', 
                                 textAlign: TextAlign.left,
                                 style: TextStyle(
                                   color: AppTheme().primaryColor,
@@ -186,10 +197,34 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ),
                               SizedBox(height: 10,),
-                              Wrap(
-                                runSpacing: 10,
-                                spacing: 8,
-                                children: filters.map((e) => SurveyChip(e['name'])).toList(),
+                              DropdownButton<String>(
+                                value: states[0],
+                                items: states.map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(
+                                    e
+                                  ),
+                                )).toList(), 
+                                onChanged: (val){}
+                              ),
+                              SizedBox(height: 10,),
+                              Text(
+                                'Ratings', 
+                                textAlign: TextAlign.left,
+                                style: TextStyle(
+                                  color: AppTheme().primaryColor,
+                                  fontSize: 18,
+                                ),
+                              ),
+                              DropdownButton<String>(
+                                value: '1 star',
+                                items: ['1 star', '2 star', '3 star', '4 star', '5 star'].map((e) => DropdownMenuItem(
+                                  value: e,
+                                  child: Text(
+                                    e
+                                  ),
+                                )).toList(), 
+                                onChanged: (val){}
                               ),
                             ],
                           ),
