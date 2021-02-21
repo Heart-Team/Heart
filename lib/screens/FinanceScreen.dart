@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import '../widgets/finance_info/FinanceInfo.dart';
+import '../widgets/finance_info/chart.dart';
 
 class FinanceScreen extends StatelessWidget {
   static const routeName = '/finance';
@@ -29,9 +30,8 @@ class FinanceScreen extends StatelessWidget {
             child: Text('Monthly Payment',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
           ),
-          SizedBox(
-            height: deviceSize.height * 0.4,
-          ),
+          SizedBox(height: deviceSize.height * 0.08),
+          Chart(),
           Expanded(
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 10),

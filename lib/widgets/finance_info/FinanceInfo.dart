@@ -1,5 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
 
 class FinanceInfo extends StatelessWidget {
   final String organization;
@@ -13,6 +14,7 @@ class FinanceInfo extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
 
     return Container(
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
         padding: EdgeInsets.symmetric(horizontal: 30),
         width: double.infinity,
         height: size.height * 0.08,
