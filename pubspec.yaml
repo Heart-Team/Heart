@@ -30,7 +30,7 @@ dependencies:
   flutter_snake_navigationbar: ^0.4.4
   rflutter_alert: ^1.1.0
   fl_chart: ^0.12.0
-
+  flutter_swiper: ^1.1.6
 
 dev_dependencies:
   flutter_test:
