@@ -8,6 +8,7 @@ import 'package:heart_app/screens/TabsScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/screens/AuthScreen.dart';
 import 'package:heart_app/screens/Cart.dart';
+import 'package:heart_app/screens/PaymentMethodScreen.dart';
 // screens
 import 'screens/SurveyScreen1.dart';
 import 'screens/AuthScreen.dart';
@@ -38,7 +39,8 @@ class MyApp extends StatelessWidget {
         TabScreen.routeName: (_) => TabScreen(),
         Suc.routeName: (_) => Suc(),
         SavedCharitiesScreen.routeName: (_) => SavedCharitiesScreen(),
-        FinanceScreen.routeName: (_) => FinanceScreen()
+        FinanceScreen.routeName: (_) => FinanceScreen(),
+        PaymethodScreen.routeName: (_) => PaymethodScreen()
       },
     );
   }

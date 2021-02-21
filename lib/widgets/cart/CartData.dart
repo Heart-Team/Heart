@@ -14,29 +14,7 @@ class CartData extends StatelessWidget {
       margin: EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
-          Container(
-              width: 130,
-              child: Image.asset(img)),
-<<<<<<< HEAD
-          Container(
-            margin: EdgeInsets.only(top: 10, left: 10),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-                ),
-                Container(
-                  alignment: Alignment.bottomLeft,
-                  child: Row(
-                    children: [
-                      Container(
-                        child: Text(
-                          "Amount ",
-                          textAlign: TextAlign.left,
-                          style: TextStyle(fontSize: 20),
-=======
+          Container(width: 130, child: Image.asset(img)),
           Expanded(
             child: Container(
               margin: EdgeInsets.only(top: 10, left: 10),
@@ -47,7 +25,8 @@ class CartData extends StatelessWidget {
                   Expanded(
                     child: Text(
                       title,
-                      style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+                      style:
+                          TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
                     ),
                   ),
                   Container(
@@ -59,15 +38,41 @@ class CartData extends StatelessWidget {
                           child: Text(
                             "Amount ",
                             textAlign: TextAlign.left,
+                            style: TextStyle(fontSize: 22),
+                          ),
+                        ),
+                        Container(
+                          padding:
+                              EdgeInsets.symmetric(horizontal: 30, vertical: 5),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(10),
+                                topRight: Radius.circular(10),
+                                bottomLeft: Radius.circular(10),
+                                bottomRight: Radius.circular(10)),
+                            boxShadow: [
+                              BoxShadow(
+                                color: Color.fromRGBO(227, 227, 227, 1)
+                                    .withOpacity(0.5),
+                                spreadRadius: 3,
+                                blurRadius: 1,
+                                offset:
+                                    Offset(0, 3), // changes position of shadow
+                              ),
+                            ],
+                          ),
+                          margin: EdgeInsets.only(left: 20),
+                          child: Text(
+                            amount,
                             style: TextStyle(fontSize: 20),
                           ),
->>>>>>> e3711e351d17115170019ffcf8ee1c1b23d3fc62
-                        ),
-                        Text(amount)
+                        )
                       ],
                     ),
                   ),
-                  SizedBox(height: 15,)
+                  SizedBox(
+                    height: 15,
+                  )
                 ],
               ),
             ),
