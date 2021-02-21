@@ -1,13 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
-
+import 'package:heart_app/widgets/home/OrganizationTile.dart';
+import 'package:heart_app/widgets/profile/SavedCharitiesTile.dart';
 import '../theme.dart';
-import '../widgets/CreditCard.dart';
 
 class Profile extends StatelessWidget {
+
+  static const routeName = '/profile';
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+
+    final savedCharities = [
+      'Animal Charities',
+      'Domestic Violence',
+      'Environmental',
+      'Children',
+      'Technology'
+    ];
 
     final charities = [
       {
@@ -76,7 +88,7 @@ class Profile extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               color: Colors.transparent,
-              padding: EdgeInsets.symmetric(vertical: 55, horizontal: 10),
+              padding: EdgeInsets.only(bottom: 55, left: 10, right: 10, top: 40),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -89,25 +101,16 @@ class Profile extends StatelessWidget {
                     ),
                     Container(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 35, vertical: 15),
+                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Row(
-                            children: [
-                              Text(
-                                'John Doe',
-                                style: TextStyle(
-                                    fontWeight: FontWeight.w600, fontSize: 22),
-                              ),
-                              SizedBox(width: 10),
-                              Icon(
-                                Icons.edit_outlined,
-                                color: Colors.grey,
-                              )
-                            ],
+                          Text(
+                            'John Doe',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600, fontSize: 22),
                           ),
-                          SizedBox(height: 5),
+                          SizedBox(width: 10),
                           Text(
                             'New York, NY',
                             textAlign: TextAlign.left,
@@ -116,20 +119,24 @@ class Profile extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: Colors.white),
                           ),
-                          SizedBox(height: 5),
-                          Text(
-                            'Account Settings',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                          GestureDetector(
+                            child: Text(
+                              'Account Settings',
+                              textAlign: TextAlign.left,
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.blue),
+                            ),
+                            onTap: (){
+                              Navigator.of(context).pushNamed(UserDetailsScreen.routeName);
+                            },
                           )
                         ],
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30, top: 10),
+                      padding: EdgeInsets.only(left: 10, top: 0),
                       child: Text(
                         'Saved Charities',
                         style: TextStyle(
@@ -137,43 +144,40 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30, top: 10),
-                      child: Text(
-                        'Animals Charity',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
+                      child: Expanded(
+                        child: GridView(
+                          physics: BouncingScrollPhysics(),
+                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            childAspectRatio: 2/1,
+                            crossAxisSpacing: 15,
+                            mainAxisSpacing: 15
+                          ),
+                          children: savedCharities.map((e) => SavedCharitiesTile(
+                            e,
+                          )).toList(), 
+                        ),
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 30, top: 10),
-                      child: Text(
-                        'Children Charity',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 30, top: 10),
-                      child: Text(
-                        'Tech Charity',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 30, top: 10),
-                      child: Text(
-                        'Domestic Vlolence Charity',
-                        style: TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.w600),
-                      ),
-                    ),
-                    Container(
-                      padding: EdgeInsets.only(left: 30, top: 10),
+                      padding: EdgeInsets.only(left: 10, top: 20, bottom: 20),
                       child: Text(
                         'Our Suggestions',
                         style: TextStyle(
                             fontSize: 24, fontWeight: FontWeight.w600),
+                      ),
+                    ),
+                    Expanded(
+                    child: ListView.builder(
+                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        physics: BouncingScrollPhysics(),
+                        itemBuilder: (ctx, index) => OrganizationTile(
+                          charities[index]['name'], 
+                          charities[index]['category'], 
+                          charities[index]['image'], 
+                        ),
+                        itemCount: charities.length,
                       ),
                     ),
                   ]),

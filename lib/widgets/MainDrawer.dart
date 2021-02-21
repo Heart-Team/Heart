@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/Profile1.dart';
 import 'package:heart_app/screens/SavedCharitiesScreen.dart';
 import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
@@ -113,6 +114,16 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacementNamed(
                     context, PaymethodScreen.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Profile',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, Profile.routeName);
               },
             )
           ],

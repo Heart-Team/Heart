@@ -4,6 +4,7 @@ import 'package:heart_app/screens/Cart.dart';
 import 'package:heart_app/screens/FinanceScreen.dart';
 
 import 'package:heart_app/screens/HomeScreen.dart';
+import 'package:heart_app/screens/Profile1.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/theme.dart';
@@ -17,7 +18,7 @@ class TabScreen extends StatefulWidget {
 class _TabScreenState extends State<TabScreen> {
   final List<Map<String, dynamic>> _pages = [
     {'page': HomeScreen()},
-    {'page': SurveyScreen()},
+    {'page': Profile()},
     {'page': FinanceScreen()},
     {'page': Cart()},
   ];
@@ -56,7 +57,7 @@ class _TabScreenState extends State<TabScreen> {
         onTap: selectTab,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.filter_1), label: 'SS1'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'SS1'),
           BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'My Metrics'),
           BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'My Cart'), 
         ],
