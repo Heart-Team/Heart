@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
+import 'package:heart_app/widgets/finance_info/Chart.dart';
 import '../widgets/finance_info/FinanceInfo.dart';
-import '../widgets/finance_info/chart.dart';
 
 class FinanceScreen extends StatelessWidget {
   static const routeName = '/finance';
@@ -14,6 +15,14 @@ class FinanceScreen extends StatelessWidget {
     },
     {'organization': 'Tech Charity', 'payment': '62.05', 'perc': '19.83%'},
     {'organization': 'Animal Charity', 'payment': '100.85', 'perc': '32.22%'},
+    {'organization': 'Environmental Charity', 'payment': '100.85', 'perc': '32.22%'},
+  ];
+
+  final List<Color> colors = [
+    AppTheme().primaryColor,
+    AppTheme().purple,
+    AppTheme().green,
+    AppTheme().blue
   ];
 
   @override
@@ -25,22 +34,24 @@ class FinanceScreen extends StatelessWidget {
         drawer: MainDrawer(),
         body: Column(children: [
           Container(
-            padding: EdgeInsets.only(top: deviceSize.height * 0.1),
+            padding: EdgeInsets.only(top: deviceSize.height * 0.07, bottom: 20),
             alignment: Alignment.topCenter,
             child: Text('Monthly Payment',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
           ),
-          SizedBox(height: deviceSize.height * 0.08),
-          Chart(),
+          // Chart(),
+          FinanceChart(colors),
           Expanded(
             child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
+              padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (ctx, index) => FinanceInfo(
                     financeInfos[index]['organization'],
                     financeInfos[index]['payment'],
-                    financeInfos[index]['perc']),
+                    financeInfos[index]['perc'],
+                    colors[index]
+                ),
                 itemCount: financeInfos.length,
               ),
             ),

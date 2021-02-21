@@ -12,10 +12,12 @@ class PaymethodScreen extends StatelessWidget {
     {"title": "Social Charity", "amount": 15}
   ];
 
-  int totalAmount = 0;
 
   @override
   Widget build(BuildContext context) {
+    
+    int totalAmount = 0;
+
     for (int i = 0; i < donationList.length; i++) {
       totalAmount += donationList[i]["amount"];
     }

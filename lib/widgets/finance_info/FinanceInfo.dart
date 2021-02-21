@@ -6,36 +6,36 @@ class FinanceInfo extends StatelessWidget {
   final String organization;
   final String payment;
   final String perc;
+  final Color color;
 
-  FinanceInfo(this.organization, this.payment, this.perc);
+  FinanceInfo(this.organization, this.payment, this.perc, this.color);
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery.of(context).size;
-
     return Container(
         margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
-        padding: EdgeInsets.symmetric(horizontal: 30),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 5),
         width: double.infinity,
-        height: size.height * 0.08,
+        // height: size.height * 0.08,
         decoration: BoxDecoration(
           color: Colors.white,
           border: Border.all(color: Colors.white),
           borderRadius: BorderRadius.all(Radius.circular(15)),
           boxShadow: [
-            BoxShadow(color: Colors.black12.withOpacity(0.25), blurRadius: 15)
+            BoxShadow(color: Colors.black12.withOpacity(0.1), blurRadius: 15)
           ],
         ),
         child: Row(
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 organization,
-                style: TextStyle(fontWeight: FontWeight.w700, fontSize: 20),
-              ),
-              SizedBox(
-                width: size.width * 0.10,
+                style: TextStyle(
+                  fontWeight: FontWeight.w700, 
+                  fontSize: 20,
+                  color: color
+                ),
               ),
               Column(
                 children: [

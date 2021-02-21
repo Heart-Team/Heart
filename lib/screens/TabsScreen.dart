@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_snake_navigationbar/flutter_snake_navigationbar.dart';
 import 'package:heart_app/screens/Cart.dart';
+import 'package:heart_app/screens/FinanceScreen.dart';
 
 import 'package:heart_app/screens/HomeScreen.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
@@ -17,9 +18,10 @@ class _TabScreenState extends State<TabScreen> {
   final List<Map<String, dynamic>> _pages = [
     {'page': HomeScreen()},
     {'page': SurveyScreen()},
+    {'page': FinanceScreen()},
     {'page': Cart()},
-    {'page': UserDetailsScreen()},
   ];
+
   int selectedIndex = 0;
 
   void selectTab(int index) {
@@ -55,8 +57,8 @@ class _TabScreenState extends State<TabScreen> {
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
           BottomNavigationBarItem(icon: Icon(Icons.filter_1), label: 'SS1'),
+          BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'My Metrics'),
           BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'My Cart'), 
-          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: 'My Details'),
         ],
       ),
       body: _pages[selectedIndex]['page'],
