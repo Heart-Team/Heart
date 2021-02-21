@@ -6,7 +6,7 @@ import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/screens/Cart.dart';
 import "package:heart_app/screens/TabsScreen.dart";
-
+import "package:heart_app/screens/PaymentMethodScreen.dart";
 import '../screens/FinanceScreen.dart';
 import '../screens/UserDetailsScreen.dart';
 import '../screens/AuthScreen.dart';
@@ -91,7 +91,8 @@ class MainDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               onTap: () {
-                Navigator.pushReplacementNamed(context, SavedCharitiesScreen.routeName);
+                Navigator.pushReplacementNamed(
+                    context, SavedCharitiesScreen.routeName);
               },
             ),
             ListTile(
@@ -102,6 +103,16 @@ class MainDrawer extends StatelessWidget {
               onTap: () {
                 Navigator.pushReplacementNamed(
                     context, FinanceScreen.routeName);
+              },
+            ),
+            ListTile(
+              title: Text(
+                'Payment Method',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, PaymethodScreen.routeName);
               },
             )
           ],
