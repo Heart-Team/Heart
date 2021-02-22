@@ -45,25 +45,16 @@ class CartData extends StatelessWidget {
                           padding:
                               EdgeInsets.symmetric(horizontal: 30, vertical: 5),
                           decoration: BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                                topLeft: Radius.circular(10),
-                                topRight: Radius.circular(10),
-                                bottomLeft: Radius.circular(10),
-                                bottomRight: Radius.circular(10)),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Color.fromRGBO(227, 227, 227, 1)
-                                    .withOpacity(0.5),
-                                spreadRadius: 3,
-                                blurRadius: 1,
-                                offset:
-                                    Offset(0, 3), // changes position of shadow
-                              ),
-                            ],
-                          ),
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(10),
+                              boxShadow: [
+                                BoxShadow(
+                                    color: Colors.black12.withOpacity(0.15),
+                                    blurRadius: 15)
+                              ]),
                           margin: EdgeInsets.only(left: 20),
                           child: Text(
-                            amount,
+                            "\$${amount}",
                             style: TextStyle(fontSize: 20),
                           ),
                         )
@@ -71,7 +62,7 @@ class CartData extends StatelessWidget {
                     ),
                   ),
                   SizedBox(
-                    height: 15,
+                    height: 12,
                   )
                 ],
               ),
