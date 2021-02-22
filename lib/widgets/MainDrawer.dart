@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/EmptyFinanceScreen.dart';
 import 'package:heart_app/screens/Profile1.dart';
 import 'package:heart_app/screens/SavedCharitiesScreen.dart';
 import 'package:heart_app/screens/Sucess.dart';
@@ -122,10 +123,19 @@ class MainDrawer extends StatelessWidget {
                 style: TextStyle(fontSize: 24, color: Colors.white),
               ),
               onTap: () {
-                Navigator.pushReplacementNamed(
-                    context, Profile.routeName);
+                Navigator.pushReplacementNamed(context, Profile.routeName);
               },
-            )
+            ),
+            ListTile(
+              title: Text(
+                'Empty Finance Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(
+                    context, EmptyFinanceScreen.routeName);
+              },
+            ),
           ],
         ),
       ),
