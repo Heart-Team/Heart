@@ -39,7 +39,6 @@ class CharityInfoScreen extends StatelessWidget {
                 top: MediaQuery.of(context).viewPadding.top + 5,
                 left: 10,
                 child: IconButton(
-                  color: Colors.red,
                   icon: Icon(
                     Icons.keyboard_backspace, 
                     color: Colors.white,

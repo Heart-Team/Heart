@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/TabsScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/surveys/SurveyChip.dart';
@@ -56,18 +58,6 @@ class SurveyScreen2 extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.white,
       drawer: MainDrawer(),
-      // appBar: AppBar(
-      //   backgroundColor: Colors.transparent,
-      //   shadowColor: Colors.transparent,
-      //   title: GestureDetector(
-      //     child: Icon(
-      //       Icons.arrow_back_ios_rounded,
-      //       color: AppTheme().primaryColor,
-      //     ), 
-      //     onTap: (){print('hi');}
-      //   ),
-
-      // ),
       body: Container(
         margin: EdgeInsets.only(top: deviceSize.padding.top + 15, left: 15, right: 15, bottom: 20),
         child: Column(
@@ -131,8 +121,9 @@ class SurveyScreen2 extends StatelessWidget {
                   ),
                 ),
                 onPressed: (){
-                  Navigator.of(context).pushNamedAndRemoveUntil(
-                    '/', (route) => false
+                  Navigator.of(context).pushAndRemoveUntil(
+                    CupertinoPageRoute(builder: (_) => TabScreen()),
+                    (route) => false
                   );
                 },
                 shape: RoundedRectangleBorder(
