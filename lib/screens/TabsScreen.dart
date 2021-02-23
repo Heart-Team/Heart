@@ -57,7 +57,7 @@ class _TabScreenState extends State<TabScreen> {
         onTap: selectTab,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'SS1'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: 'My Profile'),
           BottomNavigationBarItem(icon: Icon(Icons.pie_chart), label: 'My Metrics'),
           BottomNavigationBarItem(icon: Icon(Icons.add_shopping_cart), label: 'My Cart'), 
         ],

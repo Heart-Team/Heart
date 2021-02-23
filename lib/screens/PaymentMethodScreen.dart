@@ -99,7 +99,7 @@ class _PaymethodScreenState extends State<PaymethodScreen> {
                       width: MediaQuery.of(context).size.width,
                       child: card,
                     );
-                  });
+                  }); 
                 }).toList(),
               ),
               Row(

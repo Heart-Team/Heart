@@ -14,8 +14,9 @@ class SavedCharitiesTile extends StatelessWidget {
 
     return Container(
       alignment: Alignment.center,
-      height: 20,
-      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      width: 150,   
+      margin: EdgeInsets.only(right: 15),
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
         color: AppTheme().colorsArray[randomNumber],
         borderRadius: BorderRadius.circular(8),

@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
@@ -117,7 +118,7 @@ class Profile extends StatelessWidget {
                             style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
-                                color: Colors.white),
+                                color: Colors.grey[500]),
                           ),
                           GestureDetector(
                             child: Text(
@@ -126,10 +127,13 @@ class Profile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
-                                  color: Colors.blue),
+                                  color: AppTheme().primaryColor
+                              ),
                             ),
                             onTap: (){
-                              Navigator.of(context).pushNamed(UserDetailsScreen.routeName);
+                              Navigator.of(context).push(
+                                CupertinoPageRoute(builder: (ctx) => UserDetailsScreen())
+                              );
                             },
                           )
                         ],
@@ -145,15 +149,11 @@ class Profile extends StatelessWidget {
                     ),
                     Container(
                       child: Expanded(
-                        child: GridView(
+                        flex: 1,
+                        child: ListView(
+                          scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
                           padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            childAspectRatio: 2/1,
-                            crossAxisSpacing: 15,
-                            mainAxisSpacing: 15
-                          ),
                           children: savedCharities.map((e) => SavedCharitiesTile(
                             e,
                           )).toList(), 
@@ -161,7 +161,7 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                     Container(
-                      padding: EdgeInsets.only(left: 10, top: 20, bottom: 20),
+                      padding: EdgeInsets.only(left: 10, bottom: 20),
                       child: Text(
                         'Our Suggestions',
                         style: TextStyle(
@@ -169,6 +169,7 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                     Expanded(
+                    flex: 2,
                     child: ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         physics: BouncingScrollPhysics(),

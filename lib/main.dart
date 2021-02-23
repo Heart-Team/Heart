@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
+import 'package:heart_app/screens/EditInfoScreen.dart';
 import 'package:heart_app/screens/EmptyFinanceScreen.dart';
 import 'package:heart_app/screens/FinanceScreen.dart';
 import 'package:heart_app/screens/Profile1.dart';
@@ -44,7 +45,8 @@ class MyApp extends StatelessWidget {
         FinanceScreen.routeName: (_) => FinanceScreen(),
         PaymethodScreen.routeName: (_) => PaymethodScreen(),
         Profile.routeName: (_) => Profile(),
-        EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen()
+        EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen(),
+        EditInfoScreen.routeName: (_) => EditInfoScreen()
       },
     );
   }
