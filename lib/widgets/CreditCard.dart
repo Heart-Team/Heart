@@ -108,20 +108,21 @@ class _CreditCardState extends State<CreditCard> {
                         ),
                       ],
                     ),
-                    IconButton(
-                      icon: Icon(
-                        Icons.edit_outlined,
-                        color: Colors.white,
-                      ),
-                      onPressed: () {
-                        cardKey.currentState.toggleCard();
-                        if(widget.index < widget.cardsLength - 1)
-                        widget.itemScrollController.scrollTo(
-                          index: widget.index, 
-                          duration: Duration(milliseconds: 400)
-                        );
-                      },
-                    )
+                    if(widget.index != null)
+                      IconButton(
+                        icon: Icon(
+                          Icons.edit_outlined,
+                          color: Colors.white,
+                        ),
+                        onPressed: () {
+                          cardKey.currentState.toggleCard();
+                          if(widget.index < widget.cardsLength - 1)
+                          widget.itemScrollController.scrollTo(
+                            index: widget.index, 
+                            duration: Duration(milliseconds: 400)
+                          );
+                        },
+                      )
                   ],
                 )
               ],
@@ -156,9 +157,23 @@ class _CreditCardState extends State<CreditCard> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Image.asset(
-                'assets/images/visa.png',
-                width: 50,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Image.asset(
+                    'assets/images/visa.png',
+                    width: 50,
+                  ),
+                  IconButton(
+                    icon: Icon(
+                      Icons.cancel_outlined,
+                      color: Colors.white
+                    ), 
+                    onPressed: (){
+                      cardKey.currentState.toggleCard();
+                    }
+                  )
+                ],
               ),
               Container(
                 padding: EdgeInsets.symmetric(horizontal: 8),

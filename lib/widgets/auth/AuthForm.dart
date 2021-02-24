@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/theme.dart';
 
 class AuthForm extends StatefulWidget {
@@ -213,36 +214,44 @@ class _AuthFormState extends State<AuthForm> with TickerProviderStateMixin {
                         },
                       ),
                     ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        _isLogin ? 'Log In' : 'Sign Up',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 22,
-                          fontWeight: FontWeight.w600
+                    GestureDetector(
+                      child: Container(
+                        alignment: Alignment.center,
+                        child: Text(
+                          _isLogin ? 'Log In' : 'Sign Up',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 22,
+                            fontWeight: FontWeight.w600
+                          ),
                         ),
+                        height: 45,
+                        width: double.infinity,
+                        margin: EdgeInsets.only(top: 20),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(10)),
+                          gradient: LinearGradient(
+                            begin: Alignment.topCenter,
+                            end: Alignment.bottomCenter,
+                            colors: <Color>[
+                              Color(0xFFFF6464),
+                              Color(0xFFFBBEBE),
+                            ],
+                          ),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26.withOpacity(0.15),
+                              blurRadius: 10
+                            )
+                          ]
+                        )
                       ),
-                      height: 45,
-                      width: double.infinity,
-                      margin: EdgeInsets.only(top: 20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(10)),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: <Color>[
-                            Color(0xFFFF6464),
-                            Color(0xFFFBBEBE),
-                          ],
-                        ),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26.withOpacity(0.15),
-                            blurRadius: 10
-                          )
-                        ]
-                      )
+                      onTap: (){
+                        Navigator.pushReplacementNamed(
+                          context, 
+                          SurveyScreen.routeName
+                        );
+                      },
                     ),
                   ],
                 )

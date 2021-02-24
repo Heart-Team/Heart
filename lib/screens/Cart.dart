@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/PaymentMethodScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import "package:heart_app/widgets/cart/EmptyCart.dart";
@@ -94,7 +96,15 @@ class _CartState extends State<Cart> {
                         ],
                       ),
                       child: GestureDetector(
-                        onTap: () {},
+                        onTap: () {
+                          cartData.isEmpty ? Navigator.pushNamedAndRemoveUntil(
+                            context, 
+                            '/', 
+                            (route) => false
+                          ) : Navigator.of(context).push(
+                            CupertinoPageRoute(builder: (_) => PaymethodScreen())
+                          );
+                        },
                         child: Text(
                           cartData.isEmpty ? "Go Now" : "Next",
                           style: TextStyle(color: Colors.white, fontSize: 20),

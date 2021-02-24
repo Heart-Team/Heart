@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/Payment/CartList.dart';
 import 'package:heart_app/theme.dart';
@@ -108,8 +110,7 @@ class _PaymethodScreenState extends State<PaymethodScreen> {
                   return Container(
                     width: 10.0,
                     height: 10.0,
-                    margin:
-                        EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
+                    margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
                       color: _currentIndex == index
@@ -167,7 +168,12 @@ class _PaymethodScreenState extends State<PaymethodScreen> {
                       ],
                     ),
                     child: GestureDetector(
-                      onTap: () {},
+                      onTap: () {
+                        Navigator.pushReplacement(
+                          context, 
+                          CupertinoPageRoute(builder: (_) => Suc())
+                        );
+                      },
                       child: Text(
                         "Checkout",
                         style: TextStyle(color: Colors.white, fontSize: 20),

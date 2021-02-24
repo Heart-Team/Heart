@@ -66,8 +66,9 @@ class SurveyScreen2 extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: GestureDetector(
                 child: Icon(
-                  Icons.arrow_back_rounded,
+                  Icons.keyboard_backspace,
                   color: AppTheme().primaryColor,
+                  size: 30,
                 ), 
                 onTap: (){
                   Navigator.of(context).pop();

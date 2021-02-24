@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/EmptyFinanceScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/finance_info/Chart.dart';
 import '../widgets/finance_info/FinanceInfo.dart';
 
-class FinanceScreen extends StatelessWidget {
+class FinanceScreen extends StatefulWidget {
   static const routeName = '/finance';
 
+  @override
+  _FinanceScreenState createState() => _FinanceScreenState();
+}
+
+class _FinanceScreenState extends State<FinanceScreen> {
   final List<Map<String, String>> financeInfos = [
     {
       'organization': 'Childrens Charity',
@@ -32,7 +38,7 @@ class FinanceScreen extends StatelessWidget {
     return Scaffold(
         backgroundColor: Colors.white,
         drawer: MainDrawer(),
-        body: Column(children: [
+        body: financeInfos.length > 0 ? Column(children: [
           Container(
             padding: EdgeInsets.only(top: deviceSize.height * 0.07, bottom: 20),
             alignment: Alignment.topCenter,
@@ -56,6 +62,9 @@ class FinanceScreen extends StatelessWidget {
               ),
             ),
           )
-        ]));
+        ])
+        :
+        EmptyFinanceScreen()
+    );
   }
 }
