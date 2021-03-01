@@ -16,14 +16,28 @@ import 'package:heart_app/screens/PaymentMethodScreen.dart';
 import 'screens/SurveyScreen1.dart';
 import 'screens/AuthScreen.dart';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 void main() {
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
+
+  void test() async {
+    await Firestore.instance
+      .collection("Organizations")
+      .getDocuments()
+      .then((results){
+        results.documents.forEach((element) {print(element.data);});
+      });
+  }
+
   @override
   Widget build(BuildContext context) {
+    test();
+
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Heart',
