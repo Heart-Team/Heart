@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>3240937111-2qsq13b7b83ht7t45tah1slii3emit48.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.3240937111-2qsq13b7b83ht7t45tah1slii3emit48</string>
+	<key>API_KEY</key>
+	<string>AIzaSyANzEmXgsYgq1QnDuTiQFDiUho3qmwwsCs</string>
+	<key>GCM_SENDER_ID</key>
+	<string>3240937111</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.example.heartapp</string>
+	<key>PROJECT_ID</key>
+	<string>heart-7a991</string>
+	<key>STORAGE_BUCKET</key>
+	<string>heart-7a991.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:3240937111:ios:f5d0e54d94c726ac2ccbd2</string>
+	<key>DATABASE_URL</key>
+	<string>https://heart-7a991.firebaseio.com</string>
+</dict>
+</plist>
