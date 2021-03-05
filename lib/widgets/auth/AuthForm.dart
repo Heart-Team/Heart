@@ -25,14 +25,14 @@ class _AuthFormState extends State<AuthForm> with TickerProviderStateMixin {
   };
 
   void _onSubmit() async {
-    setState(() {
-      _isLoading = true;
-      selectedField = "";
-    });
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
 
     if (isValid) {
+      setState(() {
+        _isLoading = true;
+        selectedField = "";
+      });
       _formKey.currentState.save();
       await Provider.of<User>(context, listen: false).submitAuthForm(
           _formData['email'].trim(),
