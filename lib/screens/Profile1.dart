@@ -1,13 +1,15 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
 import 'package:heart_app/widgets/profile/SavedCharitiesTile.dart';
+import 'package:provider/provider.dart';
 import '../theme.dart';
 
 class Profile extends StatelessWidget {
-
   static const routeName = '/profile';
 
   @override
@@ -89,7 +91,8 @@ class Profile extends StatelessWidget {
               height: double.infinity,
               width: double.infinity,
               color: Colors.transparent,
-              padding: EdgeInsets.only(bottom: 55, left: 10, right: 10, top: 40),
+              padding:
+                  EdgeInsets.only(bottom: 55, left: 10, right: 10, top: 40),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -127,13 +130,11 @@ class Profile extends StatelessWidget {
                               style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w600,
-                                  color: AppTheme().primaryColor
-                              ),
+                                  color: AppTheme().primaryColor),
                             ),
-                            onTap: (){
-                              Navigator.of(context).push(
-                                CupertinoPageRoute(builder: (ctx) => UserDetailsScreen())
-                              );
+                            onTap: () {
+                              Navigator.of(context).push(CupertinoPageRoute(
+                                  builder: (ctx) => UserDetailsScreen()));
                             },
                           )
                         ],
@@ -153,10 +154,13 @@ class Profile extends StatelessWidget {
                         child: ListView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
-                          padding: EdgeInsets.symmetric(horizontal: 10, vertical: 20),
-                          children: savedCharities.map((e) => SavedCharitiesTile(
-                            e,
-                          )).toList(), 
+                          padding: EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 20),
+                          children: savedCharities
+                              .map((e) => SavedCharitiesTile(
+                                    e,
+                                  ))
+                              .toList(),
                         ),
                       ),
                     ),
@@ -169,20 +173,58 @@ class Profile extends StatelessWidget {
                       ),
                     ),
                     Expanded(
-                    flex: 2,
-                    child: ListView.builder(
+                      flex: 2,
+                      child: ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 10),
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (ctx, index) => OrganizationTile(
-                          charities[index]['name'], 
-                          charities[index]['category'], 
-                          charities[index]['image'], 
+                          charities[index]['name'],
+                          charities[index]['category'],
+                          charities[index]['image'],
                         ),
                         itemCount: charities.length,
                       ),
                     ),
                   ]),
             ),
+            Positioned(
+                child: GestureDetector(
+                    child: Column(
+                      children: [
+                        Icon(
+                          Icons.logout,
+                          size: 32,
+                          color: AppTheme().primaryColor,
+                        ),
+                        Text(
+                          'Logout',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    ),
+                    onTap: () async {
+                      print('here');
+                      try {
+                        Provider.of<User>(context).signout();
+                      } catch (e) {
+                        Flushbar(
+                          messageText: Text(
+                            'Something went wrong logging out, please try again later',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          borderRadius: 10,
+                          backgroundColor: Colors.red,
+                          margin: EdgeInsets.all(10),
+                          duration: Duration(seconds: 3),
+                          icon: Icon(
+                            Icons.error_outline,
+                            color: Colors.white,
+                          ),
+                        ).show(context);
+                      }
+                    }),
+                right: 20,
+                top: MediaQuery.of(context).padding.top + 10),
           ],
         ));
   }
