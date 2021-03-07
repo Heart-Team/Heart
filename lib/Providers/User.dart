@@ -17,6 +17,7 @@ class User with ChangeNotifier {
   String _fullName;
   String _email;
   List<Map<String, dynamic>> _creditCards;
+  bool _surveyTaken;
   String _imageUrl;
 
   String get userId {
@@ -35,8 +36,18 @@ class User with ChangeNotifier {
     return _imageUrl;
   }
 
+  bool get surveyTaken {
+    return _surveyTaken;
+  }
+
   List<Map<String, dynamic>> get creditCards {
     return _creditCards;
+  }
+
+  // getCurrentUser
+  Future getUserInfo(String userId) async {
+    final user = await Firestore.instance.collection('Users').document(userId).get();
+    return user.data;
   }
 
   // User login / sign up
@@ -51,7 +62,11 @@ class User with ChangeNotifier {
         authResult = await _auth.signInWithEmailAndPassword(
             email: email, password: password);
         // on success
-        Navigator.of(context).pushReplacementNamed(TabScreen.routeName);
+        final user = await Firestore.instance
+            .collection('Users')
+            .document(authResult.user.uid)
+            .get();
+        _surveyTaken = user['surveyTaken'];
       } else {
         // firebase create
         authResult = await _auth.createUserWithEmailAndPassword(
@@ -59,15 +74,14 @@ class User with ChangeNotifier {
         await Firestore.instance
             .collection('Users')
             .document(authResult.user.uid)
-            .setData({'fullName': fullName, 'email': email});
+            .setData(
+                {'fullName': fullName, 'email': email, 'surveyTaken': false});
 
         // private member updates
         _fullName = fullName;
         _email = email;
         _userId = authResult.user.uid;
-
-        // on success
-        Navigator.of(context).pushReplacementNamed(SurveyScreen.routeName);
+        _surveyTaken = false;
       }
     } on PlatformException catch (err) {
       var message = 'An error occurred, please check you credentials';

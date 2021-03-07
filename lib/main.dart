@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -45,38 +46,63 @@ class MyApp extends StatelessWidget {
           create: (_) => User(),
         ),
       ],
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Heart',
-        theme: ThemeData(
-          fontFamily: 'Poppins',
-          visualDensity: VisualDensity.adaptivePlatformDensity,
-        ),
-        home: StreamBuilder(
-          stream: FirebaseAuth.instance.onAuthStateChanged,
-          builder: (ctx, snapshot) {
-            if (snapshot.hasData)
-              return TabScreen();
-            else
-              return AuthScreen();
+      child: Consumer<User>(
+        builder: (ctx, userData, _) => MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Heart',
+          theme: ThemeData(
+            fontFamily: 'Poppins',
+            visualDensity: VisualDensity.adaptivePlatformDensity,
+          ),
+          home: FutureBuilder(
+            future: FirebaseAuth.instance.currentUser(),
+            // stream: FirebaseAuth.instance.onAuthStateChanged,
+            builder: (ctx, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting)
+                return Scaffold(
+                  body: Center(
+                    child: Container(
+                      height: 60,
+                      width: 60,
+                      child: CircularProgressIndicator(
+                        backgroundColor: AppTheme().primaryColor,
+                      ),
+                    ),
+                  ),
+                );
+              else {
+                return StreamBuilder(
+                  stream: FirebaseAuth.instance.onAuthStateChanged,
+                  builder: (ctx, streamSnapshot) {
+                    if (streamSnapshot.hasData) {
+                      userData
+                          .getUserInfo(snapshot.data.uid)
+                          .then((value) => print(value));
+                      return TabScreen();
+                    } else
+                      return AuthScreen();
+                  },
+                );
+              }
+            },
+          ),
+          routes: {
+            SurveyScreen.routeName: (_) => SurveyScreen(),
+            SurveyScreen2.routeName: (_) => SurveyScreen2(),
+            UserDetailsScreen.routeName: (_) => UserDetailsScreen(),
+            AuthScreen.routeName: (_) => AuthScreen(),
+            CharityInfoScreen.routeName: (_) => CharityInfoScreen(),
+            Cart.routeName: (_) => Cart(),
+            TabScreen.routeName: (_) => TabScreen(),
+            Suc.routeName: (_) => Suc(),
+            SavedCharitiesScreen.routeName: (_) => SavedCharitiesScreen(),
+            FinanceScreen.routeName: (_) => FinanceScreen(),
+            PaymethodScreen.routeName: (_) => PaymethodScreen(),
+            Profile.routeName: (_) => Profile(),
+            EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen(),
+            EditInfoScreen.routeName: (_) => EditInfoScreen()
           },
         ),
-        routes: {
-          SurveyScreen.routeName: (_) => SurveyScreen(),
-          SurveyScreen2.routeName: (_) => SurveyScreen2(),
-          UserDetailsScreen.routeName: (_) => UserDetailsScreen(),
-          AuthScreen.routeName: (_) => AuthScreen(),
-          CharityInfoScreen.routeName: (_) => CharityInfoScreen(),
-          Cart.routeName: (_) => Cart(),
-          TabScreen.routeName: (_) => TabScreen(),
-          Suc.routeName: (_) => Suc(),
-          SavedCharitiesScreen.routeName: (_) => SavedCharitiesScreen(),
-          FinanceScreen.routeName: (_) => FinanceScreen(),
-          PaymethodScreen.routeName: (_) => PaymethodScreen(),
-          Profile.routeName: (_) => Profile(),
-          EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen(),
-          EditInfoScreen.routeName: (_) => EditInfoScreen()
-        },
       ),
     );
   }
