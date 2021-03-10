@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/theme.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class SearchBar extends StatefulWidget {
   @override
@@ -7,6 +9,11 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+/*  final orgsDatabase = Firestore.instance;
+  uploadData(String name) async {
+    List<String> splitList = name.split(' ');
+    List<String> indexList = [];
+  }*/
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -60,7 +67,10 @@ class _SearchBarState extends State<SearchBar> {
             bottom: 0,
             child: GestureDetector(
               onTap: (){
-                print('searching...');
+                print('searching...');// this prints to console to confirm it's working
+                // below should return search results from the Cloud Firestore
+                // returned results should be transformed into organization tiles
+                // in the list view below
               },
               child: Container(
                 height: 48,
