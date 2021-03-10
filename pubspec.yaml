@@ -38,6 +38,7 @@ dependencies:
   provider: ^5.0.0
   flushbar: ^1.10.4
   firebase_core: ^0.4.4
+  get:
 
 dev_dependencies:
   flutter_test:
