@@ -12,6 +12,8 @@ import "package:heart_app/screens/PaymentMethodScreen.dart";
 import '../screens/FinanceScreen.dart';
 import '../screens/UserDetailsScreen.dart';
 import '../screens/AuthScreen.dart';
+import '../screens/SearchScreen.dart';
+
 
 class MainDrawer extends StatelessWidget {
   @override
@@ -136,6 +138,15 @@ class MainDrawer extends StatelessWidget {
                     context, EmptyFinanceScreen.routeName);
               },
             ),
+            ListTile(
+              title: Text(
+                'Search Screen',
+                style: TextStyle(fontSize: 24, color: Colors.white),
+              ),
+              onTap: () {
+                Navigator.pushReplacementNamed(context, SearchScreen.routeName);
+              },
+            )
           ],
         ),
       ),

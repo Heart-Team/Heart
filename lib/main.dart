@@ -21,6 +21,7 @@ import 'package:heart_app/screens/Cart.dart';
 import 'package:heart_app/screens/PaymentMethodScreen.dart';
 import 'screens/SurveyScreen1.dart';
 import 'screens/AuthScreen.dart';
+import 'screens/SearchScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -100,7 +101,8 @@ class MyApp extends StatelessWidget {
             PaymethodScreen.routeName: (_) => PaymethodScreen(),
             Profile.routeName: (_) => Profile(),
             EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen(),
-            EditInfoScreen.routeName: (_) => EditInfoScreen()
+            EditInfoScreen.routeName: (_) => EditInfoScreen(),
+            SearchScreen.routeName: (_) => SearchScreen(),
           },
         ),
       ),
