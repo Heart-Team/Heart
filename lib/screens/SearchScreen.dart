@@ -8,6 +8,8 @@ import '../theme.dart';
 
 class SearchScreen extends StatefulWidget {
   static const routeName = '/search-screen';
+  final String text;
+  SearchScreen({Key key, @required this.text}) : super(key: key);
 
   @override
   _SearchState createState() => _SearchState();
@@ -18,8 +20,11 @@ class _SearchState extends State<SearchScreen> {
   QuerySnapshot snapshotData;
   bool isExecuted = false;
 
+
   @override
   Widget build(BuildContext context) {
+    searchController.text = widget.text;
+
     Widget searchedData(){
       return ListView.builder(
         itemCount: snapshotData.documents.length,
@@ -42,10 +47,10 @@ class _SearchState extends State<SearchScreen> {
       backgroundColor: Colors.white,
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppTheme().primaryColor,
-        child:Icon(Icons.clear, ),onPressed: (){
-          setState(() {
+        child:Icon(Icons.clear ),onPressed: (){
+        searchController.clear();
+        setState(() {
             isExecuted = false;
-            searchController.text = "";
           });
       },
       ),
@@ -69,7 +74,6 @@ class _SearchState extends State<SearchScreen> {
           )],
 
         title: TextField(
-
           style: TextStyle(color: Colors.white),
           decoration: InputDecoration(
             hintText: "Search charities here ...",
@@ -83,12 +87,14 @@ class _SearchState extends State<SearchScreen> {
         Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text('Empty search results',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+            Text('Please tap search button',style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
             Image.asset('assets/images/empty_result.png'),
            ])
         )
       ),
     );
+
+
   }
 
 }
