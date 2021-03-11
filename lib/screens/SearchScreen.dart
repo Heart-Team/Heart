@@ -27,7 +27,7 @@ class _SearchState extends State<SearchScreen> {
             // leading: CircleAvatar(
             //   backgroundImage: NetworkImage(snapshotData.documents[index]['imageURL']),
             // ),
-            title: Text(snapshotData.documents[index].data.toString(),
+            title: Text(snapshotData.documents[index].data['charityName'],
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold, fontSize: 20),),
           );
         },
@@ -35,11 +35,6 @@ class _SearchState extends State<SearchScreen> {
     }
 
     return Scaffold(
-      floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.clear),
-        backgroundColor: AppTheme().primaryColor,
-        onPressed: (){},
-      ),
       backgroundColor: Colors.white,
       appBar:AppBar(
         backgroundColor: AppTheme().primaryColor,

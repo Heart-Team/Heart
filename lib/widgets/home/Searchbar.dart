@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/screens/SearchScreen.dart';
 import 'package:heart_app/theme.dart';
 
 
@@ -8,6 +9,8 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+  TextEditingController searchTextController = new TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -23,6 +26,7 @@ class _SearchBarState extends State<SearchBar> {
       child: Stack(
         children: [
           TextField(
+            controller: searchTextController,
             cursorColor: AppTheme().primaryColor,
             decoration: InputDecoration(
               contentPadding: EdgeInsets.symmetric(horizontal: 14, vertical: 12),
@@ -61,6 +65,7 @@ class _SearchBarState extends State<SearchBar> {
             bottom: 0,
             child: GestureDetector(
               onTap: (){
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchScreen()));
                 print('searching...');// this prints to console to confirm it's working
                 // send users to the search screen
                 // along with the search text input

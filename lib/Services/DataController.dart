@@ -3,14 +3,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class DataController extends GetxController {
   Future getData(String collection) async {
-    final Firestore databse = Firestore.instance;
-    QuerySnapshot snapshot = await databse.collection(collection).getDocuments();
+    final Firestore database = Firestore.instance;
+    QuerySnapshot snapshot = await database.collection(collection).getDocuments();
     return snapshot.documents;
   }
   
   Future queryData(String queryString) async {
     return Firestore.instance.collection('Organizations')
-        .where('charity name', isGreaterThanOrEqualTo: queryString)
+        .where('charityName', isGreaterThanOrEqualTo: queryString)
         .getDocuments();
   }
 }
