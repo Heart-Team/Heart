@@ -7,6 +7,7 @@ class DataController extends GetxController {
     QuerySnapshot snapshot = await database.collection(collection).getDocuments();
     return snapshot.documents;
   }
+
   
   Future queryData(String queryString) async {
     return Firestore.instance.collection('Organizations')
