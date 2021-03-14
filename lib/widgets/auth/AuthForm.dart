@@ -44,6 +44,7 @@ class _AuthFormState extends State<AuthForm> with TickerProviderStateMixin {
       setState(() {
         _isLoading = false;
       });
+
     }
   }
 

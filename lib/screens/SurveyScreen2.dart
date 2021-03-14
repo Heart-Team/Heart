@@ -1,9 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/TabsScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/surveys/SurveyChip.dart';
+import 'package:provider/provider.dart';
 
 class SurveyScreen2 extends StatelessWidget {
 
@@ -121,11 +123,8 @@ class SurveyScreen2 extends StatelessWidget {
                     style: TextStyle(color: Colors.white, fontSize: 20),
                   ),
                 ),
-                onPressed: (){
-                  Navigator.of(context).pushAndRemoveUntil(
-                    CupertinoPageRoute(builder: (_) => TabScreen()),
-                    (route) => false
-                  );
+                onPressed: () async {
+                  Navigator.of(context).pushNamed(TabScreen.routeName);
                 },
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10)
@@ -135,7 +134,6 @@ class SurveyScreen2 extends StatelessWidget {
           ],
         ),
       ),
-      
     );
   }
 }
