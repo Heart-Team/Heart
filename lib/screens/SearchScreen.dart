@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:heart_app/Services/DataController.dart';
-import 'package:heart_app/widgets/App.dart';
 import '../theme.dart';
 
 class SearchScreen extends StatefulWidget {

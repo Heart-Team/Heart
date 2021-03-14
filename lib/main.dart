@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/theme.dart';
+import 'package:heart_app/widgets/utilities/Loading.dart';
 import 'package:provider/provider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -38,21 +39,20 @@ class MyApp extends StatelessWidget {
         ),
       ],
       child: Consumer<User>(
-        builder: (ctx, userData, _) => MaterialApp(
+        builder: (ctx, user, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Heart',
           theme: ThemeData(
             fontFamily: 'Poppins',
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: // signout takes u back home?
-            home: StreamBuilder(
+          home: StreamBuilder(
               stream: FirebaseAuth.instance.onAuthStateChanged,
               builder: (ctx, streamSnapshot) {
                 if (streamSnapshot.connectionState == ConnectionState.waiting)
                   return Loading();
                 else {
-                  return user.isLoggedIn ? TabScreen() : AuthScreen();
+                  return streamSnapshot.hasData ? TabScreen() : AuthScreen();
                 }
               },
             ),
