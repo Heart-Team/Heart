@@ -10,16 +10,8 @@ class CreditCard extends StatefulWidget {
   final int index;
   final int cardsLength;
 
-  CreditCard(
-    this.cardNumber,
-    this.expDate,
-    this.colorsSelected,
-    {
-      this.itemScrollController,
-      this.index,
-      this.cardsLength
-    }
-  );
+  CreditCard(this.cardNumber, this.expDate, this.colorsSelected,
+      {this.itemScrollController, this.index, this.cardsLength});
 
   @override
   _CreditCardState createState() => _CreditCardState();
@@ -49,7 +41,8 @@ class _CreditCardState extends State<CreditCard> {
     super.dispose();
   }
 
-  Widget creditCardFront(GlobalKey<FlipCardState> cardKey, FocusNode focusNode) {
+  Widget creditCardFront(
+      GlobalKey<FlipCardState> cardKey, FocusNode focusNode) {
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
@@ -58,7 +51,10 @@ class _CreditCardState extends State<CreditCard> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
-            colors: [colors[widget.colorsSelected[0]], colors[widget.colorsSelected[1]]],
+            colors: [
+              colors[widget.colorsSelected[0]],
+              colors[widget.colorsSelected[1]]
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             stops: [0, 1]),
@@ -108,7 +104,7 @@ class _CreditCardState extends State<CreditCard> {
                         ),
                       ],
                     ),
-                    if(widget.index != null)
+                    if (widget.index != null)
                       IconButton(
                         icon: Icon(
                           Icons.edit_outlined,
@@ -116,11 +112,10 @@ class _CreditCardState extends State<CreditCard> {
                         ),
                         onPressed: () {
                           cardKey.currentState.toggleCard();
-                          if(widget.index < widget.cardsLength - 1)
-                          widget.itemScrollController.scrollTo(
-                            index: widget.index, 
-                            duration: Duration(milliseconds: 400)
-                          );
+                          if (widget.index < widget.cardsLength - 1)
+                            widget.itemScrollController.scrollTo(
+                                index: widget.index,
+                                duration: Duration(milliseconds: 400));
                         },
                       )
                   ],
@@ -142,7 +137,10 @@ class _CreditCardState extends State<CreditCard> {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
-            colors: [colors[widget.colorsSelected[0]], colors[widget.colorsSelected[1]]],
+            colors: [
+              colors[widget.colorsSelected[0]],
+              colors[widget.colorsSelected[1]]
+            ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             stops: [0, 1]),
@@ -152,7 +150,6 @@ class _CreditCardState extends State<CreditCard> {
       ),
       child: Form(
         key: _formKey,
-
         child: SingleChildScrollView(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -165,14 +162,10 @@ class _CreditCardState extends State<CreditCard> {
                     width: 50,
                   ),
                   IconButton(
-                    icon: Icon(
-                      Icons.cancel_outlined,
-                      color: Colors.white
-                    ), 
-                    onPressed: (){
-                      cardKey.currentState.toggleCard();
-                    }
-                  )
+                      icon: Icon(Icons.cancel_outlined, color: Colors.white),
+                      onPressed: () {
+                        cardKey.currentState.toggleCard();
+                      })
                 ],
               ),
               Container(
@@ -182,46 +175,47 @@ class _CreditCardState extends State<CreditCard> {
                   children: [
                     SizedBox(
                       height: 40,
-                      child: TextFormField( 
+                      child: TextFormField(
                         focusNode: focusNode,
                         keyboardType: TextInputType.number,
-                        textInputAction: TextInputAction.next,   
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),    
+                        textInputAction: TextInputAction.next,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
-                            prefixIcon: Icon(
-                                Icons.credit_card,
+                            prefixIcon: Icon(Icons.credit_card,
                                 color: Colors.grey[200]),
-                            
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(style: BorderStyle.none)),
+                                borderSide:
+                                    BorderSide(style: BorderStyle.none)),
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(10),
-                                borderSide: BorderSide(style: BorderStyle.none)),
+                                borderSide:
+                                    BorderSide(style: BorderStyle.none)),
                             disabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
                                     color: Colors.grey[300], width: 0.8)),
                             focusColor: Colors.red,
                             hintText: "1234 5678 9012 3456",
                             hintStyle: TextStyle(
-                                color: Colors.grey[200], fontWeight: FontWeight.w600),
-                            contentPadding:
-                                EdgeInsets.symmetric(vertical: 0, horizontal: 10)),
+                                color: Colors.grey[200],
+                                fontWeight: FontWeight.w600),
+                            contentPadding: EdgeInsets.symmetric(
+                                vertical: 0, horizontal: 10)),
                       ),
                     ),
                     SizedBox(height: 15),
-                     SizedBox(
+                    SizedBox(
                       height: 40,
-                      child: TextFormField( 
-                        keyboardType: TextInputType.datetime,   
-                        style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),                    
+                      child: TextFormField(
+                        keyboardType: TextInputType.datetime,
+                        style: TextStyle(
+                            color: Colors.white, fontWeight: FontWeight.bold),
                         decoration: InputDecoration(
-                          prefixIcon: Icon(
-                              Icons.calendar_today,
+                          prefixIcon: Icon(Icons.calendar_today,
                               color: Colors.grey[200]),
                           focusedBorder: OutlineInputBorder(
-                              borderSide: BorderSide(style: BorderStyle.none)
-                          ),
+                              borderSide: BorderSide(style: BorderStyle.none)),
                           enabledBorder: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(style: BorderStyle.none)),
@@ -231,12 +225,12 @@ class _CreditCardState extends State<CreditCard> {
                           focusColor: Colors.red,
                           hintText: "MM/YYYY",
                           hintStyle: TextStyle(
-                              color: Colors.grey[200], 
-                              fontWeight: FontWeight.w600
-                          ),
-                          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                              color: Colors.grey[200],
+                              fontWeight: FontWeight.w600),
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                         ),
-                        onFieldSubmitted: (val){
+                        onFieldSubmitted: (val) {
                           cardKey.currentState.toggleCard();
                         },
                       ),
@@ -253,13 +247,10 @@ class _CreditCardState extends State<CreditCard> {
 
   @override
   Widget build(BuildContext context) {
-
     return FlipCard(
-      key: cardKey,
-      flipOnTouch: false,
-      front: creditCardFront(cardKey, myFocusNode),
-      back: creditCardBack(cardKey, myFocusNode)
-    );
+        key: cardKey,
+        flipOnTouch: false,
+        front: creditCardFront(cardKey, myFocusNode),
+        back: creditCardBack(cardKey, myFocusNode));
   }
 }
-  

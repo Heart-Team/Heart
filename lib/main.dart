@@ -29,16 +29,6 @@ void main() {
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
-
-  // void test() async {
-  //   await Firestore.instance
-  //     .collection("Organizations")
-  //     .getDocuments()
-  //     .then((results){
-  //       results.documents.forEach((element) {print(element.data);});
-  //     });
-  // }
-
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -55,38 +45,17 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Poppins',
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: FutureBuilder(
-            future: FirebaseAuth.instance.currentUser(),
-            // stream: FirebaseAuth.instance.onAuthStateChanged,
-            builder: (ctx, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting)
-                return Scaffold(
-                  body: Center(
-                    child: Container(
-                      height: 60,
-                      width: 60,
-                      child: CircularProgressIndicator(
-                        backgroundColor: AppTheme().primaryColor,
-                      ),
-                    ),
-                  ),
-                );
-              else {
-                return StreamBuilder(
-                  stream: FirebaseAuth.instance.onAuthStateChanged,
-                  builder: (ctx, streamSnapshot) {
-                    if (streamSnapshot.hasData) {
-                      userData
-                          .getUserInfo(snapshot.data.uid)
-                          .then((value) => print(value));
-                      return TabScreen();
-                    } else
-                      return AuthScreen();
-                  },
-                );
-              }
-            },
-          ),
+          home: // signout takes u back home?
+            home: StreamBuilder(
+              stream: FirebaseAuth.instance.onAuthStateChanged,
+              builder: (ctx, streamSnapshot) {
+                if (streamSnapshot.connectionState == ConnectionState.waiting)
+                  return Loading();
+                else {
+                  return user.isLoggedIn ? TabScreen() : AuthScreen();
+                }
+              },
+            ),
           routes: {
             SurveyScreen.routeName: (_) => SurveyScreen(),
             SurveyScreen2.routeName: (_) => SurveyScreen2(),

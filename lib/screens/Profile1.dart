@@ -2,6 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/screens/AuthScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
@@ -203,9 +204,10 @@ class Profile extends StatelessWidget {
                       ],
                     ),
                     onTap: () async {
-                      print('here');
                       try {
-                        Provider.of<User>(context).signout();
+                        await Provider.of<User>(context).signout();
+                        // Navigator.of(context).pushNamedAndRemoveUntil(
+                        //     AuthScreen.routeName, (route) => false);
                       } catch (e) {
                         Flushbar(
                           messageText: Text(

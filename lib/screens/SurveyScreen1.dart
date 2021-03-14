@@ -82,8 +82,7 @@ class SurveyScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed: () {
-                      Navigator.of(context).push(CupertinoPageRoute(
-                          builder: (ctx) => SurveyScreen2()));
+                      Navigator.of(context).pushNamed(SurveyScreen2.routeName);
                     },
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
