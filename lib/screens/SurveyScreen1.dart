@@ -110,7 +110,7 @@ class SurveyScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed:
-                        Provider.of<User>(context).surveyResults.length == 4
+                        Provider.of<User>(context).relevantMacros.length == 4
                             ? () {
                                 Navigator.of(context)
                                     .pushNamed(SurveyScreen2.routeName);
