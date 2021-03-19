@@ -1,6 +1,7 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/AuthScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
@@ -205,13 +206,15 @@ class Profile extends StatelessWidget {
                     ),
                     onTap: () async {
                       try {
-                        await Provider.of<User>(context).signout();
-                        // Navigator.of(context).pushNamedAndRemoveUntil(
-                        //     AuthScreen.routeName, (route) => false);
+                        await Provider.of<Auth>(context, listen: false).signout();
+                        if(Provider.of<Auth>(context, listen: false).firstPage == 'surveyscreen')
+                          Navigator.of(context).popAndPushNamed('/');
+                        // Navigator.of(context).pop();
                       } catch (e) {
+                        print(e);
                         Flushbar(
                           messageText: Text(
-                            'Something went wrong logging out, please try again later',
+                            'Something went wrong logging out',
                             style: TextStyle(color: Colors.white),
                           ),
                           borderRadius: 10,
