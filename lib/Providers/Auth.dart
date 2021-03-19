@@ -22,6 +22,10 @@ class Auth with ChangeNotifier {
       return false;
   }
 
+  String get userId {
+    return _userId;
+  }
+
   String get token {
     return _token;
   }
@@ -46,10 +50,6 @@ class Auth with ChangeNotifier {
         final res = await authResult.user.getIdToken();
         _userId = authResult.user.uid;
         _token = res.token;
-
-        print(_userId);
-        print(_token);
-        print(_surveyTaken);
         notifyListeners();
       } else {
         // firebase create
@@ -67,7 +67,6 @@ class Auth with ChangeNotifier {
         final res = await authResult.user.getIdToken();
         _userId = authResult.user.uid;
         _token = res.token;
-        print(authResult.user);
         notifyListeners();
       }
     } on PlatformException catch (err) {

@@ -71,6 +71,7 @@ class SurveyScreen2 extends StatelessWidget {
                   child: MaterialButton(
                     color: AppTheme().primaryColor,
                     minWidth: 175,
+                    disabledColor: Colors.grey,
                     splashColor: Colors.red[200],
                     elevation: 0,
                     child: Padding(
@@ -82,10 +83,11 @@ class SurveyScreen2 extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context)
-                          .popAndPushNamed(TabScreen.routeName);
-                    },
+                    onPressed: user.totalMicrosSelected == 8 ? () {
+                      user.updateSurveyResults();
+                     // Navigator.of(context)
+                       //   .popAndPushNamed(TabScreen.routeName);
+                    } : null,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),
