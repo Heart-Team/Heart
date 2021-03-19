@@ -17,12 +17,14 @@ class User with ChangeNotifier {
   String _fullName;
   String _email;
   List<Map<String, dynamic>> _creditCards;
+  Map<String, dynamic> _surveyResults = {};
   bool _surveyTaken = false;
   String _imageUrl;
   bool _loggedIn = false;
+  List<Map<String, String>> _relevantMicros = [];
+  // Map<String, dynamic>
 
   String get userId {
-    print(_userId);
     return _userId;
   }
 
@@ -50,96 +52,44 @@ class User with ChangeNotifier {
     return _creditCards;
   }
 
-  // User login / sign upemail
-  Future<void> submitAuthForm(String email, String password, String fullName, bool loginMode, BuildContext context) async {
-
-    final _auth = FirebaseAuth.instance;
-    AuthResult authResult;
-
-    try {
-      if (loginMode) {
-
-        authResult = await _auth.signInWithEmailAndPassword(
-            email: email, password: password);
-        // on success
-        final user = await Firestore.instance
-            .collection('Users')
-            .document(authResult.user.uid)
-            .get();
-
-        // update the local variables to the ones on the db
-        _userId = authResult.user.uid;
-        _surveyTaken = user['surveyTaken'];
-        _loggedIn = true;
-
-      } else {
-
-        // firebase create
-        authResult = await _auth.createUserWithEmailAndPassword(
-            email: email, password: password);
-        await Firestore.instance
-            .collection('Users')
-            .document(authResult.user.uid)
-            .setData({'fullName': fullName, 'email': email, 'surveyTaken': false});
-
-        // private member updates
-        _fullName = fullName;
-        _email = email;
-        _userId = authResult.user.uid;
-        _surveyTaken = false;
-        _loggedIn = true;
-
-      }
-
-      notifyListeners();
-
-    } on PlatformException catch (err) {
-      var message = 'An error occurred, please check you credentials';
-      if (err.message != null) message = err.message;
-
-      Flushbar(
-        messageText: Text(
-          message,
-          style: TextStyle(color: Colors.white),
-        ),
-        borderRadius: 10,
-        backgroundColor: Colors.red,
-        margin: EdgeInsets.all(10),
-        duration: Duration(seconds: 3),
-        icon: Icon(
-          Icons.error_outline,
-          color: Colors.white,
-        ),
-      ).show(context);
-    } catch (e) {
-      Flushbar(
-        messageText: Text(
-          e.message,
-          style: TextStyle(color: Colors.white),
-        ),
-        borderRadius: 10,
-        backgroundColor: Colors.red,
-        margin: EdgeInsets.all(10),
-        duration: Duration(seconds: 3),
-        icon: Icon(
-          Icons.error_outline,
-          color: Colors.white,
-        ),
-      ).show(context);
-    }
+  List<Map<String, String>> get relevantMicros {
+    return _relevantMicros;
   }
 
-  // sign out
-  Future signout() async {
-    try {
-      await FirebaseAuth.instance.signOut();
-      _userId = null;
-      _surveyTaken = false;
-      _loggedIn = false;
-      print('signed out');
-      notifyListeners();
-    } catch (e) {
-      print(e.message);
-    }
+  Map<String, dynamic> get surveyResults {
+    return _surveyResults;
+  }
+
+  void addMacro(String macro) {
+    _surveyResults['$macro'] = [];
+    print(_surveyResults);
+    notifyListeners();
+  }
+
+  void removeMacro(String macro) {
+    _surveyResults.remove(macro);
+    print(_surveyResults);
+    notifyListeners();
+  }
+
+  Future<void> getMicroCategories() async {
+    final firestore = Firestore.instance;
+    final res = await firestore
+        .collection('Categories')
+        .where("categoryName", whereIn: _surveyResults.keys.toList())
+        .getDocuments();
+
+    _relevantMicros.clear();
+    res.documents.forEach((element) {
+      _surveyResults[element.data['categoryName']].clear();
+      element.data['microCategories'].forEach((item) {
+        _surveyResults[element.data['categoryName']].add(item['causeName']);
+        _relevantMicros.add({
+          'category': element.data['categoryName'],
+          'causeName': item['causeName']
+        });
+      });
+    });
+    print(_relevantMicros);
   }
 }

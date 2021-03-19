@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/theme.dart';
@@ -34,12 +35,13 @@ class _AuthFormState extends State<AuthForm> with TickerProviderStateMixin {
         selectedField = "";
       });
       _formKey.currentState.save();
-      await Provider.of<User>(context, listen: false).submitAuthForm(
-          _formData['email'].trim(),
-          _formData['password'].trim(),
-          _formData['fullName'].trim(),
-          _isLogin,
-          context);
+      await Provider.of<Auth>(context, listen: false).submitAuthForm(
+        _formData['email'].trim(),
+        _formData['password'].trim(),
+        _formData['fullName'].trim(),
+        _isLogin,
+        context
+      );
 
       setState(() {
         _isLoading = false;

@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
+import 'package:heart_app/screens/TabsScreen.dart';
+import 'package:provider/provider.dart';
 import '../theme.dart';
 // widgets
 import '../widgets/MainDrawer.dart';
@@ -10,14 +13,38 @@ class SurveyScreen extends StatelessWidget {
   static const routeName = '/survey';
 
   final categoryArray = [
-    {'name': 'Environment', 'image': 'assets/images/environment.png'},
-    {'name': 'Animals', 'image': 'assets/images/animals.png'},
-    {'name': 'Arts & Culture', 'image': 'assets/images/arts_culture.png'},
-    {'name': 'Health', 'image': 'assets/images/health.png'},
-    {'name': 'Education', 'image': 'assets/images/education.png'},
-    {'name': 'Human Services', 'image': 'assets/images/human_services.png'},
-    {'name': 'Test Category', 'image': 'assets/images/environment.png'},
-    {'name': 'Another One', 'image': 'assets/images/environment.png'},
+    {
+      'name': 'Human Services',
+      'image': 'assets/images/categories/human_services.png'
+    },
+    {'name': 'Education', 'image': 'assets/images/categories/education.png'},
+    {
+      'name': 'International',
+      'image': 'assets/images/categories/international.png'
+    },
+    {
+      'name': 'Human and Civil Rights',
+      'image': 'assets/images/categories/human_rights.png'
+    },
+    {'name': 'Religion', 'image': 'assets/images/categories/religion.png'},
+    {'name': 'Animals', 'image': 'assets/images/categories/animals.png'},
+    {
+      'name': 'Arts, Culture, Humanities',
+      'image': 'assets/images/categories/arts_culture.png'
+    },
+    {'name': 'Health', 'image': 'assets/images/categories/health.png'},
+    {
+      'name': 'Environment',
+      'image': 'assets/images/categories/environment.png'
+    },
+    {
+      'name': 'Community Development',
+      'image': 'assets/images/categories/community.png'
+    },
+    {
+      'name': 'Research and Public Policy',
+      'image': 'assets/images/categories/research.png'
+    },
   ];
 
   @override
@@ -44,7 +71,7 @@ class SurveyScreen extends StatelessWidget {
                   height: 7,
                 ),
                 Text(
-                  'Select Up To 4...',
+                  'Select 4 Categories...',
                   style: TextStyle(fontSize: 18),
                 ),
                 Container(
@@ -69,6 +96,7 @@ class SurveyScreen extends StatelessWidget {
                   margin: EdgeInsets.only(top: 15),
                   child: MaterialButton(
                     color: AppTheme().primaryColor,
+                    disabledColor: Colors.grey,
                     minWidth: 175,
                     splashColor: Colors.red[200],
                     elevation: 0,
@@ -81,9 +109,13 @@ class SurveyScreen extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(SurveyScreen2.routeName);
-                    },
+                    onPressed:
+                        Provider.of<User>(context).surveyResults.length == 4
+                            ? () {
+                                Navigator.of(context)
+                                    .pushNamed(SurveyScreen2.routeName);
+                              }
+                            : null,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),

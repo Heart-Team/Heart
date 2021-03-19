@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/utilities/Loading.dart';
@@ -37,25 +38,29 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => User(),
         ),
+        ChangeNotifierProvider(
+          create: (_) => Auth(),
+        )
       ],
-      child: Consumer<User>(
-        builder: (ctx, user, _) => MaterialApp(
+      child: Consumer<Auth>(
+        builder: (ctx, authData, _) => MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Heart',
           theme: ThemeData(
             fontFamily: 'Poppins',
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: StreamBuilder(
-              stream: FirebaseAuth.instance.onAuthStateChanged,
-              builder: (ctx, streamSnapshot) {
-                if (streamSnapshot.connectionState == ConnectionState.waiting)
-                  return Loading();
-                else {
-                  return streamSnapshot.hasData ? TabScreen() : AuthScreen();
-                }
-              },
-            ),
+          home: !authData.isAuth ? AuthScreen() : FutureBuilder(
+            future: authData.surveyCompleted(),
+            builder: (ctx, snapshot){
+              if(snapshot.connectionState == ConnectionState.waiting){
+                return Loading();
+              }
+              else{
+                return snapshot.data ? TabScreen() : SurveyScreen();
+              }
+            }
+          ),
           routes: {
             SurveyScreen.routeName: (_) => SurveyScreen(),
             SurveyScreen2.routeName: (_) => SurveyScreen2(),
