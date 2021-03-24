@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/screens/TabsScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
@@ -13,13 +13,13 @@ class SurveyScreen2 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context);
-    final user = Provider.of<User>(context);
+    final user = Provider.of<Survey>(context);
 
     return Scaffold(
         backgroundColor: Colors.white,
         drawer: MainDrawer(),
         body: FutureBuilder(
-          future: Provider.of<User>(context).getMicroCategories(),
+          future: Provider.of<Survey>(context).getMicroCategories(),
           builder: (ctx, snapshot) => Container(
             margin: EdgeInsets.only(
                 top: deviceSize.padding.top + 15,
@@ -62,7 +62,8 @@ class SurveyScreen2 extends StatelessWidget {
                             runSpacing: 18,
                             spacing: 15,
                             children: user.relevantMicros.map((e) {
-                              return SurveyChip(e['causeName'], category: e['category']);
+                              return SurveyChip(e['causeName'],
+                                  category: e['category']);
                             }).toList()),
                       )),
                 ),
@@ -83,11 +84,16 @@ class SurveyScreen2 extends StatelessWidget {
                         style: TextStyle(color: Colors.white, fontSize: 20),
                       ),
                     ),
-                    onPressed: user.totalMicrosSelected == 8 ? () {
-                      user.updateSurveyResults();
-                     // Navigator.of(context)
-                       //   .popAndPushNamed(TabScreen.routeName);
-                    } : null,
+                    onPressed: user.totalMicrosSelected == 8
+                        ? () {
+                            print('hi');
+                            Provider.of<Survey>(context, listen: false)
+                                .homeRecommendations();
+                            // user.updateSurveyResults();
+                            // Navigator.of(context)
+                            //   .popAndPushNamed(TabScreen.routeName);
+                          }
+                        : null,
                     shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(10)),
                   ),

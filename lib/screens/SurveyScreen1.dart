@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/screens/SurveyScreen2.dart';
 import 'package:heart_app/screens/TabsScreen.dart';
 import 'package:provider/provider.dart';
@@ -110,7 +110,7 @@ class SurveyScreen extends StatelessWidget {
                       ),
                     ),
                     onPressed:
-                        Provider.of<User>(context).relevantMacros.length == 4
+                        Provider.of<Survey>(context).relevantMacros.length == 4
                             ? () {
                                 Navigator.of(context)
                                     .pushNamed(SurveyScreen2.routeName);

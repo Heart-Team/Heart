@@ -13,7 +13,7 @@ class User with ChangeNotifier {
   // credit cards
   // image
 
-  final String _userId;
+  String _userId;
   String _fullName;
   String _email;
   List<Map<String, dynamic>> _creditCards;
@@ -25,7 +25,7 @@ class User with ChangeNotifier {
   Map<String, dynamic> _surveyResults = {};
   // Map<String, dynamic>
 
-  User(this._userId);
+  // User(this._userId);
 
   String get userId {
     return _userId;
@@ -122,30 +122,17 @@ class User with ChangeNotifier {
   }
 
   void addMicro(String macro, String micro) {
-    // _surveyResults.containsKey(macro) ?
-    //   _surveyResults['$macro'].add(micro)
-    //   : 
-    //   _surveyResults.add
     _surveyResults.update(macro, (value) {
       return [...value, micro];
-    }, 
-    ifAbsent: () => [micro]);
+    }, ifAbsent: () => [micro]);
     notifyListeners();
-    print(_surveyResults);
-    print(_surveyResults.values);
   }
 
-  void removeMicro(String macro, String micro){
-    _surveyResults.update(
-      macro, 
-      (value){
-        if(value.remove(micro))
-          return [...value];
-        return [...value];
-      }
-    );
+  void removeMicro(String macro, String micro) {
+    _surveyResults.update(macro, (value) {
+      if (value.remove(micro)) return [...value];
+      return [...value];
+    });
     notifyListeners();
-    print(_surveyResults);
-    print(_surveyResults.values);
   }
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:provider/provider.dart';
 import '../../theme.dart';
@@ -15,24 +16,24 @@ class SurveyGridItem extends StatefulWidget {
 
 class _SurveyGridItemState extends State<SurveyGridItem> {
   var _selected = false;
-  var user;
+  var survey;
 
   @override
   void initState() {
-    user = Provider.of<User>(context, listen: false);
+    survey = Provider.of<Survey>(context, listen: false);
     super.initState();
   }
 
   void onTap() {
     setState(() {
-      if (user.relevantMacros.length < 4 && !_selected) {
+      if (survey.relevantMacros.length < 4 && !_selected) {
         _selected = true;
         if (_selected) {
-          user.addMacro(widget.categoryName);
+          survey.addMacro(widget.categoryName);
         }
       } else {
-        if(_selected){
-          user.removeMacro(widget.categoryName);
+        if (_selected) {
+          survey.removeMacro(widget.categoryName);
         }
         _selected = false;
       }

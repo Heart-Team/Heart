@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -14,26 +14,25 @@ class SurveyChip extends StatefulWidget {
 
 class _SurveyChipState extends State<SurveyChip> {
   var _isSelected = false;
-  var user;
+  var survey;
 
   @override
   void initState() {
     super.initState();
-    user = Provider.of<User>(context, listen: false);
+    survey = Provider.of<Survey>(context, listen: false);
   }
 
   void onTap() {
-    print(user.totalMicrosSelected);
+    print(survey.totalMicrosSelected);
     setState(() {
-      if (user.totalMicrosSelected < 8 && !_isSelected) {
+      if (survey.totalMicrosSelected < 8 && !_isSelected) {
         _isSelected = true;
         if (_isSelected) {
-          user.addMicro(widget.category, widget.title);
-        } 
-      }
-      else {
-        if(_isSelected){
-          user.removeMicro(widget.category, widget.title);
+          survey.addMicro(widget.category, widget.title);
+        }
+      } else {
+        if (_isSelected) {
+          survey.removeMicro(widget.category, widget.title);
         }
         _isSelected = false;
       }
