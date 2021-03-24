@@ -15,7 +15,6 @@ class SurveyGridItem extends StatefulWidget {
 
 class _SurveyGridItemState extends State<SurveyGridItem> {
   var _selected = false;
-  var _categoriesSelected = [];
   var user;
 
   @override
@@ -26,14 +25,16 @@ class _SurveyGridItemState extends State<SurveyGridItem> {
 
   void onTap() {
     setState(() {
-      if (user.surveyResults.length < 4 && !_selected) {
+      if (user.relevantMacros.length < 4 && !_selected) {
         _selected = true;
         if (_selected) {
           user.addMacro(widget.categoryName);
         }
       } else {
+        if(_selected){
+          user.removeMacro(widget.categoryName);
+        }
         _selected = false;
-        user.removeMacro(widget.categoryName);
       }
     });
   }

@@ -35,11 +35,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(
-          create: (_) => User(),
-        ),
+        // ChangeNotifierProvider(
+        //   create: (_) => User(),
+        // ),
         ChangeNotifierProvider(
           create: (_) => Auth(),
+        ),
+        ChangeNotifierProxyProvider<Auth, User>(
+          create: null,
+          update: (_, auth, prevUser) => User(
+            auth.userId,
+          ),
         )
       ],
       child: Consumer<Auth>(
@@ -50,17 +56,17 @@ class MyApp extends StatelessWidget {
             fontFamily: 'Poppins',
             visualDensity: VisualDensity.adaptivePlatformDensity,
           ),
-          home: !authData.isAuth ? AuthScreen() : FutureBuilder(
-            future: authData.surveyCompleted(),
-            builder: (ctx, snapshot){
-              if(snapshot.connectionState == ConnectionState.waiting){
-                return Loading();
-              }
-              else{
-                return snapshot.data ? TabScreen() : SurveyScreen();
-              }
-            }
-          ),
+          home: !authData.isAuth
+              ? AuthScreen()
+              : FutureBuilder(
+                  future: authData.surveyCompleted(),
+                  builder: (ctx, snapshot) {
+                    if (snapshot.connectionState == ConnectionState.waiting) {
+                      return Loading();
+                    } else {
+                      return snapshot.data ? TabScreen() : SurveyScreen();
+                    }
+                  }),
           routes: {
             SurveyScreen.routeName: (_) => SurveyScreen(),
             SurveyScreen2.routeName: (_) => SurveyScreen2(),

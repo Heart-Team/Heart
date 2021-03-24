@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -18,15 +19,22 @@ class _SurveyChipState extends State<SurveyChip> {
   @override
   void initState() {
     super.initState();
-    // user = Provider.of(context, listen: false);
+    user = Provider.of<User>(context, listen: false);
   }
 
   void onTap() {
+    print(user.totalMicrosSelected);
     setState(() {
-      if (user.surveyResults.length < 4 && !_isSelected) {
+      if (user.totalMicrosSelected < 8 && !_isSelected) {
         _isSelected = true;
-        if (_isSelected) {}
-      } else {
+        if (_isSelected) {
+          user.addMicro(widget.category, widget.title);
+        } 
+      }
+      else {
+        if(_isSelected){
+          user.removeMicro(widget.category, widget.title);
+        }
         _isSelected = false;
       }
     });
@@ -35,11 +43,7 @@ class _SurveyChipState extends State<SurveyChip> {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        setState(() {
-          _isSelected = !_isSelected;
-        });
-      },
+      onTap: onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         decoration: BoxDecoration(

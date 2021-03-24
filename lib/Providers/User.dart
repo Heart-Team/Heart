@@ -13,16 +13,19 @@ class User with ChangeNotifier {
   // credit cards
   // image
 
-  String _userId;
+  final String _userId;
   String _fullName;
   String _email;
   List<Map<String, dynamic>> _creditCards;
-  Map<String, dynamic> _surveyResults = {};
   bool _surveyTaken = false;
   String _imageUrl;
   bool _loggedIn = false;
+  List<String> _relevantMacros = [];
   List<Map<String, String>> _relevantMicros = [];
+  Map<String, dynamic> _surveyResults = {};
   // Map<String, dynamic>
+
+  User(this._userId);
 
   String get userId {
     return _userId;
@@ -48,6 +51,10 @@ class User with ChangeNotifier {
     return _loggedIn;
   }
 
+  List<String> get relevantMacros {
+    return _relevantMacros;
+  }
+
   List<Map<String, dynamic>> get creditCards {
     return _creditCards;
   }
@@ -60,15 +67,23 @@ class User with ChangeNotifier {
     return _surveyResults;
   }
 
+  int get totalMicrosSelected {
+    int count = 0;
+    _surveyResults.values.forEach((element) {
+      count += element.length;
+    });
+    return count;
+  }
+
   void addMacro(String macro) {
-    _surveyResults['$macro'] = [];
-    print(_surveyResults);
+    _relevantMacros.add(macro);
+    print(_relevantMacros);
     notifyListeners();
   }
 
   void removeMacro(String macro) {
-    _surveyResults.remove(macro);
-    print(_surveyResults);
+    _relevantMacros.remove(macro);
+    print(_relevantMacros);
     notifyListeners();
   }
 
@@ -76,20 +91,61 @@ class User with ChangeNotifier {
     final firestore = Firestore.instance;
     final res = await firestore
         .collection('Categories')
-        .where("categoryName", whereIn: _surveyResults.keys.toList())
+        .where("categoryName", whereIn: _relevantMacros)
         .getDocuments();
 
     _relevantMicros.clear();
     res.documents.forEach((element) {
-      _surveyResults[element.data['categoryName']].clear();
+      // _surveyResults[element.data['categoryName']].clear();
       element.data['microCategories'].forEach((item) {
-        _surveyResults[element.data['categoryName']].add(item['causeName']);
+        // _surveyResults[element.data['categoryName']].add(item['causeName']);
         _relevantMicros.add({
           'category': element.data['categoryName'],
           'causeName': item['causeName']
         });
       });
     });
-    print(_relevantMicros);
+    // print(_relevantMicros);
+  }
+
+  void updateSurveyResults() async {
+    final firestore = Firestore.instance;
+    _surveyResults.removeWhere((key, value) => value.length == 0);
+    print(_userId);
+    // try {
+    //   await firestore.collection('Users').document('N3eKe4vrXqPqkkxWL174q1SbVZR2').updateData({
+    //     'surveyTaken': true,
+    //     'surveyResults': _surveyResults
+    //   });
+    // } catch (e) {
+    // }
+  }
+
+  void addMicro(String macro, String micro) {
+    // _surveyResults.containsKey(macro) ?
+    //   _surveyResults['$macro'].add(micro)
+    //   : 
+    //   _surveyResults.add
+    _surveyResults.update(macro, (value) {
+      return [...value, micro];
+    }, 
+    ifAbsent: () => [micro]);
+    notifyListeners();
+    print(_surveyResults);
+    print(_surveyResults.values);
+  }
+
+  void removeMicro(String macro, String micro){
+    _surveyResults.update(
+      macro, 
+      (value){
+        if(value.remove(micro))
+          return [...value];
+        return [...value];
+      }
+    );
+    notifyListeners();
+    print(_surveyResults);
+    print(_surveyResults.values);
   }
 }

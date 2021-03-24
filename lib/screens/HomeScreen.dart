@@ -8,6 +8,8 @@ import 'package:rflutter_alert/rflutter_alert.dart';
 import '../widgets/MainDrawer.dart';
 import '../widgets/home/Searchbar.dart';
 import '../Providers/User.dart';
+import 'dart:collection';
+
 
 class HomeScreen extends StatelessWidget {
   // static const routeName = '/';
@@ -127,6 +129,14 @@ class HomeScreen extends StatelessWidget {
     Icon(Icons.star),
     Icon(Icons.star),
   ];
+
+  void sortCharitiesByNames(){
+    charities.sort((a, b) => a['name'].toString().compareTo(b['name'].toString()));
+  }
+
+  void sortCharitiesByCauses(){
+    charities.sort((a, b) => a['category'].toString().compareTo(b['category'].toString()));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -332,7 +342,7 @@ class HomeScreen extends StatelessWidget {
                     child: DropdownButton<String>(
                       value: 'Sort By',
                       elevation: 16,
-                      items: ['Sort By', 'One', 'Two', 'Three', 'Four']
+                      items: ['Sort By', 'Names', 'Causes']
                           .map((e) => DropdownMenuItem(
                                 value: e,
                                 child: Text(
@@ -341,7 +351,16 @@ class HomeScreen extends StatelessWidget {
                                 ),
                               ))
                           .toList(),
-                      onChanged: (value) {},
+                      onChanged: (value) {
+                        if (value == 'Names'){
+                          //sort by names
+                          sortCharitiesByNames();
+                        }
+                        if (value == 'Causes'){
+                          //sort by causes
+                          sortCharitiesByCauses();
+                        }
+                      },
                     ),
                   ),
                 )
