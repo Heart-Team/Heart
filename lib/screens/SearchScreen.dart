@@ -18,11 +18,22 @@ class _SearchState extends State<SearchScreen> {
   final TextEditingController searchController = TextEditingController();
   QuerySnapshot snapshotData;
   bool isExecuted = false;
+  bool autoSearch = true;
 
 
   @override
   Widget build(BuildContext context) {
     searchController.text = widget.text;
+    if (autoSearch){
+      DataController dataController = DataController();
+      dataController.queryData(searchController.text).then((value) {
+        snapshotData = value;
+        setState(() {
+          isExecuted = true;
+        });
+      });
+      autoSearch = false;
+    }
 
     Widget searchedData(){
       return ListView.builder(
