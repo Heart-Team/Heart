@@ -11,9 +11,14 @@ import '../Providers/User.dart';
 import 'dart:collection';
 
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   // static const routeName = '/';
 
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final charities = [
     {
       'name': 'Childrens Charity',
@@ -48,6 +53,7 @@ class HomeScreen extends StatelessWidget {
       'image': 'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
     },
   ];
+
   final categoryNames = [
     {'name': 'Human Services'},
     {'name': 'Education'},
@@ -61,6 +67,7 @@ class HomeScreen extends StatelessWidget {
     {'name': 'Environment'},
     {'name': 'Research and Public Policy'},
   ];
+
   final states = [
     'Alabama',
     'Alaska',
@@ -122,6 +129,7 @@ class HomeScreen extends StatelessWidget {
     'Wisconsin',
     'Wyoming'
   ];
+
   final ratings = [
     Icon(Icons.star),
     Icon(Icons.star),
@@ -131,11 +139,15 @@ class HomeScreen extends StatelessWidget {
   ];
 
   void sortCharitiesByNames(){
-    charities.sort((a, b) => a['name'].toString().compareTo(b['name'].toString()));
+    setState(() {
+      charities.sort((a, b) => a['name'].toString().compareTo(b['name'].toString()));
+    });
   }
 
   void sortCharitiesByCauses(){
-    charities.sort((a, b) => a['category'].toString().compareTo(b['category'].toString()));
+    setState(() {
+      charities.sort((a, b) => a['category'].toString().compareTo(b['category'].toString()));
+    });
   }
 
   @override

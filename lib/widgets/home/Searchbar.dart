@@ -100,3 +100,12 @@ class _SearchBarState extends State<SearchBar> {
     );
   }
 }
+
+/*
+  create a function in a provider for querying the data 
+  when u tap the go button, send the input field text as a paramter to the function
+  in the organization provider
+
+  within the function query teh db and then update a local variable with the results 
+  from teh query. then call notify listeners() this will auto re-render the list of charities
+*/

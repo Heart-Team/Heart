@@ -20,37 +20,38 @@ class _SearchState extends State<SearchScreen> {
   bool isExecuted = false;
   bool autoSearch = true;
 
+  Widget searchedData(){
+    return ListView.builder(
+      itemCount: snapshotData.documents.length,
+      itemBuilder: (BuildContext context, int index){
+        return ListTile(
+          contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(snapshotData.documents[index]['imageURL']),
+          ),
+          title: Text(snapshotData.documents[index].data['charityName'],
+          style: TextStyle(color:AppTheme().primaryColor, fontWeight: FontWeight.bold, fontSize: 20),),
+          subtitle: Text(snapshotData.documents[index].data['causeName']+ "\n" + snapshotData.documents[index].data['state']  ,
+              style: TextStyle(color: Colors.black, fontWeight: FontWeight.w200, fontSize: 16),),
+        );
+      },
+    );
+  }
+
 
   @override
   Widget build(BuildContext context) {
-    searchController.text = widget.text;
+
     if (autoSearch){
+      searchController.text = widget.text;
       DataController dataController = DataController();
       dataController.queryData(searchController.text).then((value) {
         snapshotData = value;
         setState(() {
           isExecuted = true;
+          autoSearch = false;
         });
       });
-      autoSearch = false;
-    }
-
-    Widget searchedData(){
-      return ListView.builder(
-        itemCount: snapshotData.documents.length,
-        itemBuilder: (BuildContext context, int index){
-          return ListTile(
-            contentPadding: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(snapshotData.documents[index]['imageURL']),
-            ),
-            title: Text(snapshotData.documents[index].data['charityName'],
-            style: TextStyle(color:AppTheme().primaryColor, fontWeight: FontWeight.bold, fontSize: 20),),
-            subtitle: Text(snapshotData.documents[index].data['causeName']+ "\n" + snapshotData.documents[index].data['state']  ,
-                style: TextStyle(color: Colors.black, fontWeight: FontWeight.w200, fontSize: 16),),
-          );
-        },
-      );
     }
 
     return Scaffold(
