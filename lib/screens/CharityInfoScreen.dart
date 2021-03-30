@@ -8,7 +8,10 @@ class CharityInfoScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final productInfo = ModalRoute.of(context).settings.arguments as Map<String, String>;
+    final productInfo =
+        ModalRoute.of(context).settings.arguments as Map<String, Object>;
+
+    print(productInfo);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -22,33 +25,31 @@ class CharityInfoScreen extends StatelessWidget {
                 child: Container(
                   height: 200,
                   decoration: BoxDecoration(
-                    color: Colors.black,
-                    image: DecorationImage(
-                      image: NetworkImage(
+                      color: Colors.black,
+                      image: DecorationImage(
+                        image: NetworkImage(
                           productInfo['imageUrl'],
-                      ),
-                      colorFilter: ColorFilter.mode(Colors.black.withOpacity(0.85), BlendMode.dstATop),
-                      fit: BoxFit.cover,
-                    )
-                  ), 
+                        ),
+                        colorFilter: ColorFilter.mode(
+                            Colors.black.withOpacity(0.85), BlendMode.dstATop),
+                        fit: BoxFit.cover,
+                      )),
                   padding: EdgeInsets.only(top: size.height * 0.3),
                   child: null,
                 ),
               ),
               Positioned(
-                top: MediaQuery.of(context).viewPadding.top + 5,
-                left: 10,
-                child: IconButton(
-                  icon: Icon(
-                    Icons.keyboard_backspace, 
-                    color: Colors.white,
-                    size: 35,
-                  ), 
-                  onPressed: (){
-                    Navigator.of(context).pop();
-                  }
-                )
-              ),
+                  top: MediaQuery.of(context).viewPadding.top + 5,
+                  left: 10,
+                  child: IconButton(
+                      icon: Icon(
+                        Icons.keyboard_backspace,
+                        color: Colors.white,
+                        size: 35,
+                      ),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      })),
               Container(
                 alignment: Alignment.topCenter,
                 padding: EdgeInsets.only(top: size.height * 0.23),
@@ -57,17 +58,17 @@ class CharityInfoScreen extends StatelessWidget {
                     width: size.width,
                     child: new Container(
                       decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.vertical(top: Radius.circular(25))
-                      ),
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.vertical(top: Radius.circular(25))),
                       child: SingleChildScrollView(
                         physics: BouncingScrollPhysics(),
                         child: CharityInfo(
-                            'Childrens Charity',
-                            ' New York, NY',
+                            productInfo['title'],
+                            productInfo['state'],
                             'Supporting children all over U.S.',
                             '    sample starts here...\n\n\nsample\n\nsample',
-                            'Total Assets - \$ 100,213.00\nYearly Income - \$ 2, 130.00\nTax Subsection - 501(c)(3)',
+                            'Total Assets - \$ ${productInfo['assetAmount']}\nYearly Income - \$ ${productInfo['yearlyIncome']}\nTax Subsection - ${productInfo['subsection']}',
                             'https://google.com'),
                       ),
                     )),

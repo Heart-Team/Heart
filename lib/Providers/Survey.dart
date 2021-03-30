@@ -13,6 +13,7 @@ class Survey with ChangeNotifier {
   List<Map<String, String>> _relevantMicros = [];
   Map<String, dynamic> _surveyResults = {};
   List<Map<String, dynamic>> _recommendations = [];
+  bool isFirstLoad = true;
 
   Survey(this._userId);
 
@@ -78,49 +79,55 @@ class Survey with ChangeNotifier {
     });
   }
 
-  void updateSurveyResults() async {
+  Future<void> updateSurveyResults() async {
     final firestore = Firestore.instance;
     _surveyResults.removeWhere((key, value) => value.length == 0);
     print(_surveyResults);
-    // try {
-    //   await firestore.collection('Users').document('N3eKe4vrXqPqkkxWL174q1SbVZR2').updateData({
-    //     'surveyTaken': true,
-    //     'surveyResults': _surveyResults
-    //   });
-    // } catch (e) {
-    // }
+    try {
+      await firestore
+          .collection('Users')
+          .document('N3eKe4vrXqPqkkxWL174q1SbVZR2')
+          .updateData({'surveyTaken': true, 'surveyResults': _surveyResults});
+    } catch (e) {
+      print(e.message);
+    }
   }
 
   Future<void> homeRecommendations() async {
-    print('here');
     final firestore = Firestore.instance;
+
+    print(isFirstLoad);
     try {
-      final res = await firestore.collection('Users').document(_userId).get();
-      print('🚀🚀🚀');
-      res.data['surveyResults'].forEach((key, value) {
-        value.forEach((causeName) async {
-          final res = await firestore
-              .collection('Organizations')
-              .where('causeName', isEqualTo: causeName)
-              .where('rating', isEqualTo: 4)
-              .where('assetAmount', isGreaterThanOrEqualTo: 5369831)
-              .limit(3)
-              .getDocuments();
-          res.documents.forEach((element) {
-            _recommendations.add(element.data);
+      if (isFirstLoad) {
+        final res = await firestore.collection('Users').document(_userId).get();
+        await res.data['surveyResults'].forEach((key, value) {
+          value.forEach((causeName) async {
+            firestore
+                .collection('Organizations')
+                .where('causeName', isEqualTo: causeName)
+                .where('rating', isEqualTo: 4)
+                .where('assetAmount', isGreaterThanOrEqualTo: 5369831)
+                .limit(3)
+                .getDocuments()
+                .then((res) {
+              res.documents.forEach((element) {
+                _recommendations.add(element.data);
+              });
+              isFirstLoad = false;
+              notifyListeners();
+            });
           });
+          print(_recommendations);
         });
-      });
-      /*
-        loop thoruhg the micros from the db
-        
-      .where(causeNmae= , Rating>= 3 , assetAmount>= avgAmount).limit(3)
-      */
-      // { amount: 41369831.23775871, rating: 3.465926299848561 }
+      } else {
+        print("Not calling anymore false");
+      }
     } catch (e) {
       print(e);
     }
   }
+
+  Future<void> populateRecommednations() {}
 
   void addMicro(String macro, String micro) {
     _surveyResults.update(macro, (value) {

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
 import 'package:heart_app/widgets/surveys/SurveyChip.dart';
+import 'package:heart_app/widgets/utilities/Loading.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 // widgets
@@ -9,7 +11,6 @@ import '../widgets/MainDrawer.dart';
 import '../widgets/home/Searchbar.dart';
 import '../Providers/User.dart';
 import 'dart:collection';
-
 
 class HomeScreen extends StatefulWidget {
   // static const routeName = '/';
@@ -53,7 +54,6 @@ class _HomeScreenState extends State<HomeScreen> {
       'image': 'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
     },
   ];
-
   final categoryNames = [
     {'name': 'Human Services'},
     {'name': 'Education'},
@@ -67,7 +67,6 @@ class _HomeScreenState extends State<HomeScreen> {
     {'name': 'Environment'},
     {'name': 'Research and Public Policy'},
   ];
-
   final states = [
     'Alabama',
     'Alaska',
@@ -138,15 +137,19 @@ class _HomeScreenState extends State<HomeScreen> {
     Icon(Icons.star),
   ];
 
-  void sortCharitiesByNames(){
+  List recommendations = [];
+
+  void sortCharitiesByNames() {
     setState(() {
-      charities.sort((a, b) => a['name'].toString().compareTo(b['name'].toString()));
+      charities
+          .sort((a, b) => a['name'].toString().compareTo(b['name'].toString()));
     });
   }
 
-  void sortCharitiesByCauses(){
+  void sortCharitiesByCauses() {
     setState(() {
-      charities.sort((a, b) => a['category'].toString().compareTo(b['category'].toString()));
+      charities.sort((a, b) =>
+          a['category'].toString().compareTo(b['category'].toString()));
     });
   }
 
@@ -155,6 +158,7 @@ class _HomeScreenState extends State<HomeScreen> {
     final device = MediaQuery.of(context);
     bool taxExempt = false;
     final userProvider = Provider.of<User>(context, listen: false);
+    final survey = Provider.of<Survey>(context);
 
     return Scaffold(
       drawer: MainDrawer(),
@@ -364,11 +368,11 @@ class _HomeScreenState extends State<HomeScreen> {
                               ))
                           .toList(),
                       onChanged: (value) {
-                        if (value == 'Names'){
+                        if (value == 'Names') {
                           //sort by names
                           sortCharitiesByNames();
                         }
-                        if (value == 'Causes'){
+                        if (value == 'Causes') {
                           //sort by causes
                           sortCharitiesByCauses();
                         }
@@ -379,16 +383,31 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
             Expanded(
-              child: ListView.builder(
-                physics: BouncingScrollPhysics(),
-                itemBuilder: (ctx, index) => OrganizationTile(
-                  charities[index]['name'],
-                  charities[index]['category'],
-                  charities[index]['image'],
-                ),
-                itemCount: charities.length,
-              ),
-            )
+                child: FutureBuilder(
+              future: survey.homeRecommendations(),
+              builder: (ctx, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return Loading();
+                } else {
+                  final recommendations = survey.recommendations;
+                  return ListView.builder(
+                    physics: BouncingScrollPhysics(),
+                    itemBuilder: (ctx, index) => OrganizationTile(
+                        recommendations[index]['charityName'],
+                        recommendations[index]['categoryName'],
+                        recommendations[index]['imageURL'],
+                        assetAmount: recommendations[index]['assetAmount'],
+                        rating: recommendations[index]['rating'],
+                        state: recommendations[index]['state'],
+                        subsection: recommendations[index]['subsection'],
+                        yearlyIncome: recommendations[index]['yearlyIncome']
+// recommendations[index]['details'][],
+                        ),
+                    itemCount: recommendations.length,
+                  );
+                }
+              },
+            ))
           ],
         ),
       ),
