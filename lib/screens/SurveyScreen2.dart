@@ -85,13 +85,12 @@ class SurveyScreen2 extends StatelessWidget {
                       ),
                     ),
                     onPressed: user.totalMicrosSelected == 8
-                        ? () {
-                            print('hi');
-                            Provider.of<Survey>(context, listen: false)
-                                .homeRecommendations();
-                            // user.updateSurveyResults();
-                            // Navigator.of(context)
-                            //   .popAndPushNamed(TabScreen.routeName);
+                        ? () async {
+                            await user.updateSurveyResults();
+                            // await Provider.of<Survey>(context, listen: false)
+                            //     .homeRecommendations();
+                            Navigator.of(context)
+                                .popAndPushNamed(TabScreen.routeName);
                           }
                         : null,
                     shape: RoundedRectangleBorder(
