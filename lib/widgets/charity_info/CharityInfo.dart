@@ -74,11 +74,11 @@ class CharityInfo extends StatelessWidget {
             SizedBox(
               height: 24,
             ),
-            Text('Learn More',
+            Text('Learn More:',
                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
             Text(charityInfo['website'] != null ? charityInfo['website'] : 'Loading...',
                 style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
-          ]),
+          ]), 
     );
   }
 }
