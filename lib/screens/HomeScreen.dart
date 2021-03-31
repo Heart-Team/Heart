@@ -396,11 +396,7 @@ class _HomeScreenState extends State<HomeScreen> {
                         recommendations[index]['charityName'],
                         recommendations[index]['categoryName'],
                         recommendations[index]['imageURL'],
-                        assetAmount: recommendations[index]['assetAmount'],
-                        rating: recommendations[index]['rating'],
-                        state: recommendations[index]['state'],
-                        subsection: recommendations[index]['subsection'],
-                        yearlyIncome: recommendations[index]['yearlyIncome']
+                        recommendations[index]['ein']
 // recommendations[index]['details'][],
                         ),
                     itemCount: recommendations.length,

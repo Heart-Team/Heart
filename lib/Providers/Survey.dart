@@ -100,7 +100,7 @@ class Survey with ChangeNotifier {
     try {
       if (isFirstLoad) {
         final res = await firestore.collection('Users').document(_userId).get();
-        await res.data['surveyResults'].forEach((key, value) {
+        res.data['surveyResults'].forEach((key, value) {
           value.forEach((causeName) async {
             firestore
                 .collection('Organizations')
@@ -110,14 +110,13 @@ class Survey with ChangeNotifier {
                 .limit(3)
                 .getDocuments()
                 .then((res) {
-              res.documents.forEach((element) {
+              res.documents.asMap().forEach((index, element) {
                 _recommendations.add(element.data);
               });
               isFirstLoad = false;
               notifyListeners();
             });
           });
-          print(_recommendations);
         });
       } else {
         print("Not calling anymore false");
@@ -126,8 +125,6 @@ class Survey with ChangeNotifier {
       print(e);
     }
   }
-
-  Future<void> populateRecommednations() {}
 
   void addMicro(String macro, String micro) {
     _surveyResults.update(macro, (value) {

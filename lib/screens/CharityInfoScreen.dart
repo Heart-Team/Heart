@@ -1,17 +1,29 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
+import 'package:provider/provider.dart';
 import '../widgets/charity_info/CharityInfo.dart';
 
-class CharityInfoScreen extends StatelessWidget {
+class CharityInfoScreen extends StatefulWidget {
   static const routeName = '/charity-info';
+
+  @override
+  _CharityInfoScreenState createState() => _CharityInfoScreenState();
+}
+
+class _CharityInfoScreenState extends State<CharityInfoScreen> {
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final productInfo = ModalRoute.of(context).settings.arguments as Map<String, Object>;
+    Provider.of<Charity>(context, listen: false).getCharityInfo(productInfo['ein']);
+  }
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
-    final productInfo =
-        ModalRoute.of(context).settings.arguments as Map<String, Object>;
-
-    print(productInfo);
+    final productInfo = ModalRoute.of(context).settings.arguments as Map<String, Object>;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -21,7 +33,7 @@ class CharityInfoScreen extends StatelessWidget {
           Stack(
             children: <Widget>[
               Hero(
-                tag: productInfo['title'],
+                tag: productInfo['ein'],
                 child: Container(
                   height: 200,
                   decoration: BoxDecoration(
@@ -63,13 +75,7 @@ class CharityInfoScreen extends StatelessWidget {
                               BorderRadius.vertical(top: Radius.circular(25))),
                       child: SingleChildScrollView(
                         physics: BouncingScrollPhysics(),
-                        child: CharityInfo(
-                            productInfo['title'],
-                            productInfo['state'],
-                            'Supporting children all over U.S.',
-                            '    sample starts here...\n\n\nsample\n\nsample',
-                            'Total Assets - \$ ${productInfo['assetAmount']}\nYearly Income - \$ ${productInfo['yearlyIncome']}\nTax Subsection - ${productInfo['subsection']}',
-                            'https://google.com'),
+                        child: CharityInfo(),
                       ),
                     )),
               )

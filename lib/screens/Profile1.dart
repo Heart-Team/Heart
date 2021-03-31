@@ -183,6 +183,7 @@ class Profile extends StatelessWidget {
                           charities[index]['name'],
                           charities[index]['category'],
                           charities[index]['image'],
+                          '1231231231',
                         ),
                         itemCount: charities.length,
                       ),
@@ -206,8 +207,11 @@ class Profile extends StatelessWidget {
                     ),
                     onTap: () async {
                       try {
-                        await Provider.of<Auth>(context, listen: false).signout();
-                        if(Provider.of<Auth>(context, listen: false).firstPage == 'surveyscreen')
+                        await Provider.of<Auth>(context, listen: false)
+                            .signout();
+                        if (Provider.of<Auth>(context, listen: false)
+                                .firstPage ==
+                            'surveyscreen')
                           Navigator.of(context).popAndPushNamed('/');
                         // Navigator.of(context).pop();
                       } catch (e) {

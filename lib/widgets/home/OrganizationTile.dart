@@ -6,22 +6,9 @@ class OrganizationTile extends StatefulWidget {
   final String title;
   final String category;
   final String imageUrl;
-  final int assetAmount;
-  final String state;
-  final int rating;
-  final String subsection;
-  final int yearlyIncome;
+  final String ein;
 
-  OrganizationTile(
-    this.title,
-    this.category,
-    this.imageUrl, {
-    this.assetAmount,
-    this.rating,
-    this.state,
-    this.subsection,
-    this.yearlyIncome,
-  });
+  OrganizationTile(this.title, this.category, this.imageUrl, this.ein);
 
   @override
   _OrganizationTileState createState() => _OrganizationTileState();
@@ -29,11 +16,10 @@ class OrganizationTile extends StatefulWidget {
 
 class _OrganizationTileState extends State<OrganizationTile> {
   var isFavorite = false;
-
   @override
   Widget build(BuildContext context) {
     return Hero(
-      tag: widget.title,
+      tag: widget.ein,
       child: Container(
         height: 130,
         margin: EdgeInsets.only(
@@ -64,16 +50,13 @@ class _OrganizationTileState extends State<OrganizationTile> {
                     color: Colors.transparent,
                     child: ListTile(
                       onTap: () {
-                        Navigator.of(context)
-                            .pushNamed(CharityInfoScreen.routeName, arguments: {
-                          'title': widget.title,
-                          'imageUrl': widget.imageUrl,
-                          'state': widget.state,
-                          'rating': widget.rating,
-                          'assetAmount': widget.assetAmount,
-                          'subsection': widget.subsection,
-                          'yearlyIncome': widget.yearlyIncome
-                        });
+                        Navigator.of(context).pushNamed(
+                          CharityInfoScreen.routeName,
+                            arguments: {
+                              'imageUrl': widget.imageUrl,
+                              'title': widget.title,
+                              'ein': widget.ein
+                            });
                       },
                       contentPadding: EdgeInsets.all(10),
                       tileColor: Colors.black.withOpacity(0.25),
