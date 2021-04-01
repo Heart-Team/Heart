@@ -65,12 +65,8 @@ class _SearchBarState extends State<SearchBar> {
             bottom: 0,
             child: GestureDetector(
               onTap: (){
-                // if (searchTextController != null){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchScreen(text:searchTextController.text)));
-                // }
-                // else{
-                //   Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchScreen()));
-                // }
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchScreen(text:searchTextController.text)));
+
                 print('searching...');// this prints to console to confirm it's working
                 // send users to the search screen
                 // along with the search text input
