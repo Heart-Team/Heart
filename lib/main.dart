@@ -4,6 +4,7 @@ import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/screens/Website.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/utilities/Loading.dart';
 import 'package:provider/provider.dart';
@@ -26,6 +27,7 @@ import 'package:heart_app/screens/PaymentMethodScreen.dart';
 import 'screens/SurveyScreen1.dart';
 import 'screens/AuthScreen.dart';
 import 'screens/SearchScreen.dart';
+import 'package:heart_app/screens/Website.dart';
 
 void main() {
   runApp(MyApp());
@@ -52,9 +54,7 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => User(),
         ),
-        ChangeNotifierProvider(
-          create: (_) => Charity()
-        )
+        ChangeNotifierProvider(create: (_) => Charity())
       ],
       child: Consumer<Auth>(
         builder: (ctx, authData, _) => MaterialApp(
@@ -91,6 +91,7 @@ class MyApp extends StatelessWidget {
             EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen(),
             EditInfoScreen.routeName: (_) => EditInfoScreen(),
             SearchScreen.routeName: (_) => SearchScreen(),
+            Website.routeName: (_) => Website()
           },
         ),
       ),
