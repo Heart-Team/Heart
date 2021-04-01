@@ -39,6 +39,7 @@ dependencies:
   flushbar: ^1.10.4
   firebase_core: ^0.4.4
   get: ^3.26.0
+  webview_flutter: ^1.0.7
 
 dev_dependencies:
   flutter_test:
