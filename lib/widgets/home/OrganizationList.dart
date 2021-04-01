@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:heart_app/Providers/Search.dart';
+import 'package:heart_app/Providers/Filter.dart';
 import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
 import 'package:heart_app/widgets/utilities/Loading.dart';

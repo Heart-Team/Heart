@@ -1,6 +1,6 @@
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:heart_app/Providers/Search.dart';
+import 'package:heart_app/Providers/Filter.dart';
 import 'package:heart_app/screens/SearchScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
