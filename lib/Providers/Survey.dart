@@ -96,7 +96,6 @@ class Survey with ChangeNotifier {
   Future<void> homeRecommendations() async {
     final firestore = Firestore.instance;
 
-    print(isFirstLoad);
     try {
       if (isFirstLoad) {
         final res = await firestore.collection('Users').document(_userId).get();
@@ -118,8 +117,6 @@ class Survey with ChangeNotifier {
             });
           });
         });
-      } else {
-        print("Not calling anymore false");
       }
     } catch (e) {
       print(e);

@@ -24,7 +24,6 @@ class Charity with ChangeNotifier {
 
       _charityDetails.addAll(generalInfo.data);
       _charityDetails.addAll(description.data);
-
       
       notifyListeners();
     } catch (e) {

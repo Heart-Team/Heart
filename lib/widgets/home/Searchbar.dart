@@ -1,6 +1,9 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Search.dart';
 import 'package:heart_app/screens/SearchScreen.dart';
 import 'package:heart_app/theme.dart';
+import 'package:provider/provider.dart';
 
 
 class SearchBar extends StatefulWidget {
@@ -10,6 +13,12 @@ class SearchBar extends StatefulWidget {
 
 class _SearchBarState extends State<SearchBar> {
   TextEditingController searchTextController = new TextEditingController();
+
+  @override
+  void initState() {    
+    super.initState();
+    Provider.of<Search>(context, listen: false).clearResults();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +65,6 @@ class _SearchBarState extends State<SearchBar> {
                   color: Colors.transparent,
                   style: BorderStyle.none
                 ),
-
               ),
             ),
           ),
@@ -65,8 +73,8 @@ class _SearchBarState extends State<SearchBar> {
             bottom: 0,
             child: GestureDetector(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => SearchScreen(text:searchTextController.text)));
-
+                Provider.of<Search>(context, listen: false).search(searchTextController.text);
+                
                 print('searching...');// this prints to console to confirm it's working
                 // send users to the search screen
                 // along with the search text input
