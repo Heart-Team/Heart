@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/Providers/Charity.dart';
+import 'package:heart_app/Providers/Filter.dart';
 import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/Website.dart';
@@ -54,7 +55,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => User(),
         ),
-        ChangeNotifierProvider(create: (_) => Charity())
+        ChangeNotifierProvider(
+          create: (_) => Charity()
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Search()
+        )
       ],
       child: Consumer<Auth>(
         builder: (ctx, authData, _) => MaterialApp(

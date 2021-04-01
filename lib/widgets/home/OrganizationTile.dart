@@ -56,7 +56,8 @@ class _OrganizationTileState extends State<OrganizationTile> {
                               'imageUrl': widget.imageUrl,
                               'title': widget.title,
                               'ein': widget.ein
-                            });
+                            }
+                        );
                       },
                       contentPadding: EdgeInsets.all(10),
                       tileColor: Colors.black.withOpacity(0.25),
