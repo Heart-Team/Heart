@@ -81,7 +81,6 @@ class CharityInfo extends StatelessWidget {
             style: TextStyle(fontSize: 22, fontWeight: FontWeight.w600)),
         GestureDetector(
           onTap: () {
-            print("YOO work");
             Navigator.of(context).pushNamed(Website.routeName,
                 arguments: {'link': charityInfo['website']});
           },
@@ -89,7 +88,11 @@ class CharityInfo extends StatelessWidget {
               charityInfo['website'] != null
                   ? charityInfo['website']
                   : 'Loading...',
-              style: TextStyle(fontSize: 16, fontWeight: FontWeight.w400)),
+              style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w400,
+                color: Colors.blue
+              )
+          ),
         ),
       ]),
     );

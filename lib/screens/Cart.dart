@@ -5,38 +5,35 @@ import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import "package:heart_app/widgets/cart/EmptyCart.dart";
 import "package:heart_app/widgets/cart/CartData.dart";
+import 'package:provider/provider.dart';
+import 'package:heart_app/Providers/Cart.dart' as CartProvider;
 // import "package:heart_app/bottomnav/BottomNavigation.dart";
 
+
 class Cart extends StatefulWidget {
+
   static const routeName = '/cart';
+
   @override
   _CartState createState() => _CartState();
 }
 
 class _CartState extends State<Cart> {
-  
-  final cartData = [
-    {
-      "title": "Cancer Awarness",
-      "img": "assets/images/cart/cartimage1.png",
-      "amount": "15"
-    },
-    {
-      "title": "Animals Charity",
-      "img": "assets/images/cart/cartimage2.png",
-      "amount": "15"
-    },
-    {
-      "title": "Childrens Charity",
-      "img": "assets/images/cart/cartimage3.png",
-      "amount": "15"
-    }
-  ];
 
-//  final cartData = [];
+  @override
+  void initState() {
+    super.initState();
+    final cartData = Provider.of<CartProvider.Cart>(context, listen: false);
+    if(cartData.cartCharities.length == 0){
+      cartData.getCharities();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
+
+    final cartData = Provider.of<CartProvider.Cart>(context);
+
     return Scaffold(
       backgroundColor: Color.fromRGBO(254, 254, 254, 1),
       extendBody: true,
@@ -46,26 +43,26 @@ class _CartState extends State<Cart> {
         child: Column(
           children: [
             SizedBox(
-              height: 30,
+              height: 39,
             ),
             Container(
               alignment: Alignment.center,
               child: Text(
                 "Your Cart",
-                style: TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
               ),
             ),
             SizedBox(
               height: 30,
             ),
-            cartData.isEmpty
+            cartData.cartCharities.isEmpty
                 ? EmptyCart()
                 : Container(
                     alignment: Alignment.topLeft,
                     margin: EdgeInsets.only(left: 30),
                     child: Text(
-                      '${cartData.length} items',
-                      style: TextStyle(fontSize: 20, color: Colors.grey),
+                      '${cartData.cartCharities.length} items',
+                      style: TextStyle(fontSize: 20, color: Colors.grey, fontWeight: FontWeight.w600),
                     ),
                   ),
             Expanded(
@@ -75,12 +72,16 @@ class _CartState extends State<Cart> {
                     Expanded(
                       child: ListView.builder(
                         physics: BouncingScrollPhysics(),
-                        itemBuilder: (ctx, index) => CartData(
-                          cartData[index]['title'],
-                          cartData[index]['amount'],
-                          cartData[index]['img'],
-                        ),
-                        itemCount: cartData.length,
+                        itemBuilder: (ctx, index) {
+                          final cart = cartData.cartCharities;
+                          return CartData(
+                            cart[index]['ein'],
+                            cart[index]['title'],
+                            cart[index]['amount'],
+                            cart[index]['imageUrl'],
+                          );
+                        },
+                        itemCount: cartData.cartCharities.length,
                       ),
                     ),
                     Container(
@@ -98,7 +99,7 @@ class _CartState extends State<Cart> {
                       ),
                       child: GestureDetector(
                         onTap: () {
-                          cartData.isEmpty ? Navigator.pushNamedAndRemoveUntil(
+                          cartData.cartCharities.isEmpty ? Navigator.pushNamedAndRemoveUntil(
                             context, 
                             '/', 
                             (route) => false
@@ -107,7 +108,7 @@ class _CartState extends State<Cart> {
                           );
                         },
                         child: Text(
-                          cartData.isEmpty ? "Go Now" : "Next",
+                          cartData.cartCharities.isEmpty ? "Go Now" : "Next",
                           style: TextStyle(color: Colors.white, fontSize: 20),
                         ),
                       ),

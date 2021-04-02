@@ -62,8 +62,11 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (_) => Search()
         ),
-        ChangeNotifierProvider(
-          create: (_) => CartProvider.Cart()
+        ChangeNotifierProxyProvider<Auth, CartProvider.Cart>(
+          create: null,
+          update: (_, auth, prevCart) => CartProvider.Cart(
+            auth.userId
+          )
         )
       ],
       child: Consumer<Auth>(

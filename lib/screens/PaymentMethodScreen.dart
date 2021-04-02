@@ -1,10 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Cart.dart';
 import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/Payment/CartList.dart';
 import 'package:heart_app/theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:provider/provider.dart';
 import '../widgets/CreditCard.dart';
 
 class PaymethodScreen extends StatefulWidget {
@@ -16,13 +18,7 @@ class PaymethodScreen extends StatefulWidget {
 
 class _PaymethodScreenState extends State<PaymethodScreen> {
   int _currentIndex = 0;
-  int totalAmount = 0;
   int indexMap = 0;
-  final donationList = [
-    {"title": "Childrens Charity", "amount": 15},
-    {"title": "Animals Charity", "amount": 15},
-    {"title": "Social Charity", "amount": 15}
-  ];
 
   final creditCards = [
     {
@@ -54,15 +50,15 @@ class _PaymethodScreenState extends State<PaymethodScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+    final cartProvider = Provider.of<Cart>(context, listen: false);
+
     cardWidgets = [];
     for (int i = 0; i < creditCards.length; i++) {
       cardWidgets.add(CreditCard(
           creditCards[i]['cardNumber'], creditCards[i]['expDate'], [i, i + 1]));
     }
-    totalAmount = 0;
-    for (int i = 0; i < donationList.length; i++) {
-      totalAmount += donationList[i]["amount"];
-    }
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -125,15 +121,19 @@ class _PaymethodScreenState extends State<PaymethodScreen> {
           Expanded(
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
-              itemBuilder: (ctx, index) => CartList(
-                donationList[index]['title'],
-                donationList[index]['amount'],
-              ),
-              itemCount: donationList.length,
+              itemBuilder: (ctx, index) {
+                final cart = cartProvider.cartCharities;
+                return CartList(
+                  cart[index]['title'],
+                  cart[index]['amount'],
+                );
+              },
+              itemCount: cartProvider.cartCharities.length,
             ),
           ),
           Container(
-              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 50),
+              margin: EdgeInsets.symmetric(horizontal: 30, vertical: 25),
+              padding: EdgeInsets.symmetric(vertical: 20),
               decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(10),
@@ -150,13 +150,13 @@ class _PaymethodScreenState extends State<PaymethodScreen> {
                     children: [
                       Text(
                         "Total",
-                        style: TextStyle(fontSize: 20),
+                        style: TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                       ),
-                      Text("\$$totalAmount", style: TextStyle(fontSize: 20))
+                      Text("\$${cartProvider.totalSum.toStringAsFixed(2)}", style: TextStyle(fontSize: 20))
                     ],
                   ),
                   Container(
-                    margin: EdgeInsets.only(top: 20, bottom: 30),
+                    margin: EdgeInsets.only(top: 15),
                     padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
                     decoration: BoxDecoration(
                       color: AppTheme().primaryColor,
