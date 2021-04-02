@@ -14,6 +14,9 @@ class CharityInfoScreen extends StatefulWidget {
 }
 
 class _CharityInfoScreenState extends State<CharityInfoScreen> {
+  
+  final _formKey = GlobalKey<FormState>();
+  double amount;
 
   @override
   void didChangeDependencies() {
@@ -22,14 +25,22 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
     Provider.of<Charity>(context, listen: false).getCharityInfo(productInfo['ein']);
   }
 
+
+  void onSubmit() {
+    if(_formKey.currentState.validate()){
+      _formKey.currentState.save();
+      print(amount.toStringAsFixed(2));
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final productInfo = ModalRoute.of(context).settings.arguments as Map<String, Object>;
 
+
     return Scaffold(
       backgroundColor: Colors.white,
-      drawer: MainDrawer(),
       body: Column(
         children: [
           Expanded(
@@ -38,19 +49,8 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
                 Hero(
                   tag: productInfo['ein'],
                   child: Container(
-                    width: MediaQuery.of(context).size.width,
+                    width: size.width,
                     height: 200,
-                    // decoration: BoxDecoration(
-                    //     color: Colors.black,
-                    //     image: DecorationImage(
-                    //       image: NetworkImage(
-                    //         productInfo['imageUrl'],
-                    //       ),
-                    //       colorFilter: ColorFilter.mode(
-                    //           Colors.black.withOpacity(0.85), BlendMode.dstATop),
-                    //       fit: BoxFit.cover,
-                    //     )),
-                    // padding: EdgeInsets.only(top: size.height * 0.3),
                     child: FadeInImage(
                       placeholder: AssetImage('assets/images/homescreen/placeholder.png'),
                       image: NetworkImage(productInfo['imageUrl']),
@@ -64,7 +64,7 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
                     child: IconButton(
                         icon: Icon(
                           Icons.keyboard_backspace,
-                          color: Colors.white,
+                          color: AppTheme().primaryColor,
                           size: 35,
                         ),
                         onPressed: () {
@@ -102,7 +102,7 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
                         style:
                             TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                      onPressed: () => Navigator.pop(context),
+                      onPressed: onSubmit,
                       color: AppTheme().primaryColor,
                       radius: BorderRadius.circular(10.0),
                     ),
@@ -119,48 +119,75 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
                   ],
                   content: Container(
                     margin: EdgeInsets.symmetric(vertical: 20),
-                    child: TextFormField(
-                      decoration: InputDecoration(
-                          prefixIcon: Icon(
-                              Icons.attach_money
-                          ),
-                          filled: true,
-                          fillColor: Colors.white,
-                          focusedBorder: OutlineInputBorder(
+                    child: Form(
+                      key: _formKey,
+                      child: TextFormField(
+                        cursorColor: AppTheme().primaryColor,
+                        keyboardType: TextInputType.number,
+                        style: TextStyle(
+                          fontSize: 22
+                        ),
+                        decoration: InputDecoration(
+                            prefixIcon: Icon(
+                                Icons.attach_money,
+                                color: AppTheme().primaryColor,
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                    style: BorderStyle.none)),
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Colors.grey[300],
+                                  width: 0.8), 
                               borderRadius:
                                   BorderRadius.circular(10),
-                              borderSide: BorderSide(
-                                  style: BorderStyle.none)),
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                                color: Colors.grey[300],
-                                width: 0.8),
-                            borderRadius:
-                                BorderRadius.circular(10),
-                          ),
-                          disabledBorder:
-                              UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.grey[300],
-                                      width: 0.8)),
-                          focusColor: Colors.red,
-                          hintText: "25",
-                          hintStyle: TextStyle(
-                              color: Colors.grey,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 20
                             ),
-                          contentPadding: EdgeInsets.symmetric(
-                                vertical: 13,
-                                horizontal: 10
-                            )
-                      ),
-                      validator: (value) {
-                        if (value.isEmpty)
-                          return "Please Enter Your Full Name";
+                            focusedErrorBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.red
+                                )),
+                            errorBorder: OutlineInputBorder(
+                                borderRadius:
+                                    BorderRadius.circular(10),
+                                borderSide: BorderSide(
+                                  width: 2,
+                                  color: Colors.red
+                                )),
+                            disabledBorder:
+                                UnderlineInputBorder(
+                                    borderSide: BorderSide(
+                                        color: Colors.grey[300],
+                                        width: 0.8)),
+                            focusColor: Colors.red,
+                            hintText: "25",
+                            hintStyle: TextStyle(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 22
+                              ),
+                            contentPadding: EdgeInsets.symmetric(
+                                  vertical: 15,
+                                  horizontal: 10
+                              )
+                        ),
+                        onChanged: (val){
+                          amount = double.parse(val);
+                        },
+                        validator: (value) {
+                          if (value.isEmpty || double.tryParse(value) == null)
+                            return "Please Enter A Valid Amount";
 
-                        return null;
-                      },
+                          return null;
+                        },
+                      ),
                     ),
                   ),
                   style: AlertStyle(

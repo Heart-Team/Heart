@@ -12,6 +12,7 @@ class SearchBar extends StatefulWidget {
 }
 
 class _SearchBarState extends State<SearchBar> {
+  
   TextEditingController searchTextController = new TextEditingController();
 
   @override
@@ -74,11 +75,7 @@ class _SearchBarState extends State<SearchBar> {
             child: GestureDetector(
               onTap: (){
                 Provider.of<Search>(context, listen: false).search(searchTextController.text);
-                
-                print('searching...');// this prints to console to confirm it's working
-                // send users to the search screen
-                // along with the search text input
-                // on search screen display search results
+                print('searching...');
               },
               child: Container(
                 height: 48,

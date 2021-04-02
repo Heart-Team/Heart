@@ -19,12 +19,12 @@ import 'dart:collection';
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final device = MediaQuery.of(context);
+    print('Homescreen rebuil');
     return Scaffold(
       drawer: MainDrawer(),
       backgroundColor: Colors.white,
       body: Container(
-        padding: EdgeInsets.fromLTRB(20, device.padding.top + 15, 20, 20),
+        padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
         child: Column(
           children: [
             Row(

@@ -22,15 +22,17 @@ class CharityInfo extends StatelessWidget {
                 ? charityInfo['charityName']
                 : 'Loading...',
             style: TextStyle(fontSize: 28, fontWeight: FontWeight.w600)),
-        Stack(children: <Widget>[
-          Text(
-              charityInfo['address'] != null
-                  ? charityInfo['address']
-                  : 'Loading...',
-              style: TextStyle(
-                  fontSize: 15,
-                  color: Colors.grey,
-                  fontWeight: FontWeight.w400)),
+        Row(children: <Widget>[
+          Expanded(
+            child: Text(
+                charityInfo['address'] != null
+                    ? charityInfo['address']
+                    : 'Loading...',
+                style: TextStyle(
+                    fontSize: 15,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w400)),
+          ),
           Container(
               alignment: Alignment.centerRight,
               padding: EdgeInsets.only(right: 26),

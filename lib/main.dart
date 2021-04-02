@@ -5,6 +5,7 @@ import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/Providers/Filter.dart';
 import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/Providers/Cart.dart' as CartProvider;
 import 'package:heart_app/screens/Website.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/utilities/Loading.dart';
@@ -60,6 +61,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider(
           create: (_) => Search()
+        ),
+        ChangeNotifierProvider(
+          create: (_) => CartProvider.Cart()
         )
       ],
       child: Consumer<Auth>(
