@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class CartList extends StatelessWidget {
   final String title;
-  final int amount;
+  final String amount;
 
   CartList(this.title, this.amount);
 
@@ -10,7 +10,7 @@ class CartList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 30, vertical: 5),
-      padding: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
+      padding: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       decoration: BoxDecoration(
           color: Colors.white,
           borderRadius: BorderRadius.circular(10),
@@ -21,12 +21,17 @@ class CartList extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(title),
+          Expanded(child: Text(
+            title,
+            style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
+          )),
           Container(
-              alignment: Alignment.topRight,
-              child: Text(
-                "\t\$${amount}",
-              ))
+            alignment: Alignment.topRight,
+            child: Text(
+              "\t\$$amount",
+              style: TextStyle(fontSize: 18),
+            )
+          )
         ],
       ),
     );

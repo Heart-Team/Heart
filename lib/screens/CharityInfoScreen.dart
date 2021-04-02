@@ -1,4 +1,6 @@
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Cart.dart';
 import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
@@ -26,10 +28,37 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
   }
 
 
-  void onSubmit() {
+  void onSubmit(Map<String, Object> productInfo) async {
     if(_formKey.currentState.validate()){
       _formKey.currentState.save();
-      print(amount.toStringAsFixed(2));
+      final cart = Provider.of<Cart>(context, listen: false);
+      final res = await cart.addCharity(
+        productInfo['ein'], 
+        productInfo['title'], 
+        amount.toStringAsFixed(2), 
+        productInfo['imageUrl']
+      );
+
+      Navigator.of(context).pop();
+
+      // user feedback
+      Flushbar(
+        messageText: Text(
+          res == 'Success' ?
+          'Charity Successfully Added To Your Cart'
+          :
+          res,
+          style: TextStyle(color: Colors.white),
+        ),
+        borderRadius: 10,
+        backgroundColor: res == 'Success' ? Colors.green : Colors.red,
+        margin: EdgeInsets.all(10),
+        duration: Duration(seconds: 3),
+        icon: Icon(
+          Icons.error_outline,
+          color: Colors.white,
+        ),
+      ).show(context);
     }
   }
 
@@ -37,7 +66,6 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final productInfo = ModalRoute.of(context).settings.arguments as Map<String, Object>;
-
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -102,7 +130,7 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
                         style:
                             TextStyle(color: Colors.white, fontSize: 20),
                       ),
-                      onPressed: onSubmit,
+                      onPressed: () => onSubmit(productInfo),
                       color: AppTheme().primaryColor,
                       radius: BorderRadius.circular(10.0),
                     ),

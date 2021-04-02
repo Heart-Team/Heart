@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/theme.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Website extends StatefulWidget {
@@ -22,7 +23,10 @@ class _WebsiteState extends State<Website> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Heart')),
+      appBar: AppBar(
+        title: Text('Heart'),
+        backgroundColor: AppTheme().primaryColor,
+      ),
       body: WebView(
         initialUrl: link,
         javascriptMode: JavascriptMode.unrestricted,

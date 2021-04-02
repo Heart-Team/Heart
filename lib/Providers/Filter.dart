@@ -6,7 +6,7 @@ class Search with ChangeNotifier {
   List<Map<String, dynamic>> _searchResults = [];
 
   List<Map<String, dynamic>> get searchResults {
-    return _searchResults;
+    return [..._searchResults];
   }
 
   Future<void> search(String query) async {
