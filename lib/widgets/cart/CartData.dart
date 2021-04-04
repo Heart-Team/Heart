@@ -103,35 +103,31 @@ class _CartDataState extends State<CartData> {
                                           blurRadius: 15)
                                     ]),
                                 margin: EdgeInsets.only(left: 20),
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      child: Text(
-                                        '\$',
-                                        style: TextStyle(fontSize: 20),
-                                      ),
-                                      top: 6,
-                                      left: 13
+                                child: TextField(
+                                  controller: _controller,
+                                  textAlign: TextAlign.left,
+                                  style: TextStyle(fontSize: 20),
+                                  decoration: InputDecoration(
+                                    prefixIconConstraints: BoxConstraints(
+                                      maxWidth: 20
                                     ),
-                                    TextField(
-                                      controller: _controller,
-                                      textAlign: TextAlign.center,
-                                      style: TextStyle(fontSize: 20),
-                                      decoration: InputDecoration(
-                                        enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide.none
-                                        ),
-                                        focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide.none
-                                        ),
-                                        contentPadding: EdgeInsets.only(left: 15, top: 10, right: 0)
-                                      ),
-                                      onSubmitted: (val){
-                                        cartProvider.updateItem(widget.ein, val);
-                                      },
+                                    prefixIcon: Icon(
+                                      Icons.attach_money,
                                     ),
-                                  ],
+                                    enabledBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    focusedBorder: OutlineInputBorder(
+                                      borderSide: BorderSide.none
+                                    ),
+                                    contentPadding: EdgeInsets.only(left: 0, top: 10, right: 0)
+                                  ),
+                                  onSubmitted: (val){
+                                    cartProvider.updateItem(widget.ein, val);
+                                  },
                                 ),
+                                  
+                                
                               ),
                             )
                           ],
