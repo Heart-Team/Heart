@@ -104,7 +104,7 @@ class _CartState extends State<Cart> {
                             '/', 
                             (route) => false
                           ) : Navigator.of(context).push(
-                            CupertinoPageRoute(builder: (_) => PaymethodScreen())
+                            CupertinoPageRoute(builder: (_) => PayMethodScreen())
                           );
                         },
                         child: Text(

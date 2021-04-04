@@ -102,7 +102,7 @@ class MyApp extends StatelessWidget {
             Suc.routeName: (_) => Suc(),
             SavedCharitiesScreen.routeName: (_) => SavedCharitiesScreen(),
             FinanceScreen.routeName: (_) => FinanceScreen(),
-            PaymethodScreen.routeName: (_) => PaymethodScreen(),
+            PayMethodScreen.routeName: (_) => PayMethodScreen(),
             Profile.routeName: (_) => Profile(),
             EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen(),
             EditInfoScreen.routeName: (_) => EditInfoScreen(),

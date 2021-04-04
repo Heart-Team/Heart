@@ -116,7 +116,7 @@ class MainDrawer extends StatelessWidget {
               ),
               onTap: () {
                 Navigator.pushReplacementNamed(
-                    context, PaymethodScreen.routeName);
+                    context, PayMethodScreen.routeName);
               },
             ),
             ListTile(

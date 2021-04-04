@@ -25,6 +25,7 @@ class CartList extends StatelessWidget {
             title,
             style: TextStyle(fontSize: 18, fontWeight: FontWeight.w600),
           )),
+          SizedBox(width: 10,),
           Container(
             alignment: Alignment.topRight,
             child: Text(

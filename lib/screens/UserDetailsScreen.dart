@@ -7,7 +7,7 @@ import 'package:heart_app/widgets/MainDrawer.dart';
 
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../theme.dart';
-import '../widgets/CreditCard.dart';
+import '../widgets/Payment/CreditCard.dart';
 
 class UserDetailsScreen extends StatelessWidget {
   static const routeName = '/user-details';
