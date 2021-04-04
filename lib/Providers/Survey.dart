@@ -86,7 +86,7 @@ class Survey with ChangeNotifier {
     try {
       await firestore
           .collection('Users')
-          .document('N3eKe4vrXqPqkkxWL174q1SbVZR2')
+          .document(_userId)
           .updateData({'surveyTaken': true, 'surveyResults': _surveyResults});
     } catch (e) {
       print(e.message);

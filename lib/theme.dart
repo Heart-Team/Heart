@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 class AppTheme {
   final primaryColor = Color.fromRGBO(255, 100, 100, 1);
-  Icon backIcon = Icon(Icons.keyboard_backspace);
 
   final red = Color.fromRGBO(242, 126, 126, 1);
   final pink = Color.fromRGBO(255, 193, 193, 1);

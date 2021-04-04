@@ -1,7 +1,5 @@
-import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Filter.dart';
-import 'package:heart_app/screens/SearchScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -68,6 +66,9 @@ class _SearchBarState extends State<SearchBar> {
                 ),
               ),
             ),
+            onSubmitted: (val){
+              Provider.of<Search>(context, listen: false).search(searchTextController.text);
+            },
           ),
           Positioned(
             right: 0,
@@ -75,7 +76,6 @@ class _SearchBarState extends State<SearchBar> {
             child: GestureDetector(
               onTap: (){
                 Provider.of<Search>(context, listen: false).search(searchTextController.text);
-                print('searching...');
               },
               child: Container(
                 height: 48,

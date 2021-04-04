@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Auth.dart';
-import 'package:heart_app/Providers/User.dart';
-import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +26,6 @@ class _AuthFormState extends State<AuthForm> with TickerProviderStateMixin {
   void _onSubmit() async {
     final isValid = _formKey.currentState.validate();
     FocusScope.of(context).unfocus();
-
     if (isValid) {
       setState(() {
         _isLoading = true;
@@ -42,11 +39,9 @@ class _AuthFormState extends State<AuthForm> with TickerProviderStateMixin {
         _isLogin,
         context
       );
-
       setState(() {
         _isLoading = false;
       });
-
     }
   }
 
