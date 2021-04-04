@@ -35,10 +35,11 @@ class _EditInfoScreenState extends State<EditInfoScreen> {
                     child: CircleAvatar(
                       minRadius: 40,
                       maxRadius: 50,
-                      backgroundImage: NetworkImage(
-                          'https://cdn.chv.me/images/thumbnails/Silicone-LED-Night-Light-Cute-qepw5Oxu.jpeg.thumb_800x800.jpg'),
+                      backgroundImage: AssetImage(
+                        "assets/images/user/blank_user.png"
+                      ),
                       child: Stack(
-                        overflow: Overflow.visible,
+                        clipBehavior: Clip.none,
                         children: [
                           Positioned(
                             top: -5,

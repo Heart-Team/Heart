@@ -54,7 +54,7 @@ class _SucState extends State<Suc> {
               )
             ),
             onPressed: (){
-              Navigator.of(context).pushNamedAndRemoveUntil('/', (route) => false);
+              Navigator.of(context).pushNamedAndRemoveUntil('/tab', (route) => false);
             }
           )
         ] 

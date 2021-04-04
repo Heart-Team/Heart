@@ -168,8 +168,7 @@ class Profile extends StatelessWidget {
                         await Provider.of<Auth>(context, listen: false)
                             .signout();
                         if (Provider.of<Auth>(context, listen: false)
-                                .firstPage ==
-                            'surveyscreen')
+                                .firstPage == 'surveyscreen')
                           Navigator.of(context).popAndPushNamed('/');
                         // Navigator.of(context).pop();
                       } catch (e) {

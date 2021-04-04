@@ -93,8 +93,9 @@ class UserDetailsScreen extends StatelessWidget {
                 children: [
                   Center(
                     child: CircleAvatar(
-                      backgroundImage: NetworkImage(
-                          'https://cdn.chv.me/images/thumbnails/Silicone-LED-Night-Light-Cute-qepw5Oxu.jpeg.thumb_800x800.jpg'),
+                      backgroundImage: AssetImage(
+                        "assets/images/user/blank_user.png",
+                      ),
                       radius: 45,
                     ),
                   ),
