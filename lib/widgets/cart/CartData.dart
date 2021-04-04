@@ -52,7 +52,7 @@ class _CartDataState extends State<CartData> {
                 borderRadius: BorderRadius.circular(10),
                 child: Container(
                   width: 150,
-                  constraints: BoxConstraints(maxHeight: 125), 
+                  constraints: BoxConstraints(maxHeight: 150), 
                   child: Image.network(
                     widget.img,
                     fit: BoxFit.cover,

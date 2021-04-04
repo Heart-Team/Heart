@@ -7,6 +7,7 @@ import 'package:heart_app/screens/AuthScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
+import 'package:heart_app/widgets/profile/Header.dart';
 import 'package:heart_app/widgets/profile/SavedCharitiesTile.dart';
 import 'package:provider/provider.dart';
 import '../theme.dart';
@@ -98,50 +99,7 @@ class Profile extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Center(
-                      child: CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            'https://cdn.chv.me/images/thumbnails/Silicone-LED-Night-Light-Cute-qepw5Oxu.jpeg.thumb_800x800.jpg'),
-                        radius: 45,
-                      ),
-                    ),
-                    Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 15, vertical: 10),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            'John Doe',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w600, fontSize: 22),
-                          ),
-                          SizedBox(width: 10),
-                          Text(
-                            'New York, NY',
-                            textAlign: TextAlign.left,
-                            style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.grey[500]),
-                          ),
-                          GestureDetector(
-                            child: Text(
-                              'Account Settings',
-                              textAlign: TextAlign.left,
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppTheme().primaryColor),
-                            ),
-                            onTap: () {
-                              Navigator.of(context).push(CupertinoPageRoute(
-                                  builder: (ctx) => UserDetailsScreen()));
-                            },
-                          )
-                        ],
-                      ),
-                    ),
+                    Header(),
                     Container(
                       padding: EdgeInsets.only(left: 10, top: 0),
                       child: Text(

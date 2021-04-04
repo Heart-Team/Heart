@@ -53,8 +53,11 @@ class MyApp extends StatelessWidget {
             auth.userId,
           ),
         ),
-        ChangeNotifierProvider(
-          create: (_) => User(),
+        ChangeNotifierProxyProvider<Auth, User>(
+          create: null,
+          update: (_, auth, prevSurvey) => User(
+            auth.userId,
+          ),
         ),
         ChangeNotifierProvider(
           create: (_) => Charity()

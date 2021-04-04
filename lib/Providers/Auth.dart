@@ -61,7 +61,13 @@ class Auth with ChangeNotifier {
         await Firestore.instance
           .collection('Users')
           .document(authResult.user.uid)
-          .setData({'fullName': fullName, 'email': email, 'surveyTaken': false});
+          .setData({
+            'fullName': fullName, 
+            'email': email, 
+            'surveyTaken': false,
+            'imageUrl': '',
+            'location': ''
+          });
 
         // private member updates
         final res = await authResult.user.getIdToken();

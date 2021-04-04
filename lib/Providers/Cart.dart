@@ -82,6 +82,7 @@ class Cart with ChangeNotifier {
         ein : FieldValue.delete()
       });
       _cartCharities.removeWhere((element) => element['ein'] == ein);
+      notifyListeners();
     } catch (e) {
       print(e);
     }

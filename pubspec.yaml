@@ -65,6 +65,7 @@ flutter:
     - assets/images/saved_charities_screen/
     - assets/images/payment/
     - assets/images/homescreen/
+    - assets/images/user/
     # - assets/images/arts_culture.png
     # - assets/images/education.png
     # - assets/images/environment.png
