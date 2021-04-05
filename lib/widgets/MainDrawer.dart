@@ -138,15 +138,15 @@ class MainDrawer extends StatelessWidget {
                     context, EmptyFinanceScreen.routeName);
               },
             ),
-            ListTile(
-              title: Text(
-                'Search Screen',
-                style: TextStyle(fontSize: 24, color: Colors.white),
-              ),
-              onTap: () {
-                Navigator.pushReplacementNamed(context, SearchScreen.routeName);
-              },
-            )
+            // ListTile(
+            //   title: Text(
+            //     'Search Screen',
+            //     style: TextStyle(fontSize: 24, color: Colors.white),
+            //   ),
+            //   onTap: () {
+            //     Navigator.pushReplacementNamed(context, SearchScreen.routeName);
+            //   },
+            // )
           ],
         ),
       ),

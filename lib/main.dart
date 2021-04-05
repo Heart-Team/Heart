@@ -106,7 +106,7 @@ class MyApp extends StatelessWidget {
             Profile.routeName: (_) => Profile(),
             EmptyFinanceScreen.routeName: (_) => EmptyFinanceScreen(),
             EditInfoScreen.routeName: (_) => EditInfoScreen(),
-            SearchScreen.routeName: (_) => SearchScreen(),
+            // SearchScreen.routeName: (_) => SearchScreen(),
             Website.routeName: (_) => Website()
           },
         ),
