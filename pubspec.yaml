@@ -38,8 +38,10 @@ dependencies:
   provider: ^5.0.0
   flushbar: ^1.10.4
   firebase_core: ^0.4.4
+  firebase_storage: ^3.1.6
   webview_flutter: ^1.0.7
   image_picker: ^0.6.5+3
+  encrypt: ^5.0.0
 
 dev_dependencies:
   flutter_test:

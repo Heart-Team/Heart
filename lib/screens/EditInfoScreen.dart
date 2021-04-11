@@ -1,5 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/theme.dart';
+import 'package:heart_app/widgets/profile/EditInfoForm.dart';
+import 'package:heart_app/widgets/profile/ImagePicker.dart';
+import 'package:provider/provider.dart';
 
 class EditInfoScreen extends StatefulWidget {
   static const routeName = '/edit-info';
@@ -9,16 +15,84 @@ class EditInfoScreen extends StatefulWidget {
 }
 
 class _EditInfoScreenState extends State<EditInfoScreen> {
+
+  String _imageUrl;
+  String _fullName;
+  String _location;
+  bool _dataSaved = true;
+  bool _isLoading = false;
+  bool _showSuccess = false;
+
+  void editInfo({String imageUrl, String fullName, String location}){
+    _dataSaved = false;
+    if(imageUrl != null){
+      _imageUrl = imageUrl;
+    }
+    if(fullName != null){ 
+      _fullName = fullName;
+    }
+    if(location != null){
+      _location = location;
+    }
+  }
+
+  Future<void> _showMyDialog() async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Unsaved Changes'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('Changes made to your profile have not been saved. Are you sure you want to go back?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Yes'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                'Cancel',
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+  void submit() async {
+    if(_fullName != null || _location != null || _imageUrl != null){
+      setState(() => _isLoading = true);
+      await Provider.of<User>(context, listen: false).editInfo(_fullName, _location, _imageUrl);
+      setState(() {
+        _isLoading = false;
+        _showSuccess = true;
+      });
+      Timer(Duration(seconds: 2), () => setState(() => _showSuccess = false));
+      _dataSaved = true;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final device = MediaQuery.of(context);
-
     return Scaffold(
       backgroundColor: Colors.white,
       body: Container(
         width: double.infinity,
-        height: device.size.height,
-        padding: EdgeInsets.fromLTRB(15, device.padding.top + 15, 15, 10),
+        padding: EdgeInsets.fromLTRB(15, 40, 15, 10),
         child: Stack(
           fit: StackFit.expand,
           children: [
@@ -28,116 +102,14 @@ class _EditInfoScreenState extends State<EditInfoScreen> {
                   Text(
                     'Edit My Details',
                     textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w500),
+                    style: TextStyle(fontSize: 26, fontWeight: FontWeight.w600),
                   ),
                   SizedBox(height: 30),
-                  Container(
-                    child: CircleAvatar(
-                      minRadius: 40,
-                      maxRadius: 50,
-                      backgroundImage: AssetImage(
-                        "assets/images/user/blank_user.png"
-                      ),
-                      child: Stack(
-                        clipBehavior: Clip.none,
-                        children: [
-                          Positioned(
-                            top: -5,
-                            right: -5,
-                            child: Container(
-                              height: 40,
-                              width: 40,
-                              decoration: BoxDecoration(
-                                  color: AppTheme().green,
-                                  borderRadius: BorderRadius.circular(20),
-                                  border:
-                                      Border.all(width: 3, color: Colors.white)),
-                              child: Icon(Icons.camera_alt),
-                            ),
-                          )
-                        ],
-                      ),
-                    ),
-                  ),
+                  UserImagePicker(editInfo),
                   SizedBox(height: 40),
-                  Form(
-                    child: Column(
-                      children: [
-                        Container(
-                          width: device.size.width * 0.85,
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12.withOpacity(0.1),
-                                blurRadius: 15)
-                          ]),
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(Icons.account_circle_outlined,
-                                    color: Colors.grey),
-                                filled: true,
-                                fillColor: Colors.white,
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        BorderSide(style: BorderStyle.none)),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.grey[300], width: 0.8),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey[300], width: 0.8)),
-                                focusColor: Colors.red,
-                                hintText: "John Doe",
-                                hintStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w600),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 13, horizontal: 10)),
-                          ),
-                        ),
-                        SizedBox(height: 20),
-                        Container(
-                          width: device.size.width * 0.85,
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                color: Colors.black12.withOpacity(0.1),
-                                blurRadius: 15)
-                          ]),
-                          child: TextField(
-                            decoration: InputDecoration(
-                                prefixIcon: Icon(
-                                  Icons.account_circle_outlined,
-                                  color: Colors.grey
-                                ),
-                                filled: true,
-                                fillColor: Colors.white,
-                                focusedBorder: OutlineInputBorder(
-                                    borderRadius: BorderRadius.circular(10),
-                                    borderSide:
-                                        BorderSide(style: BorderStyle.none)),
-                                enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Colors.grey[300], width: 0.8),
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                                disabledBorder: UnderlineInputBorder(
-                                    borderSide: BorderSide(
-                                        color: Colors.grey[300], width: 0.8)),
-                                focusColor: Colors.red,
-                                hintText: "Location",
-                                hintStyle: TextStyle(
-                                    color: Colors.grey,
-                                    fontWeight: FontWeight.w600),
-                                contentPadding: EdgeInsets.symmetric(
-                                    vertical: 13, horizontal: 10)),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
+                  EditInfoForm(editInfo),
                   SizedBox(height: 30),
+
                   MaterialButton(
                     color: AppTheme().primaryColor,
                     elevation: 0, 
@@ -145,16 +117,21 @@ class _EditInfoScreenState extends State<EditInfoScreen> {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(8)
                     ),
-                    child: Text(
-                      'Apply Changes',
+                    child: _isLoading ? Container(
+                      height: 20,
+                      width: 20,
+                      color: Colors.transparent,
+                      child: CircularProgressIndicator(
+                        valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+                      ),
+                    ) : Text(
+                      _showSuccess ? 'Profile Updated ✔' : 'Apply Changes',
                       style: TextStyle(
                         color: Colors.white,
                         fontSize: 16
                       ),
                     ),
-                    onPressed: (){
-                      Navigator.of(context).pop();
-                    }
+                    onPressed: submit
                   )
                 ],
               ),
@@ -165,7 +142,10 @@ class _EditInfoScreenState extends State<EditInfoScreen> {
               child: IconButton(
                 icon: Icon(Icons.keyboard_backspace, size: 35),
                 onPressed: () {
-                  Navigator.of(context).pop();
+                  if(!_dataSaved)
+                    _showMyDialog();
+                  else
+                    Navigator.of(context).pop();
                 },
               ),
             ),

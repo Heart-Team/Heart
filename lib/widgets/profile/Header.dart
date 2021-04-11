@@ -11,6 +11,7 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<User>(context);
+    print('image: ${user.imageUrl}');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -18,8 +19,7 @@ class Header extends StatelessWidget {
         Center(
           child: CircleAvatar(
             backgroundImage: user.imageUrl.isEmpty ? AssetImage(
-              "assets/images/user/blank_user.png") : NetworkImage('https://www.petakids.com/wp-content/uploads/2015/11/Cute-Red-Bunny.jpg',
-            ),
+              "assets/images/user/blank_user.png") : NetworkImage(user.imageUrl),
             radius: 45,
           ),
         ),
@@ -30,31 +30,35 @@ class Header extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                'John Doe',
+                user.fullName,
                 style: TextStyle(
-                    fontWeight: FontWeight.w600, fontSize: 22),
+                  fontWeight: FontWeight.w600, fontSize: 22
+                ),
               ),
               SizedBox(width: 10),
               Text(
-                'New York, NY',
+                user.location.isEmpty ? 'Location Not Set' : user.location,
                 textAlign: TextAlign.left,
                 style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.w600,
                     color: Colors.grey[500]),
               ),
+              SizedBox(height: 5),
               GestureDetector(
                 child: Text(
                   'Account Settings',
                   textAlign: TextAlign.left,
                   style: TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.w600,
-                      color: AppTheme().primaryColor),
+                    fontSize: 18,
+                    fontWeight: FontWeight.w600,
+                    color: AppTheme().primaryColor
+                  ),
                 ),
                 onTap: () {
                   Navigator.of(context).push(CupertinoPageRoute(
-                      builder: (ctx) => UserDetailsScreen()));
+                    builder: (ctx) => UserDetailsScreen()
+                  ));
                 },
               )
             ],

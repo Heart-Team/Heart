@@ -66,7 +66,8 @@ class Auth with ChangeNotifier {
             'email': email, 
             'surveyTaken': false,
             'imageUrl': '',
-            'location': ''
+            'location': '',
+            'cards': []
           });
 
         // private member updates
