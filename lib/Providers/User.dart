@@ -68,22 +68,30 @@ class User with ChangeNotifier {
   }
 
   // below should be a function to store an organization to favorites
-  void addFavorites(String charityID){
+  void addFavorite(String charityID){
     Firestore.instance.collection('Users')
         .document(userId)
         .updateData({'favorites': FieldValue.arrayUnion([charityID])});
   }
 
+  void removeFavorite(String charityID){
+    Firestore.instance.collection('Users')
+        .document(userId)
+        .updateData({'favorites': FieldValue.arrayRemove([charityID])});
+  }
+
   Future<void> getFavorites() async{
     final firestore = Firestore.instance;
     DocumentReference ref = await firestore.collection('Users').document(userId);
-    List<String> res;
     await ref.get().then((snapshot) {
-      res = snapshot.data['favorites'];
+      _favorites = snapshot.data['favorites'];
     });
     // to test out if it does return the favorites array in terminal
-    print(res);
+    print(_favorites);
     // return
-    return res;
+    return _favorites;
   }
+
+  // now we have populated the favorites array
+  // we can use the array elements to populate
 }

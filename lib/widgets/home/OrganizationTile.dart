@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class OrganizationTile extends StatefulWidget {
   final String title;
@@ -16,8 +18,13 @@ class OrganizationTile extends StatefulWidget {
 
 class _OrganizationTileState extends State<OrganizationTile> {
   var isFavorite = false;
+
+
   @override
   Widget build(BuildContext context) {
+    // get the userId here
+    final user = Provider.of<User>(context);
+
     return Hero(
       tag: widget.ein,
       child: Container(
@@ -94,6 +101,13 @@ class _OrganizationTileState extends State<OrganizationTile> {
                             setState(() {
                               isFavorite = !isFavorite;
                             });
+                            if (isFavorite){
+                              // here add the charity into favorites array
+                              user.addFavorite(widget.ein);
+                            }else{
+                              // here remove the charity from the array
+                              user.removeFavorite(widget.ein);
+                            }
                           }),
                     ),
                   )
