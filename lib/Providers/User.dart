@@ -18,6 +18,8 @@ class User with ChangeNotifier {
   String _email;
   String _imageUrl = '';
   List<Map<String, dynamic>> _creditCards;
+  List<Map<String, dynamic>> _favorites;
+
   // bool _loggedIn = false;
   // List<String> _relevantMacros = [];
   // List<Map<String, String>> _relevantMicros = [];
@@ -46,6 +48,10 @@ class User with ChangeNotifier {
     return _creditCards;
   }
 
+  List<Map<String, dynamic>> get favorites {
+    return _favorites;
+  }
+
   Future<void> getUserInfo() async {
     final firestore = Firestore.instance;
     try {
@@ -59,5 +65,25 @@ class User with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  // below should be a function to store an organization to favorites
+  void addFavorites(String charityID){
+    Firestore.instance.collection('Users')
+        .document(userId)
+        .updateData({'favorites': FieldValue.arrayUnion([charityID])});
+  }
+
+  Future<void> getFavorites() async{
+    final firestore = Firestore.instance;
+    DocumentReference ref = await firestore.collection('Users').document(userId);
+    List<String> res;
+    await ref.get().then((snapshot) {
+      res = snapshot.data['favorites'];
+    });
+    // to test out if it does return the favorites array in terminal
+    print(res);
+    // return
+    return res;
   }
 }
