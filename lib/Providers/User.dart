@@ -80,18 +80,18 @@ class User with ChangeNotifier {
         .updateData({'favorites': FieldValue.arrayRemove([charityID])});
   }
 
-  Future<void> getFavorites() async{
+  Future<List<Map<String,dynamic>>> getFavorites() async{
     final firestore = Firestore.instance;
+    var data;
     DocumentReference ref = await firestore.collection('Users').document(userId);
     await ref.get().then((snapshot) {
-      _favorites = snapshot.data['favorites'];
+      data = snapshot.data['favorites'];
     });
     // to test out if it does return the favorites array in terminal
-    print(_favorites);
+    print(data);
+
     // return
-    return _favorites;
+    return data;
   }
 
-  // now we have populated the favorites array
-  // we can use the array elements to populate
 }

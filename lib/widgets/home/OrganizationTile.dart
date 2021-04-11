@@ -17,6 +17,9 @@ class OrganizationTile extends StatefulWidget {
 }
 
 class _OrganizationTileState extends State<OrganizationTile> {
+
+  // here a function to decide if isFavorite is true or false
+  // based on the data retrieved from firestore
   var isFavorite = false;
 
 
@@ -24,6 +27,19 @@ class _OrganizationTileState extends State<OrganizationTile> {
   Widget build(BuildContext context) {
     // get the userId here
     final user = Provider.of<User>(context);
+    var favorites = user.getFavorites();
+
+    favorites.then((value) {
+      print('test');
+      print(value);
+    });
+    //
+    // for (var fav in favorites) {
+    //   if (fav == widget.ein){
+    //     print(fav);
+    //     isFavorite == true;
+    //   }
+    // }
 
     return Hero(
       tag: widget.ein,
