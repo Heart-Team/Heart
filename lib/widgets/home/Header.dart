@@ -24,6 +24,7 @@ class Header extends StatelessWidget {
         ),
         Container(
           height: 80,
+          width: 80,
           decoration: BoxDecoration(boxShadow: [
             BoxShadow(
                 color: Colors.black12.withOpacity(0.25), blurRadius: 15)
@@ -32,8 +33,15 @@ class Header extends StatelessWidget {
             borderRadius: BorderRadius.circular(40),
             child: user.imageUrl.isEmpty ? Image.asset(
                 "assets/images/user/blank_user.png",
-            ) : Image.network(
-              user.imageUrl
+                fit: BoxFit.cover
+            ) : FadeInImage(
+              placeholder: AssetImage(
+                "assets/images/user/blank_user.png",
+              ), 
+              image:  NetworkImage(
+                user.imageUrl,
+              ),
+              fit: BoxFit.cover,
             )
           ),
         ),
