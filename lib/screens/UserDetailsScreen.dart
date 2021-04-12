@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/EditInfoScreen.dart';
 import 'package:heart_app/widgets/profile/ChangePasswordDialog.dart';
+import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 
@@ -51,6 +53,7 @@ class UserDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
+    final user = Provider.of<User>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -71,18 +74,18 @@ class UserDetailsScreen extends StatelessWidget {
               top: 0,
               left: 0),
           Positioned(
-              child: Container(
-                height: deviceSize.height * 0.25,
-                width: deviceSize.width * 0.75,
-                decoration: BoxDecoration(
-                  borderRadius:
-                      BorderRadius.only(topLeft: Radius.elliptical(120, 120)),
-                  color: AppTheme().primaryColor.withOpacity(0.3),
-                ),
+            child: Container(
+              height: deviceSize.height * 0.25,
+              width: deviceSize.width * 0.75,
+              decoration: BoxDecoration(
+                borderRadius:
+                    BorderRadius.only(topLeft: Radius.elliptical(120, 120)),
+                color: AppTheme().primaryColor.withOpacity(0.3),
               ),
-              bottom: 0,
-              right: 0),
-          
+            ),
+            bottom: 0,
+            right: 0
+          ),
           Container(
               height: double.infinity,
               width: double.infinity,
@@ -93,9 +96,9 @@ class UserDetailsScreen extends StatelessWidget {
                 children: [
                   Center(
                     child: CircleAvatar(
-                      backgroundImage: AssetImage(
+                      backgroundImage: user.imageUrl.isEmpty ? AssetImage(
                         "assets/images/user/blank_user.png",
-                      ),
+                      ) : NetworkImage(user.imageUrl),
                       radius: 45,
                     ),
                   ),
@@ -107,7 +110,7 @@ class UserDetailsScreen extends StatelessWidget {
                         Row(
                           children: [
                             Text(
-                              'Jane Doe',
+                              user.fullName != null ? user.fullName : '',
                               style: TextStyle(
                                   fontWeight: FontWeight.w600, fontSize: 22),
                             ),
@@ -125,14 +128,14 @@ class UserDetailsScreen extends StatelessWidget {
                             )
                           ],
                         ),
-                        SizedBox(height: 5),
                         Text(
-                          'New York, NY',
+                          (user.location != null && user.location.isNotEmpty) ? user.location : 'Location Not Set',
                           textAlign: TextAlign.left,
                           style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: Colors.white),
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600, 
+                            color: Colors.white
+                          ),
                         ),
                         SizedBox(height: 5),
                         GestureDetector(
@@ -158,20 +161,31 @@ class UserDetailsScreen extends StatelessWidget {
                     ),
                   ),
                   Expanded(
-                      child: ScrollablePositionedList.builder(
-                    padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
-                    itemCount: creditCards.length,
-                    itemScrollController: _itemScrollController,
-                    physics: BouncingScrollPhysics(),
-                    itemBuilder: (ctx, index) => CreditCard(
-                      creditCards[index]['cardNumber'],
-                      creditCards[index]['expDate'],
-                      [index, index + 1],
+                    child: ScrollablePositionedList.builder(
+                      padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
+                      itemCount: creditCards.length + 1,
                       itemScrollController: _itemScrollController,
-                      index: index,
-                      cardsLength: creditCards.length,
-                    ),
-                  ))
+                      physics: BouncingScrollPhysics(),
+                      itemBuilder: (ctx, index){
+                        if(index < creditCards.length)
+                          return CreditCard(
+                            creditCards[index]['cardNumber'],
+                            creditCards[index]['expDate'],
+                            [index, index + 1],
+                            itemScrollController: _itemScrollController,
+                            index: index,
+                            cardsLength: creditCards.length,
+                          );
+                        return FloatingActionButton(
+                          child: Icon(Icons.add),
+                          elevation: 0,
+                          backgroundColor: AppTheme().primaryColor,
+                          onPressed: (){
+                            Provider.of<User>(context, listen: false).addCreditCard('123422345312', 'date');
+                          },
+                        );
+                    })   
+                  )
                 ],
               )
           ),

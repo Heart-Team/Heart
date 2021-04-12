@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:provider/provider.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class CreditCard extends StatefulWidget {

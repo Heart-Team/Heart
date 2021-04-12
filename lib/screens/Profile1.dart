@@ -18,7 +18,6 @@ class Profile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-
     final savedCharities = [
       'Animal Charities',
       'Domestic Violence',
@@ -62,7 +61,6 @@ class Profile extends StatelessWidget {
 
     return Scaffold(
         backgroundColor: Colors.white,
-        drawer: MainDrawer(),
         body: Stack(
           children: [
             Positioned(
