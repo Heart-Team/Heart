@@ -33,7 +33,6 @@ class _CreditCardState extends State<CreditCard> {
     Colors.pink,
   ];
   final randomInt1 = Random().nextInt(4);
-  final randomInt2 = Random().nextInt(4);
 
   @override
   void initState() {
@@ -81,15 +80,7 @@ class _CreditCardState extends State<CreditCard> {
       // height: 170,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        gradient: LinearGradient(
-          colors: [
-            colors[randomInt1],
-            colors[randomInt2]
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0, 1]
-        ),
+        color: colors[randomInt1],
         boxShadow: [
           BoxShadow(color: Colors.black12.withOpacity(0.25), blurRadius: 10)
         ],
@@ -189,15 +180,7 @@ class _CreditCardState extends State<CreditCard> {
       ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
-        gradient: LinearGradient(
-          colors: [
-            colors[randomInt1],
-            colors[randomInt2]
-          ],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-          stops: [0, 1]
-        ),
+        color: colors[randomInt1],
         boxShadow: [
           BoxShadow(color: Colors.black12.withOpacity(0.25), blurRadius: 10)
         ],
