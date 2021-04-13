@@ -47,7 +47,7 @@ class User with ChangeNotifier {
     return _location;
   }
 
-  List<Map<String, dynamic>> get cards {
+  List<dynamic> get cards {
     return _cards;
   }
 
@@ -121,16 +121,16 @@ class User with ChangeNotifier {
   
 
   String encrypt(String cardNumber){
-    final key = Encrypt.Key.fromSecureRandom(32);
-    final iv = Encrypt.IV.fromSecureRandom(16);
+    final key = Encrypt.Key.fromLength(32);
+    final iv = Encrypt.IV.fromLength(16);
     final encrypter = Encrypt.Encrypter(Encrypt.AES(key));
     final encrypted = encrypter.encrypt(cardNumber, iv: iv);
     return encrypted.base64;
   }
 
   String decrypt(String encryptedString){
-    final key = Encrypt.Key.fromSecureRandom(32);
-    final iv = Encrypt.IV.fromSecureRandom(16);
+    final key = Encrypt.Key.fromLength(32);
+    final iv = Encrypt.IV.fromLength(16);
     final encrypter = Encrypt.Encrypter(Encrypt.AES(key));
     return encrypter.decrypt64(encryptedString, iv:iv); // decrypt the string
   }
@@ -148,21 +148,81 @@ class User with ChangeNotifier {
     return "";
   }
 
-  Future<void> addCreditCard(String cardNumber, String date) async {
+  Future<void> addCreditCard(
+    String fullName,
+    String cardNumber, 
+    String date, 
+    String streetAddress, 
+    String apt, 
+    String city, 
+    String state, 
+    String zipCode
+  ) async {
     final firestore = Firestore.instance;
     final cardInfo = {
+      'fullName': fullName,
       'cardNumber': encrypt(cardNumber),
       'expDate': date,
-      'type': 'mastercard'
+      'type': fetchCardType(cardNumber[0])
+    };
+    final billingInfo = {
+      'streetAddress': streetAddress,
+      'apt': apt,
+      'city': city,
+      'state': state,
+      'zipCode': zipCode
     };
     try {
       await firestore.collection('Users').document(userId).updateData({
         'cards': [
           ..._cards,
-          cardInfo
+          {
+            'cardInfo': cardInfo,
+            'billingInfo': billingInfo
+          }
         ]
       });
-      _cards.add(cardInfo);
+      _cards.add({
+        'cardInfo': cardInfo,
+        'billingInfo': billingInfo
+      });
+      notifyListeners();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  Future<void> updateCard(
+    String fullName,
+    String cardNumber,
+    String expDate,
+    String streetAddress,
+    String apt,
+    String city,
+    String state,
+    String zipCode,
+    int index
+  ) async {
+    final firestore = Firestore.instance;
+    try {
+      _cards[index] = {
+        'cardInfo': {
+          'fullName': fullName,
+          'cardNumber': encrypt(cardNumber),
+          'expDate': expDate,
+          'type': fetchCardType(cardNumber[0])
+        },
+        'billingInfo': {
+          'streetAddress': streetAddress,
+          'apt': apt,
+          'city': city,
+          'state': state,
+          'zipCode': zipCode
+        }
+      };
+      await firestore.collection('Users').document(userId).setData({
+        'cards': _cards
+      }, merge: true);
       notifyListeners();
     } catch (e) {
       print(e);

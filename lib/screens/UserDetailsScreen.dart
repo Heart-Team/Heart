@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/EditInfoScreen.dart';
+import 'package:heart_app/widgets/profile/AddCardDialog.dart';
 import 'package:heart_app/widgets/profile/ChangePasswordDialog.dart';
 import 'package:provider/provider.dart';
 import 'package:rflutter_alert/rflutter_alert.dart';
@@ -16,27 +17,6 @@ class UserDetailsScreen extends StatelessWidget {
 
   final _itemScrollController = ItemScrollController();
 
-  final List<Map<String, dynamic>> creditCards = [
-    {
-      'index': 0,
-      'cardNumber': '1234 1234 1234 1234',
-      'expDate': '12/2022',
-      'cardType': 'visa'
-    },
-    {
-      'index': 1,
-      'cardNumber': '1234 1234 1234 1234',
-      'expDate': '12/2022',
-      'cardType': 'mastercard'
-    },
-    {
-      'index': 2,
-      'cardNumber': '1234 1234 1234 1234',
-      'expDate': '12/2022',
-      'cardType': 'mastercard'
-    },
-  ];
-
   void changePasswordDialog(BuildContext context){
     Alert(
       buttons: [],
@@ -47,6 +27,20 @@ class UserDetailsScreen extends StatelessWidget {
       title: 'Change Password',
       context: context,
       content: ChangePasswordDialog()
+    ).show();
+  }
+
+  void addCard(BuildContext context){
+    Alert(
+      buttons: [],
+      style: AlertStyle(
+
+        alertPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        buttonAreaPadding: EdgeInsets.only(bottom: 10)
+      ),
+      title: 'Enter Your Card Info',
+      context: context,
+      content: AddCardDialog()
     ).show();
   }
 
@@ -61,18 +55,19 @@ class UserDetailsScreen extends StatelessWidget {
       body: Stack(
         children: [
           Positioned(
-              child: Container(
-                height: deviceSize.height * 0.52,
-                width: deviceSize.width,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                      bottomRight: Radius.elliptical(
-                          deviceSize.width * 0.6, deviceSize.height * 0.25)),
-                  color: AppTheme().primaryColor.withOpacity(0.3),
-                ),
+            child: Container(
+              height: deviceSize.height * 0.52,
+              width: deviceSize.width,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    bottomRight: Radius.elliptical(
+                        deviceSize.width * 0.6, deviceSize.height * 0.25)),
+                color: AppTheme().primaryColor.withOpacity(0.3),
               ),
-              top: 0,
-              left: 0),
+            ),
+            top: 0,
+            left: 0
+          ),
           Positioned(
             child: Container(
               height: deviceSize.height * 0.25,
@@ -163,26 +158,25 @@ class UserDetailsScreen extends StatelessWidget {
                   Expanded(
                     child: ScrollablePositionedList.builder(
                       padding: EdgeInsets.fromLTRB(5, 10, 5, 0),
-                      itemCount: creditCards.length + 1,
+                      itemCount: user.cards.length + 1,
                       itemScrollController: _itemScrollController,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (ctx, index){
-                        if(index < creditCards.length)
+                        print(user.cards); 
+                        if(index < user.cards.length)
                           return CreditCard(
-                            creditCards[index]['cardNumber'],
-                            creditCards[index]['expDate'],
-                            [index, index + 1],
+                            user.cards[index]['cardInfo']['cardNumber'],
+                            user.cards[index]['cardInfo']['expDate'],
+                            user.cards[index]['cardInfo']['fullName'],
                             itemScrollController: _itemScrollController,
                             index: index,
-                            cardsLength: creditCards.length,
+                            cardsLength: user.cards.length,
                           );
                         return FloatingActionButton(
                           child: Icon(Icons.add),
                           elevation: 0,
                           backgroundColor: AppTheme().primaryColor,
-                          onPressed: (){
-                            Provider.of<User>(context, listen: false).addCreditCard('123422345312', 'date');
-                          },
+                          onPressed: () => addCard(context),
                         );
                     })   
                   )

@@ -46,7 +46,9 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
     cardWidgets = [];
     for (int i = 0; i < creditCards.length; i++) {
       cardWidgets.add(CreditCard(
-          creditCards[i]['cardNumber'], creditCards[i]['expDate'], [i, i + 1]));
+          creditCards[i]['cardNumber'], creditCards[i]['expDate'], 'hi'
+        )
+      );
     }
 
 

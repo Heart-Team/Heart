@@ -1,18 +1,22 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flip_card/flip_card.dart';
+import 'package:heart_app/Providers/User.dart';
+import 'package:heart_app/widgets/Payment/EditBillingDialog.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 class CreditCard extends StatefulWidget {
   final String cardNumber;
   final String expDate;
-  final List<int> colorsSelected;
+  final String name;
   final ItemScrollController itemScrollController;
   final int index;
   final int cardsLength;
 
-  CreditCard(this.cardNumber, this.expDate, this.colorsSelected,
-      {this.itemScrollController, this.index, this.cardsLength});
+  CreditCard(this.cardNumber, this.expDate, this.name, {this.itemScrollController, this.index, this.cardsLength});
 
   @override
   _CreditCardState createState() => _CreditCardState();
@@ -23,11 +27,13 @@ class _CreditCardState extends State<CreditCard> {
   final GlobalKey<FlipCardState> cardKey = GlobalKey<FlipCardState>();
   FocusNode myFocusNode;
   final List<Color> colors = [
-    Colors.lightGreenAccent,
+    Colors.lightGreen,
     Colors.lightBlue,
     Colors.redAccent,
     Colors.pink,
   ];
+  final randomInt1 = Random().nextInt(4);
+  final randomInt2 = Random().nextInt(4);
 
   @override
   void initState() {
@@ -42,23 +48,48 @@ class _CreditCardState extends State<CreditCard> {
     super.dispose();
   }
 
-  Widget creditCardFront(
-      GlobalKey<FlipCardState> cardKey, FocusNode focusNode) {
+  void editInfo(BuildContext context, Map<String, dynamic> info){
+    Alert(
+      buttons: [],
+      style: AlertStyle(
+        alertPadding: EdgeInsets.fromLTRB(0, 10, 0, 0),
+        buttonAreaPadding: EdgeInsets.only(bottom: 10),
+        titleStyle: TextStyle(fontWeight: FontWeight.w600)
+      ),
+      title: 'Edit Your Billing Info',
+      context: context,
+      content: EditBillingDialog(info)
+    ).show();
+  }
+
+  Widget creditCardFront(GlobalKey<FlipCardState> cardKey, FocusNode focusNode,) {
+      
+    String number = Provider.of<User>(context, listen: false).decrypt(widget.cardNumber) ;
+     String formattedNum = "";
+     int count = 0;
+     number.split('').forEach((el){
+       if(count % 4 == 0){
+         formattedNum += " ";
+       }
+       formattedNum += el;
+       count++;
+     });
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 10),
+      padding: EdgeInsets.only(right: 10, left: 10, bottom: 5),
       margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
       width: double.infinity,
-      height: 170,
+      // height: 170,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
-            colors: [
-              colors[widget.colorsSelected[0]],
-              colors[widget.colorsSelected[1]]
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0, 1]),
+          colors: [
+            colors[randomInt1],
+            colors[randomInt2]
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0, 1]
+        ),
         boxShadow: [
           BoxShadow(color: Colors.black12.withOpacity(0.25), blurRadius: 10)
         ],
@@ -69,6 +100,14 @@ class _CreditCardState extends State<CreditCard> {
           Image.asset(
             'assets/images/visa.png',
             width: 50,
+          ), 
+          Container(
+            padding: EdgeInsets.symmetric(horizontal: 8),
+            margin: EdgeInsets.only(bottom: 10),
+            child: Text(
+              widget.name,
+              style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
+            ),
           ),
           Container(
             padding: EdgeInsets.symmetric(horizontal: 8),
@@ -83,11 +122,11 @@ class _CreditCardState extends State<CreditCard> {
                   height: 5,
                 ),
                 Text(
-                  '**** **** **** 1234',
-                  style: TextStyle(color: Colors.white, fontSize: 16),
+                  formattedNum,
+                  style: TextStyle(color: Colors.white, fontSize: 18),
                 ),
                 SizedBox(
-                  height: 15,
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -127,24 +166,38 @@ class _CreditCardState extends State<CreditCard> {
         ],
       ),
     );
-  }
+  }  
 
-  Widget creditCardBack(GlobalKey<FlipCardState> cardKey, FocusNode focusNode) {
+  Widget creditCardBack(
+    GlobalKey<FlipCardState> cardKey, 
+    FocusNode focusNode, 
+    BuildContext context, 
+    Map<String, dynamic> billingInfo, 
+    Map<String, dynamic> info,
+    int index
+  ) {
+    final editedInfo = {
+      'cardNumber': '',
+      'expDate': ''
+    };
     return Container(
       padding: EdgeInsets.symmetric(horizontal: 10),
       margin: EdgeInsets.only(left: 10, right: 10, bottom: 20),
       width: double.infinity,
-      height: 170,
+      constraints: BoxConstraints(
+        minHeight: 200 
+      ),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
         gradient: LinearGradient(
-            colors: [
-              colors[widget.colorsSelected[0]],
-              colors[widget.colorsSelected[1]]
-            ],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            stops: [0, 1]),
+          colors: [
+            colors[randomInt1],
+            colors[randomInt2]
+          ],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          stops: [0, 1]
+        ),
         boxShadow: [
           BoxShadow(color: Colors.black12.withOpacity(0.25), blurRadius: 10)
         ],
@@ -178,6 +231,7 @@ class _CreditCardState extends State<CreditCard> {
                       height: 40,
                       child: TextFormField(
                         focusNode: focusNode,
+                        initialValue: Provider.of<User>(context).decrypt(info['cardNumber']),
                         keyboardType: TextInputType.number,
                         textInputAction: TextInputAction.next,
                         style: TextStyle(
@@ -197,18 +251,19 @@ class _CreditCardState extends State<CreditCard> {
                                 borderSide: BorderSide(
                                     color: Colors.grey[300], width: 0.8)),
                             focusColor: Colors.red,
-                            hintText: "1234 5678 9012 3456",
-                            hintStyle: TextStyle(
-                                color: Colors.grey[200],
-                                fontWeight: FontWeight.w600),
                             contentPadding: EdgeInsets.symmetric(
-                                vertical: 0, horizontal: 10)),
+                                vertical: 0, horizontal: 10)
+                        ),
+                        onChanged: (val){
+                          info['cardNumber'] = val;
+                        },
                       ),
                     ),
                     SizedBox(height: 15),
                     SizedBox(
                       height: 40,
                       child: TextFormField(
+                        initialValue: info['expDate'],
                         keyboardType: TextInputType.datetime,
                         style: TextStyle(
                             color: Colors.white, fontWeight: FontWeight.bold),
@@ -221,21 +276,44 @@ class _CreditCardState extends State<CreditCard> {
                               borderRadius: BorderRadius.circular(10),
                               borderSide: BorderSide(style: BorderStyle.none)),
                           disabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                  color: Colors.grey[300], width: 0.8)),
+                            borderSide: BorderSide(
+                              color: Colors.grey[300], width: 0.8)
+                            ),
                           focusColor: Colors.red,
-                          hintText: "MM/YYYY",
-                          hintStyle: TextStyle(
-                              color: Colors.grey[200],
-                              fontWeight: FontWeight.w600),
-                          contentPadding:
-                              EdgeInsets.symmetric(vertical: 0, horizontal: 10),
+                          contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
                         ),
+                        onChanged: (val){
+                          editedInfo['expDate'] = val;
+                        },
                         onFieldSubmitted: (val) {
-                          cardKey.currentState.toggleCard();
+                          
+                          Provider.of<User>(context, listen: false).updateCard(
+                            info['fullName'], 
+                            editedInfo['cardNumber'].isEmpty ? Provider.of<User>(context, listen: false).decrypt(info['cardNumber']) : editedInfo['cardNumber'], 
+                            editedInfo['expDate'].isEmpty ? info['expDate'] : editedInfo['expDate'], 
+                            billingInfo['streetAddress'], 
+                            billingInfo['apt'],  
+                            billingInfo['city'], 
+                            billingInfo['state'], 
+                            billingInfo['zipCode'], 
+                            index
+                          );
+                          cardKey.currentState.toggleCard();                          
+                          
                         },
                       ),
                     ),
+                    TextButton(
+                      child: Text(
+                        'Edit Billing Info',
+                        style: TextStyle(
+                          fontSize: 16,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600
+                        ),
+                      ),
+                      onPressed: () => editInfo(context, billingInfo)
+                    )
                   ],
                 ),
               ),
@@ -247,11 +325,14 @@ class _CreditCardState extends State<CreditCard> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) {         
+    final billingInfo = Provider.of<User>(context, listen: false).cards[widget.index]['billingInfo'];
+    final cardInfo = Provider.of<User>(context, listen: false).cards[widget.index]['cardInfo'];
     return FlipCard(
         key: cardKey,
         flipOnTouch: false,
         front: creditCardFront(cardKey, myFocusNode),
-        back: creditCardBack(cardKey, myFocusNode));
+        back: creditCardBack(cardKey, myFocusNode, context, billingInfo, cardInfo, widget.index)
+    );
   }
 }
