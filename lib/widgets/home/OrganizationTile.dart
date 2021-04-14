@@ -29,17 +29,21 @@ class _OrganizationTileState extends State<OrganizationTile> {
     final user = Provider.of<User>(context);
     var favorites = user.getFavorites();
 
+    // TO DO: BUGS FIX
+    // AFTER SCREEN CHANGE, HEART IMG DOESN'T GET FILLED
     favorites.then((value) {
-      print('test');
+      print('test=========');
       print(value);
+      print("current widget ein");
+      print(widget.ein);
+      for (var fav in value) {
+        if (fav == widget.ein){
+          print(fav);
+          isFavorite == true;
+        }
+      }
     });
-    //
-    // for (var fav in favorites) {
-    //   if (fav == widget.ein){
-    //     print(fav);
-    //     isFavorite == true;
-    //   }
-    // }
+
 
     return Hero(
       tag: widget.ein,

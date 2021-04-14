@@ -248,7 +248,7 @@ class User with ChangeNotifier {
         .updateData({'favorites': FieldValue.arrayRemove([charityID])});
   }
 
-  Future<List<Map<String,dynamic>>> getFavorites() async{
+  Future<List<dynamic>> getFavorites() async{
     final firestore = Firestore.instance;
     var data;
     DocumentReference ref = await firestore.collection('Users').document(userId);
