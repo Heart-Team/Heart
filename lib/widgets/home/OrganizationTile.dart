@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/CharityInfoScreen.dart';
 import 'package:heart_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class OrganizationTile extends StatefulWidget {
   final String title;
@@ -15,9 +17,34 @@ class OrganizationTile extends StatefulWidget {
 }
 
 class _OrganizationTileState extends State<OrganizationTile> {
+
+  // here a function to decide if isFavorite is true or false
+  // based on the data retrieved from firestore
   var isFavorite = false;
+
+
   @override
   Widget build(BuildContext context) {
+    // get the userId here
+    final user = Provider.of<User>(context);
+    var favorites = user.getFavorites();
+
+    // TO DO: BUGS FIX
+    // AFTER SCREEN CHANGE, HEART IMG DOESN'T GET FILLED
+    favorites.then((value) {
+      print('test=========');
+      print(value);
+      print("current widget ein");
+      print(widget.ein);
+      for (var fav in value) {
+        if (fav == widget.ein){
+          print(fav);
+          isFavorite == true;
+        }
+      }
+    });
+
+
     return Hero(
       tag: widget.ein,
       child: Container(
@@ -94,6 +121,13 @@ class _OrganizationTileState extends State<OrganizationTile> {
                             setState(() {
                               isFavorite = !isFavorite;
                             });
+                            if (isFavorite){
+                              // here add the charity into favorites array
+                              user.addFavorite(widget.ein);
+                            }else{
+                              // here remove the charity from the array
+                              user.removeFavorite(widget.ein);
+                            }
                           }),
                     ),
                   )
