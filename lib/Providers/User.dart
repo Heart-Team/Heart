@@ -235,6 +235,19 @@ class User with ChangeNotifier {
     }
   }
 
+  Future<void> deleteCard(int index) async {
+    final firestore = Firestore.instance;
+    try {
+      _cards.removeAt(index);
+      await firestore.collection('Users').document(userId).setData({
+        'cards': _cards
+      }, merge: true);
+      notifyListeners();
+    } catch (e) {
+      print(e.message);
+    }
+  }
+  
   // below should be a function to store an organization to favorites
   void addFavorite(String charityID){
     Firestore.instance.collection('Users')
@@ -261,5 +274,4 @@ class User with ChangeNotifier {
     // return
     return data;
   }
-
 }

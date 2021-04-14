@@ -168,6 +168,7 @@ class UserDetailsScreen extends StatelessWidget {
                             user.cards[index]['cardInfo']['cardNumber'],
                             user.cards[index]['cardInfo']['expDate'],
                             user.cards[index]['cardInfo']['fullName'],
+                            user.cards[index]['cardInfo']['type'],
                             itemScrollController: _itemScrollController,
                             index: index,
                             cardsLength: user.cards.length,

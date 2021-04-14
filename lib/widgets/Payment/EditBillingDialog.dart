@@ -9,15 +9,16 @@ class EditBillingDialog extends StatefulWidget {
   @override
   _EditBillingDialogState createState() => _EditBillingDialogState();
   
-  final Map<String, dynamic> info;
-  EditBillingDialog(this.info);
+  final Map<String,dynamic> info;
+  final Map<String,dynamic> cardInfo;
+  final int index;
+  EditBillingDialog(this.info, this.cardInfo, this.index);
 }
 
 class _EditBillingDialogState extends State<EditBillingDialog> {
 
   final _formKey = GlobalKey<FormState>();
-  final info = {
-    'fullName': '',
+  final editedBillingInfo = {
     'streetAddress': '',
     'apt': '',
     'city': '',
@@ -28,6 +29,17 @@ class _EditBillingDialogState extends State<EditBillingDialog> {
   void submit() async {
     final isValid = _formKey.currentState.validate();
     if(isValid){
+      Provider.of<User>(context, listen: false).updateCard(
+        widget.cardInfo['fullName'], 
+        Provider.of<User>(context, listen: false).decrypt(widget.cardInfo['cardNumber']),
+        widget.cardInfo['expDate'], 
+        widget.info['streetAddress'], 
+        widget.info['apt'], 
+        widget.info['city'], 
+        widget.info['state'], 
+        widget.info['zipCode'], 
+        widget.index
+      );
       Navigator.of(context).pop();
     }
   }
@@ -72,7 +84,7 @@ class _EditBillingDialogState extends State<EditBillingDialog> {
                 return null;
               },
               onChanged: (val){
-                info['streetAddress'] = val;
+                editedBillingInfo['streetAddress'] = val;
               },
             ),
             TextFormField(
@@ -99,7 +111,7 @@ class _EditBillingDialogState extends State<EditBillingDialog> {
                   contentPadding: EdgeInsets.symmetric(vertical: 13, horizontal: 10)
               ),
               onChanged: (val){
-                info['apt'] = val;
+                editedBillingInfo['apt'] = val;
               },
             ),
             TextFormField(
@@ -130,7 +142,7 @@ class _EditBillingDialogState extends State<EditBillingDialog> {
                 return null;
               },
               onChanged: (val){
-                info['city'] = val;
+                editedBillingInfo['city'] = val;
               },
             ),
             TextFormField(
@@ -164,7 +176,7 @@ class _EditBillingDialogState extends State<EditBillingDialog> {
                 return null;
               },
               onChanged: (val){
-                info['state'] = val;
+                editedBillingInfo['state'] = val;
               },
             ),
             TextFormField(
@@ -199,7 +211,7 @@ class _EditBillingDialogState extends State<EditBillingDialog> {
                 return null;
               },
               onChanged: (val){
-                info['zipCode'] = val;
+                editedBillingInfo['zipCode'] = val;
               },
             ),
             MaterialButton(

@@ -12,11 +12,12 @@ class CreditCard extends StatefulWidget {
   final String cardNumber;
   final String expDate;
   final String name;
-  final ItemScrollController itemScrollController;
+  final String type;
+  final ItemScrollController itemScrollController; 
   final int index;
   final int cardsLength;
 
-  CreditCard(this.cardNumber, this.expDate, this.name, {this.itemScrollController, this.index, this.cardsLength});
+  CreditCard(this.cardNumber, this.expDate, this.name, this.type, {this.itemScrollController, this.index, this.cardsLength});
 
   @override
   _CreditCardState createState() => _CreditCardState();
@@ -47,7 +48,7 @@ class _CreditCardState extends State<CreditCard> {
     super.dispose();
   }
 
-  void editInfo(BuildContext context, Map<String, dynamic> info){
+  void editInfo(BuildContext context, Map<String, dynamic> info, Map<String, dynamic> cardInfo, int index){
     Alert(
       buttons: [],
       style: AlertStyle(
@@ -57,12 +58,48 @@ class _CreditCardState extends State<CreditCard> {
       ),
       title: 'Edit Your Billing Info',
       context: context,
-      content: EditBillingDialog(info)
+      content: EditBillingDialog(info, cardInfo, index)
     ).show();
   }
 
+   Future<void> _showMyDialog(int index) async {
+    return showDialog<void>(
+      context: context,
+      barrierDismissible: false, // user must tap button!
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Delete Card'),
+          content: SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text('This card will be permanently deleted. Are you sure you want to delete this payment method?'),
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: Text('No'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: Text(
+                'Yes',
+                style: TextStyle(color: Colors.red),
+              ),
+              onPressed: () async {
+                await Provider.of<User>(context, listen: false).deleteCard(index);
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   Widget creditCardFront(GlobalKey<FlipCardState> cardKey, FocusNode focusNode,) {
-      
     String number = Provider.of<User>(context, listen: false).decrypt(widget.cardNumber) ;
      String formattedNum = "";
      int count = 0;
@@ -89,13 +126,13 @@ class _CreditCardState extends State<CreditCard> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Image.asset(
-            'assets/images/visa.png',
+            'assets/images/payment/${widget.type}.png',
             width: 50,
           ), 
-          Container(
+          Container( 
             padding: EdgeInsets.symmetric(horizontal: 8),
             margin: EdgeInsets.only(bottom: 10),
-            child: Text(
+            child: Text( 
               widget.name,
               style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.w600),
             ),
@@ -136,19 +173,35 @@ class _CreditCardState extends State<CreditCard> {
                       ],
                     ),
                     if (widget.index != null)
-                      IconButton(
-                        icon: Icon(
-                          Icons.edit_outlined,
-                          color: Colors.white,
-                        ),
-                        onPressed: () {
-                          cardKey.currentState.toggleCard();
-                          if (widget.index < widget.cardsLength - 1)
-                            widget.itemScrollController.scrollTo(
-                                index: widget.index,
-                                duration: Duration(milliseconds: 400));
-                        },
+                    Container(
+                      child: Row(
+                        children: [
+                          IconButton(
+                            icon: Icon(
+                              Icons.delete,
+                              color: Colors.white,
+                            ),
+                            onPressed: () {
+                              _showMyDialog(widget.index);
+                            }
+                          ),
+                          IconButton(
+                              icon: Icon(
+                                Icons.edit_outlined,
+                                color: Colors.white,
+                              ),
+                              onPressed: () {
+                                cardKey.currentState.toggleCard();
+                                if (widget.index < widget.cardsLength - 1)
+                                  widget.itemScrollController.scrollTo(
+                                      index: widget.index,
+                                      duration: Duration(milliseconds: 400));
+                            },
+                          ),
+                        ],
                       )
+                    )
+
                   ],
                 )
               ],
@@ -162,10 +215,9 @@ class _CreditCardState extends State<CreditCard> {
   Widget creditCardBack(
     GlobalKey<FlipCardState> cardKey, 
     FocusNode focusNode, 
-    BuildContext context, 
+    // BuildContext context, 
     Map<String, dynamic> billingInfo, 
     Map<String, dynamic> info,
-    int index
   ) {
     final editedInfo = {
       'cardNumber': '',
@@ -195,14 +247,15 @@ class _CreditCardState extends State<CreditCard> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Image.asset(
-                    'assets/images/visa.png',
+                    'assets/images/payment/${widget.type}.png',
                     width: 50,
                   ),
                   IconButton(
-                      icon: Icon(Icons.cancel_outlined, color: Colors.white),
-                      onPressed: () {
-                        cardKey.currentState.toggleCard();
-                      })
+                    icon: Icon(Icons.cancel_outlined, color: Colors.white),
+                    onPressed: () {
+                      cardKey.currentState.toggleCard();
+                    }
+                  )
                 ],
               ),
               Container(
@@ -279,7 +332,7 @@ class _CreditCardState extends State<CreditCard> {
                             billingInfo['city'], 
                             billingInfo['state'], 
                             billingInfo['zipCode'], 
-                            index
+                            widget.index
                           );
                           cardKey.currentState.toggleCard();                          
                           
@@ -295,7 +348,7 @@ class _CreditCardState extends State<CreditCard> {
                           fontWeight: FontWeight.w600
                         ),
                       ),
-                      onPressed: () => editInfo(context, billingInfo)
+                      onPressed: () => editInfo(context, billingInfo, info, widget.index)
                     )
                   ],
                 ),
@@ -315,7 +368,7 @@ class _CreditCardState extends State<CreditCard> {
         key: cardKey,
         flipOnTouch: false,
         front: creditCardFront(cardKey, myFocusNode),
-        back: creditCardBack(cardKey, myFocusNode, context, billingInfo, cardInfo, widget.index)
+        back: creditCardBack(cardKey, myFocusNode, billingInfo, cardInfo)
     );
   }
 }
