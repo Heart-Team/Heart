@@ -228,4 +228,17 @@ class User with ChangeNotifier {
       print(e);
     }
   }
+
+  Future<void> deleteCard(int index) async {
+    final firestore = Firestore.instance;
+    try {
+      _cards.removeAt(index);
+      await firestore.collection('Users').document(userId).setData({
+        'cards': _cards
+      }, merge: true);
+      notifyListeners();
+    } catch (e) {
+      print(e.message);
+    }
+  }
 }
