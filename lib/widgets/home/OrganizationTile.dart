@@ -18,10 +18,7 @@ class OrganizationTile extends StatefulWidget {
 
 class _OrganizationTileState extends State<OrganizationTile> {
 
-  // here a function to decide if isFavorite is true or false
-  // based on the data retrieved from firestore
   var isFavorite = false;
-
 
   @override
   Widget build(BuildContext context) {
@@ -29,13 +26,7 @@ class _OrganizationTileState extends State<OrganizationTile> {
     final user = Provider.of<User>(context);
     var favorites = user.getFavorites();
 
-    // TO DO: BUGS FIX
-    // AFTER SCREEN CHANGE, HEART IMG DOESN'T GET FILLED
     favorites.then((value) {
-      // print('test=========');
-      // print(value);
-      // print("current widget ein");
-      // print(widget.ein);
       for (var fav in value) {
         if (fav == widget.ein){
           // print(fav);

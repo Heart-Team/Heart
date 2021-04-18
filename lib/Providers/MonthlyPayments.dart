@@ -23,16 +23,17 @@ class MonthlyPayments with ChangeNotifier {
         .updateData({'payments': FieldValue.arrayUnion([payment])});
   }
 
-  Future<List<dynamic>> getPayments(String userId) async{
-      final firestore = Firestore.instance;
-      var data;
-      DocumentReference ref = firestore.collection('MonthlyPayments').document(userId);
-      await ref.get().then((snapshot) {
-        data = snapshot.data;
-      });
-
-      // return
-      return data;
+  Future<void> getPayments(String userId) async{
+    final firestore = Firestore.instance;
+    try {
+      firestore.collection('MonthlyPayments').document(userId)
+          .get().then((val){
+            _monthlyPayments=val.data['payments'];
+          });
+        notifyListeners();
+    } catch (e) {
+      print(e.message);
+    }
   }
 
 }

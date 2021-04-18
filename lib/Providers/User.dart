@@ -269,7 +269,7 @@ class User with ChangeNotifier {
       data = snapshot.data['favorites'];
     });
     // to test out if it does return the favorites array in terminal
-    print(data);
+    // print(data);
 
     // return
     return data;

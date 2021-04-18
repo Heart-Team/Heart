@@ -12,21 +12,32 @@ import '../widgets/finance_info/MonthlyPayment.dart';
 class FinanceScreen extends StatefulWidget {
   static const routeName = '/finance';
 
+
   @override
   _FinanceScreenState createState() => _FinanceScreenState();
 }
 
 class _FinanceScreenState extends State<FinanceScreen> {
 
-  final List<Map<String, String>> financeInfos = [
-    {
-      'organization': 'Childrens Charity',
-      'payment': '150.10',
-    },
-    {'organization': 'Tech Charity', 'payment': '62.05', 'perc': '19.83%'},
-    {'organization': 'Animal Charity', 'payment': '100.85', 'perc': '32.22%'},
-    {'organization': 'Environmental Charity', 'payment': '100.85', 'perc': '32.22%'},
-  ];
+  // final List<Map<String, String>> financeInfos = [
+  //   {
+  //     'organization': 'Childrens Charity',
+  //     'payment': '150.10',
+  //   },
+  //   {'organization': 'Tech Charity', 'payment': '62.05', 'perc': '19.83%'},
+  //   {'organization': 'Animal Charity', 'payment': '100.85', 'perc': '32.22%'},
+  //   {'organization': 'Environmental Charity', 'payment': '100.85', 'perc': '32.22%'},
+  // ];
+
+  @override
+  void initState(){
+    super.initState();
+    final paymentProvider = Provider.of<MonthlyPayments>(context, listen: false);
+    final user = Provider.of<User>(context,listen: false);
+
+    paymentProvider.getPayments(user.userId);
+  }
+
 
   final List<Color> colors = [
     AppTheme().primaryColor,
@@ -40,24 +51,14 @@ class _FinanceScreenState extends State<FinanceScreen> {
 
   @override
   Widget build(BuildContext context) {
+
     final Size deviceSize = MediaQuery.of(context).size;
-
-    final monthlyPaymentProviders = Provider.of<MonthlyPayments>(context,listen: false);
-    final user = Provider.of<User>(context,listen: false);
-
-    var financeData;
-    // print("userid: ${user.userId}");
-    // monthlyPaymentProviders
-    //     .getPayments(user.userId).then((value) {
-    //       financeData = value.values.toList()[0];
-    //       print("finance screen build, reflect financeInfo captured: ${financeData}");
-    // });
-
+    final paymentProvider = Provider.of<MonthlyPayments>(context);
 
     return Scaffold(
         backgroundColor: Colors.white,
         drawer: MainDrawer(),
-        body: financeInfos.length > 0 ? Column(children: [
+        body: paymentProvider.monthlyPayments.length > 0 ? Column(children: [
           Container(
             padding: EdgeInsets.only(top: deviceSize.height * 0.07, bottom: 20),
             alignment: Alignment.topCenter,
@@ -71,12 +72,12 @@ class _FinanceScreenState extends State<FinanceScreen> {
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (ctx, index) => MonthlyPayment(
-                    financeInfos[index]['organization'],
-                    financeInfos[index]['payment'],
+                    paymentProvider.monthlyPayments[index]['charity'],
+                    paymentProvider.monthlyPayments[index]['amount'],
                     // financeInfos[index]['perc'],
-                    colors[index]
+                    colors[index % 7]
                 ),
-                itemCount: financeInfos.length,
+                itemCount: paymentProvider.monthlyPayments.length,
               ),
             ),
           )
