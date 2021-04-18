@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/MonthlyPayments.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/EmptyFinanceScreen.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/finance_info/Chart.dart';
-import '../widgets/finance_info/FinanceInfo.dart';
+import 'package:provider/provider.dart';
+import '../widgets/finance_info/MonthlyPayment.dart';
 
 class FinanceScreen extends StatefulWidget {
   static const routeName = '/finance';
@@ -13,11 +17,11 @@ class FinanceScreen extends StatefulWidget {
 }
 
 class _FinanceScreenState extends State<FinanceScreen> {
+
   final List<Map<String, String>> financeInfos = [
     {
       'organization': 'Childrens Charity',
       'payment': '150.10',
-      'perc': '47.95%'
     },
     {'organization': 'Tech Charity', 'payment': '62.05', 'perc': '19.83%'},
     {'organization': 'Animal Charity', 'payment': '100.85', 'perc': '32.22%'},
@@ -28,12 +32,27 @@ class _FinanceScreenState extends State<FinanceScreen> {
     AppTheme().primaryColor,
     AppTheme().purple,
     AppTheme().green,
-    AppTheme().blue
+    AppTheme().blue,
+    AppTheme().pink,
+    AppTheme().yellow,
+    AppTheme().red
   ];
 
   @override
   Widget build(BuildContext context) {
     final Size deviceSize = MediaQuery.of(context).size;
+
+    final monthlyPaymentProviders = Provider.of<MonthlyPayments>(context,listen: false);
+    final user = Provider.of<User>(context,listen: false);
+
+    var financeData;
+    // print("userid: ${user.userId}");
+    // monthlyPaymentProviders
+    //     .getPayments(user.userId).then((value) {
+    //       financeData = value.values.toList()[0];
+    //       print("finance screen build, reflect financeInfo captured: ${financeData}");
+    // });
+
 
     return Scaffold(
         backgroundColor: Colors.white,
@@ -45,17 +64,16 @@ class _FinanceScreenState extends State<FinanceScreen> {
             child: Text('Monthly Payment',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
           ),
-          // Chart(),
           FinanceChart(colors),
           Expanded(
             child: Container(
               padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
               child: ListView.builder(
                 physics: BouncingScrollPhysics(),
-                itemBuilder: (ctx, index) => FinanceInfo(
+                itemBuilder: (ctx, index) => MonthlyPayment(
                     financeInfos[index]['organization'],
                     financeInfos[index]['payment'],
-                    financeInfos[index]['perc'],
+                    // financeInfos[index]['perc'],
                     colors[index]
                 ),
                 itemCount: financeInfos.length,
