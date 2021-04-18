@@ -9,12 +9,14 @@ import 'package:heart_app/widgets/Payment/CartList.dart';
 import 'package:heart_app/theme.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:heart_app/widgets/Payment/CreditCardSlider.dart';
+import 'package:heart_app/widgets/finance_info/MonthlyPayment.dart';
 import 'package:provider/provider.dart';
 import '../widgets/Payment/CreditCard.dart';
 
 class PayMethodScreen extends StatelessWidget {
 
   static const routeName = '/payment-method';
+
 
   @override
   Widget build(BuildContext context) {
@@ -96,10 +98,11 @@ class PayMethodScreen extends StatelessWidget {
                         for (var eachCartItem in cartData){
                           final title = eachCartItem["title"];
                           final amount = eachCartItem["amount"];
-                          print('cart item to checkout:');
-                          print(title);
-                          print(amount);
-                          monthlyPaymentProviders.storePayments(user.userId, {title: amount});
+                          // print('cart item to checkout:');
+                          // print(title);
+                          // print(amount);
+                          // final monthlyPay = MonthlyPayment(title, amount, (colors..shuffle()).first);
+                          monthlyPaymentProviders.storePayments(user.userId, {'charity':title,'amount':amount});
                         }
 
                         Navigator.pushReplacement(
