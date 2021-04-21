@@ -72,8 +72,9 @@ class MyApp extends StatelessWidget {
             auth.userId
           ),
         ),
-        ChangeNotifierProvider(
-            create: (_) => MonthlyPayments()
+        ChangeNotifierProxyProvider<Auth, MonthlyPayments>(
+            create: null,
+          update: (_, auth, prevPayment)=>MonthlyPayments(auth.userId),
         ),
       ],
       child: Consumer<Auth>(

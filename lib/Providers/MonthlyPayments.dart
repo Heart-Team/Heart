@@ -5,32 +5,34 @@ import 'package:heart_app/widgets/finance_info/MonthlyPayment.dart';
 
 class MonthlyPayments with ChangeNotifier {
   String _userId;
-  List<Map<dynamic,dynamic>> _monthlyPayments;
+  List<dynamic> _monthlyPayments = [];
 
-  // MonthlyPayments(this._userId,this._monthlyPayments);
+  MonthlyPayments(this._userId);
 
   String get userId {
     return _userId;
   }
 
-  List<Map<dynamic,dynamic>> get monthlyPayments {
+  List<dynamic> get monthlyPayments {
     return _monthlyPayments;
   }
 
-  void storePayments(String userId, Map<dynamic,dynamic> payment) {
-    Firestore.instance.collection('MonthlyPayments')
+  Future<void> storePayments(Map<dynamic,dynamic> payment) async {
+    await Firestore.instance.collection('MonthlyPayments')
         .document(userId)
         .updateData({'payments': FieldValue.arrayUnion([payment])});
+    _monthlyPayments.add(payment);
   }
 
-  Future<void> getPayments(String userId) async{
+  Future<void> getPayments() async{
     final firestore = Firestore.instance;
     try {
       firestore.collection('MonthlyPayments').document(userId)
           .get().then((val){
             _monthlyPayments=val.data['payments'];
+            print("===================\n monthly payments\n");
+            print(_monthlyPayments);
           });
-        notifyListeners();
     } catch (e) {
       print(e.message);
     }
