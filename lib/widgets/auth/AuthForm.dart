@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
+import './ForgotPassword.dart';
 
 class AuthForm extends StatefulWidget {
   final double screenSize;
@@ -365,7 +366,9 @@ class _AuthFormState extends State<AuthForm> with TickerProviderStateMixin {
                     ))
               ],
             ),
-            SizedBox(height: 20)
+            SizedBox(height: 10),
+            if(_isLogin)
+            ForgotPassword()
           ],
         ),
       ),

@@ -30,7 +30,7 @@ class Header extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                user.fullName,
+                user.fullName == null ? '' : user.fullName,
                 style: TextStyle(
                   fontWeight: FontWeight.w600, fontSize: 22
                 ),

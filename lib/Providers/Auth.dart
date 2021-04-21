@@ -123,6 +123,18 @@ class Auth with ChangeNotifier {
     return _surveyTaken;
   }
 
+  Future<String> resetPassword(String email, BuildContext context) async {
+    final auth = FirebaseAuth.instance;
+    try {
+      await auth.sendPasswordResetEmail(email: email);
+      return 'Reset link successfully sent to your email address';
+    } on PlatformException catch (err) {
+      return err.message;
+    } catch (e) {
+      return 'Something went wrong sending your reset link';
+    }
+  }
+
   Future<void> signout() async {
     try {
       await FirebaseAuth.instance.signOut();
