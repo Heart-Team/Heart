@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Filter.dart';
+import 'package:heart_app/Providers/MonthlyPayments.dart';
 import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/theme.dart';
+import 'package:heart_app/widgets/finance_info/MonthlyPayment.dart';
 import 'package:heart_app/widgets/home/Filters.dart';
 import 'package:heart_app/widgets/home/OrganizationList.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
@@ -23,6 +25,7 @@ class HomeScreen extends StatelessWidget {
     
     print('Homescreen rebuil');
     Provider.of<User>(context, listen: false).getUserInfo();
+    Provider.of<MonthlyPayments>(context,listen: false).getPayments();
 
     return Scaffold(
       drawer: MainDrawer(),

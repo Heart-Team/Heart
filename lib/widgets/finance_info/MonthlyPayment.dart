@@ -2,13 +2,13 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/theme.dart';
 
-class FinanceInfo extends StatelessWidget {
+class MonthlyPayment extends StatelessWidget {
   final String organization;
   final String payment;
-  final String perc;
+  // final String perc;
   final Color color;
 
-  FinanceInfo(this.organization, this.payment, this.perc, this.color);
+  MonthlyPayment(this.organization, this.payment, this.color);
 
   @override
   Widget build(BuildContext context) {
@@ -39,10 +39,10 @@ class FinanceInfo extends StatelessWidget {
               ),
               Column(
                 children: [
-                  Text(
-                    perc,
-                    style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                  ),
+                  // Text(
+                  //   perc,
+                  //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
+                  // ),
                   Text(
                     '\$ ' + payment,
                     textAlign: TextAlign.right,

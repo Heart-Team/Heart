@@ -1,23 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Cart.dart';
+import 'package:heart_app/Providers/MonthlyPayments.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/Payment/CartList.dart';
 import 'package:heart_app/theme.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:heart_app/widgets/Payment/CreditCardSlider.dart';
 import 'package:provider/provider.dart';
-import '../widgets/Payment/CreditCard.dart';
 
 class PayMethodScreen extends StatelessWidget {
 
   static const routeName = '/payment-method';
 
+
   @override
   Widget build(BuildContext context) {
 
     final cartProvider = Provider.of<Cart>(context, listen: false);
+    final monthlyPaymentProviders = Provider.of<MonthlyPayments>(context,listen: false);
+    // final user = Provider.of<User>(context,listen: false);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -87,6 +90,18 @@ class PayMethodScreen extends StatelessWidget {
                     ),
                     child: GestureDetector(
                       onTap: () {
+                        // here collect all the checkout data and store to have monthly chart
+                        final cartData =  cartProvider.cartCharities;
+                        for (var eachCartItem in cartData){
+                          final title = eachCartItem["title"];
+                          final amount = eachCartItem["amount"];
+                          // print('cart item to checkout:');
+                          // print(title);
+                          // print(amount);
+                          // final monthlyPay = MonthlyPayment(title, amount, (colors..shuffle()).first);
+                          monthlyPaymentProviders.storePayments( {'charity':title,'amount':amount});
+                        }
+
                         Navigator.pushReplacement(
                           context, 
                           CupertinoPageRoute(builder: (_) => Suc())

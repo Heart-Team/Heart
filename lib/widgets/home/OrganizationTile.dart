@@ -21,7 +21,6 @@ class _OrganizationTileState extends State<OrganizationTile> {
   // here a function to decide if isFavorite is true or false
   // based on the data retrieved from firestore
 
-
   @override
   Widget build(BuildContext context) {
     // get the userId here

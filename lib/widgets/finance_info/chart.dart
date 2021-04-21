@@ -8,6 +8,7 @@ class FinanceChart extends StatefulWidget {
   State<StatefulWidget> createState() => FinanceChartState();
 
   final List<Color> colors;
+  // final Map<dynamic,dynamic> monthlyPayments;
   FinanceChart(this.colors);
 }
 
