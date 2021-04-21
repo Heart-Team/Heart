@@ -53,7 +53,7 @@ class Auth with ChangeNotifier {
         notifyListeners();
       } else {
         // firebase create
-        authResult = await _auth.createUserWithEmailAndPassword(
+        authResult = await _auth.createUserWithEmailAndPassword( 
           email: email, 
           password: password
         );
@@ -67,7 +67,8 @@ class Auth with ChangeNotifier {
             'surveyTaken': false,
             'imageUrl': '',
             'location': '',
-            'cards': []
+            'cards': [],
+            'favorites': []
           });
 
         // private member updates

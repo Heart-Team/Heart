@@ -19,7 +19,7 @@ class User with ChangeNotifier {
   String _location;
   String _imageUrl = '';
   List<dynamic> _cards = [];
-  List<Map<String, dynamic>> _favorites;
+  List<dynamic> _favorites = [];
 
   // bool _loggedIn = false;
   // List<String> _relevantMacros = [];
@@ -50,22 +50,23 @@ class User with ChangeNotifier {
   }
 
   List<dynamic> get cards {
-    return _cards;
+    return [..._cards];
   }
 
-  List<Map<String, dynamic>> get favorites {
-    return _favorites;
+  List<dynamic> get favorites {
+    return [..._favorites];
   }
 
   Future<void> getUserInfo() async {
     final firestore = Firestore.instance;
     try {
       final res = await firestore.collection('Users').document(userId).get();
-      print(res.data);
       _fullName = res.data['fullName'];
       _imageUrl = res.data['imageUrl'];
       _location = res.data['location'];
       _cards = res.data['cards'];
+      _favorites = res.data['favorites'];
+      print('favorites: $_favorites');
       notifyListeners();
     } catch (e) {
       print(e);
@@ -249,29 +250,30 @@ class User with ChangeNotifier {
   }
   
   // below should be a function to store an organization to favorites
-  void addFavorite(String charityID){
-    Firestore.instance.collection('Users')
+  Future<void> addFavorite(String charityID) async {
+    await Firestore.instance.collection('Users')
         .document(userId)
         .updateData({'favorites': FieldValue.arrayUnion([charityID])});
+    _favorites.add(charityID);
   }
 
-  void removeFavorite(String charityID){
-    Firestore.instance.collection('Users')
+  Future<void> removeFavorite(String charityID) async {
+    await Firestore.instance.collection('Users')
         .document(userId)
         .updateData({'favorites': FieldValue.arrayRemove([charityID])});
+    _favorites.remove(charityID);
   }
 
-  Future<List<dynamic>> getFavorites() async{
-    final firestore = Firestore.instance;
-    var data;
-    DocumentReference ref = await firestore.collection('Users').document(userId);
-    await ref.get().then((snapshot) {
-      data = snapshot.data['favorites'];
-    });
-    // to test out if it does return the favorites array in terminal
-    print(data);
+  // Future<List<dynamic>> getFavorites() async{
+  //   final firestore = Firestore.instance;
+  //   var data;
+  //   await firestore.collection('Users').document(userId).get().then((snapshot) {
+  //     data = snapshot.data['favorites'];
+  //   });
+  //   // to test out if it does return the favorites array in terminal
+  //   print(data);
 
-    // return
-    return data;
-  }
+  //   // return
+  //   return data;
+  // }
 }

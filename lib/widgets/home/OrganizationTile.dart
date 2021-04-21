@@ -20,31 +20,14 @@ class _OrganizationTileState extends State<OrganizationTile> {
 
   // here a function to decide if isFavorite is true or false
   // based on the data retrieved from firestore
-  var isFavorite = false;
 
 
   @override
   Widget build(BuildContext context) {
     // get the userId here
-    final user = Provider.of<User>(context);
-    var favorites = user.getFavorites();
-
-    // TO DO: BUGS FIX
-    // AFTER SCREEN CHANGE, HEART IMG DOESN'T GET FILLED
-    favorites.then((value) {
-      print('test=========');
-      print(value);
-      print("current widget ein");
-      print(widget.ein);
-      for (var fav in value) {
-        if (fav == widget.ein){
-          print(fav);
-          isFavorite == true;
-        }
-      }
-    });
-
-
+    final user = Provider.of<User>(context, listen: false);
+    var isFavorite = user.favorites.contains(widget.ein);
+    
     return Hero(
       tag: widget.ein,
       child: Container(
@@ -117,17 +100,17 @@ class _OrganizationTileState extends State<OrganizationTile> {
                                 ? AppTheme().primaryColor
                                 : Colors.white,
                           ),
-                          onPressed: () {
+                          onPressed: () async {
+                            if (!isFavorite) {
+                              // here add the charity into favorites array
+                              await user.addFavorite(widget.ein);
+                            }else{
+                              // here remove the charity from the array
+                              await user.removeFavorite(widget.ein);
+                            }
                             setState(() {
                               isFavorite = !isFavorite;
                             });
-                            if (isFavorite){
-                              // here add the charity into favorites array
-                              user.addFavorite(widget.ein);
-                            }else{
-                              // here remove the charity from the array
-                              user.removeFavorite(widget.ein);
-                            }
                           }),
                     ),
                   )
