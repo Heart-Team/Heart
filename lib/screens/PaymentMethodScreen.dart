@@ -7,11 +7,8 @@ import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/Payment/CartList.dart';
 import 'package:heart_app/theme.dart';
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:heart_app/widgets/Payment/CreditCardSlider.dart';
-import 'package:heart_app/widgets/finance_info/MonthlyPayment.dart';
 import 'package:provider/provider.dart';
-import '../widgets/Payment/CreditCard.dart';
 
 class PayMethodScreen extends StatelessWidget {
 
@@ -23,7 +20,7 @@ class PayMethodScreen extends StatelessWidget {
 
     final cartProvider = Provider.of<Cart>(context, listen: false);
     final monthlyPaymentProviders = Provider.of<MonthlyPayments>(context,listen: false);
-    final user = Provider.of<User>(context,listen: false);
+    // final user = Provider.of<User>(context,listen: false);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -102,7 +99,7 @@ class PayMethodScreen extends StatelessWidget {
                           // print(title);
                           // print(amount);
                           // final monthlyPay = MonthlyPayment(title, amount, (colors..shuffle()).first);
-                          monthlyPaymentProviders.storePayments(user.userId, {'charity':title,'amount':amount});
+                          monthlyPaymentProviders.storePayments( {'charity':title,'amount':amount});
                         }
 
                         Navigator.pushReplacement(
