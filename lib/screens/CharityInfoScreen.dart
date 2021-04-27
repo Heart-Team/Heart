@@ -111,7 +111,7 @@ class _CharityInfoScreenState extends State<CharityInfoScreen> {
                                 BorderRadius.vertical(top: Radius.circular(25))),
                         child: SingleChildScrollView(
                           physics: BouncingScrollPhysics(),
-                          child: CharityInfo(),
+                          child: CharityInfo(productInfo['ein']),
                         ),
                       )),
                 )
