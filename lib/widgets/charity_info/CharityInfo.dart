@@ -1,14 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Charity.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/Website.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
 
-class CharityInfo extends StatelessWidget {
+class CharityInfo extends StatefulWidget {
+
+  final ein;
+
+  CharityInfo(this.ein);
+
+  @override
+  _CharityInfoState createState() => _CharityInfoState();
+}
+
+class _CharityInfoState extends State<CharityInfo>{
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final charityInfo = Provider.of<Charity>(context).charityDetails;
+    final user = Provider.of<User>(context, listen: false);
+
+    var isFavorite = user.favorites.contains(widget.ein);
+
 
     return Padding(
       padding: EdgeInsets.only(left: 18),
@@ -36,11 +52,25 @@ class CharityInfo extends StatelessWidget {
           Container(
               alignment: Alignment.centerRight,
               padding: EdgeInsets.only(right: 26),
-              child: Icon(
-                Icons.favorite_rounded,
-                size: 30,
-                color: AppTheme().primaryColor,
-              ))
+              child: IconButton(
+                splashColor: Colors.transparent,
+                  icon:Icon( isFavorite ? (Icons.favorite_rounded):(Icons.favorite_outline_rounded), //here needs to have a condition
+                        size: 30,
+                      color: isFavorite ? AppTheme().primaryColor : Colors.grey,
+                  ),
+                onPressed: () async {
+                  if (!isFavorite) {
+                    // here add the charity into favorites array
+                    await user.addFavorite(widget.ein);
+                  }else{
+                    // here remove the charity from the array
+                    await user.removeFavorite(widget.ein);
+                  }
+                  setState(() {
+                    isFavorite = !isFavorite;
+                  });
+              }),
+          )
         ]),
         SizedBox(
           height: 24,
@@ -97,4 +127,6 @@ class CharityInfo extends StatelessWidget {
       ]),
     );
   }
+
+
 }
