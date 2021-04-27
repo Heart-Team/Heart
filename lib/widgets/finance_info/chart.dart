@@ -8,8 +8,9 @@ class FinanceChart extends StatefulWidget {
   State<StatefulWidget> createState() => FinanceChartState();
 
   final List<Color> colors;
-  // final Map<dynamic,dynamic> monthlyPayments;
-  FinanceChart(this.colors);
+  final List<dynamic> monthlyPayments;
+
+  FinanceChart(this.colors, this.monthlyPayments);
 }
 
 class FinanceChartState extends State<FinanceChart> {
@@ -17,6 +18,7 @@ class FinanceChartState extends State<FinanceChart> {
 
   @override
   Widget build(BuildContext context) {
+
     return AspectRatio(
       aspectRatio: 1.3,
       child: Row(
@@ -44,7 +46,7 @@ class FinanceChartState extends State<FinanceChart> {
                     ),
                     sectionsSpace: 0,
                     centerSpaceRadius: 60,
-                    sections: showingSections(widget.colors)),
+                    sections: showingSections(widget.colors, widget.monthlyPayments)),
               ),
             ),
           ),
@@ -53,58 +55,45 @@ class FinanceChartState extends State<FinanceChart> {
     );
   }
 
-  /*
-  
-    1st -> [30,90,150]
-    2nd -> [40,100,160]
-  
-  */
 
-  List<PieChartSectionData> showingSections(List<Color> colors) {
-    return List.generate(4, (i) {
+  List<PieChartSectionData> showingSections(List<Color> colors, List<dynamic> monthlyPayments) {
+    List<double> percs = calculatePerc(widget.monthlyPayments);
+
+    return List.generate(monthlyPayments.length, (i)
+    {
       final isTouched = i == touchedIndex;
       final double fontSize = isTouched ? 25 : 16;
       final double radius = isTouched ? 80 : 70;
-      switch (i) {
-        case 0:
-          return PieChartSectionData(
-            color: colors[0],
-            value: 40,
-            title: '40%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 1:
-          return PieChartSectionData(
-            color: colors[1],
-            value: 30,
-            title: '30%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 2:
-          return PieChartSectionData(
-            color: colors[2],
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        case 3:
-          return PieChartSectionData(
-            color: colors[3],
-            value: 15,
-            title: '15%',
-            radius: radius,
-            titleStyle: TextStyle(
-                fontSize: fontSize, fontWeight: FontWeight.bold, color: const Color(0xffffffff)),
-          );
-        default:
-          return null;
+
+      for (var payment in monthlyPayments) {
+        print("payment in chart\n");
+        print(payment);
+        return PieChartSectionData(
+          color: colors[i%colors.length],
+          value: double.parse(monthlyPayments[i]['amount']),
+          title: '${(percs[i]*100).toStringAsPrecision(3)}%',
+          radius: radius,
+          titleStyle: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.bold,
+              color: const Color(0xffffffff)),
+        );
       }
-    });
-  } 
-}
+    }
+    );}
+  }
+
+  List<double> calculatePerc (List<dynamic> monthlyPayments){
+    double total = 0;
+    List<double> percs = [];
+
+   for (var value in monthlyPayments) {
+     total += double.parse(value['amount']);
+   }
+
+    for (var value in monthlyPayments) {
+      double perc =  double.parse(value['amount']) / total;
+      percs.add(perc);
+    }
+   return percs;
+  }
