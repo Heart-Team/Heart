@@ -19,26 +19,6 @@ class FinanceScreen extends StatefulWidget {
 
 class _FinanceScreenState extends State<FinanceScreen> {
 
-  // final List<Map<String, String>> financeInfos = [
-  //   {
-  //     'organization': 'Childrens Charity',
-  //     'payment': '150.10',
-  //   },
-  //   {'organization': 'Tech Charity', 'payment': '62.05', 'perc': '19.83%'},
-  //   {'organization': 'Animal Charity', 'payment': '100.85', 'perc': '32.22%'},
-  //   {'organization': 'Environmental Charity', 'payment': '100.85', 'perc': '32.22%'},
-  // ];
-
-  // @override
-  // void initState(){
-  //   super.initState();
-  //   // final paymentProvider = Provider.of<MonthlyPayments>(context, listen: false);
-  //   // final user = Provider.of<User>(context,listen: false);
-  //
-  //   // paymentProvider.getPayments(user.userId);
-  // }
-
-
   final List<Color> colors = [
     AppTheme().primaryColor,
     AppTheme().purple,
@@ -65,7 +45,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
             child: Text('Monthly Payment',
                 style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
           ),
-          FinanceChart(colors),
+          FinanceChart(colors, paymentProvider.monthlyPayments),
           Expanded(
             child: Container(
               padding: EdgeInsets.fromLTRB(10, 10, 10, 20),
@@ -74,7 +54,6 @@ class _FinanceScreenState extends State<FinanceScreen> {
                 itemBuilder: (ctx, index) => MonthlyPayment(
                     paymentProvider.monthlyPayments[index]['charity'],
                     paymentProvider.monthlyPayments[index]['amount'],
-                    // financeInfos[index]['perc'],
                     colors[index % 7]
                 ),
                 itemCount: paymentProvider.monthlyPayments.length,
