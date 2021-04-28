@@ -4,6 +4,7 @@ import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/Providers/Filter.dart';
 import 'package:heart_app/Providers/MonthlyPayments.dart';
+import 'package:heart_app/Providers/Suggestions.dart';
 import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/Providers/Cart.dart' as CartProvider;
@@ -73,9 +74,13 @@ class MyApp extends StatelessWidget {
           ),
         ),
         ChangeNotifierProxyProvider<Auth, MonthlyPayments>(
-            create: null,
-          update: (_, auth, prevPayment)=>MonthlyPayments(auth.userId),
+          create: null,
+          update: (_, auth, prevPayment) => MonthlyPayments(auth.userId),
         ),
+        ChangeNotifierProxyProvider<User, Suggestions>(
+          create: null,
+          update: (_, user, prevSuggestions) => Suggestions(user.favorites, user.user)
+        )
       ],
       child: Consumer<Auth>(
         builder: (ctx, authData, _) => MaterialApp(

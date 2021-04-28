@@ -26,11 +26,11 @@ class Survey with ChangeNotifier {
   }
 
   List<String> get relevantMacros {
-    return _relevantMacros;
+    return [..._relevantMacros];
   }
 
   List<Map<String, String>> get relevantMicros {
-    return _relevantMicros;
+    return [..._relevantMicros];
   }
 
   Map<String, dynamic> get surveyResults {
@@ -38,7 +38,7 @@ class Survey with ChangeNotifier {
   }
 
   List<Map<String, dynamic>> get recommendations {
-    return _recommendations;
+    return [..._recommendations];
   }
 
   int get totalMicrosSelected {
@@ -47,6 +47,11 @@ class Survey with ChangeNotifier {
       count += element.length;
     });
     return count;
+  }
+
+  void clear(){
+    _relevantMicros.clear();
+    _relevantMacros.clear();
   }
 
   void addMacro(String macro) {
@@ -88,6 +93,8 @@ class Survey with ChangeNotifier {
           .collection('Users')
           .document(_userId)
           .updateData({'surveyTaken': true, 'surveyResults': _surveyResults});
+        _recommendations.clear();
+        isFirstLoad = true;
     } catch (e) {
       print(e.message);
     }
@@ -138,3 +145,9 @@ class Survey with ChangeNotifier {
     notifyListeners();
   }
 }
+
+/*
+  [A, HS, R]
+  Range = 0 - 2
+
+*/

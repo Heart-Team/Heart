@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Suggestions.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/EditInfoScreen.dart';
+import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/widgets/profile/AddCardDialog.dart';
 import 'package:heart_app/widgets/profile/ChangePasswordDialog.dart';
 import 'package:provider/provider.dart';
@@ -143,6 +145,21 @@ class UserDetailsScreen extends StatelessWidget {
                                 color: AppTheme().primaryColor),
                           ),
                           onTap: () => changePasswordDialog(context),
+                        ),
+                        SizedBox(height: 10),
+                        GestureDetector(
+                          child: Text(
+                            'Update Survey Preferences',
+                            textAlign: TextAlign.left,
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: AppTheme().primaryColor),
+                          ),
+                          onTap: () => Navigator.of(context).pushNamed(
+                            SurveyScreen.routeName,
+                            arguments: 'editing' 
+                          )
                         )
                       ],
                     ),
