@@ -2,6 +2,7 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Auth.dart';
+import 'package:heart_app/Providers/Suggestions.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/AuthScreen.dart';
 import 'package:heart_app/screens/UserDetailsScreen.dart';
@@ -9,6 +10,7 @@ import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
 import 'package:heart_app/widgets/profile/Header.dart';
 import 'package:heart_app/widgets/profile/SavedCharitiesTile.dart';
+import 'package:heart_app/widgets/utilities/Loading.dart';
 import 'package:provider/provider.dart';
 import '../theme.dart';
 
@@ -25,7 +27,6 @@ class Profile extends StatelessWidget {
       'Children',
       'Technology'
     ];
-
     final charities = [
       {
         'name': 'Animals Charity',
@@ -58,7 +59,7 @@ class Profile extends StatelessWidget {
             'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
       },
     ];
-
+   
     return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
@@ -132,16 +133,27 @@ class Profile extends StatelessWidget {
                     ),
                     Expanded(
                       flex: 2,
-                      child: ListView.builder(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
-                        physics: BouncingScrollPhysics(),
-                        itemBuilder: (ctx, index) => OrganizationTile(
-                          charities[index]['name'],
-                          charities[index]['category'],
-                          charities[index]['image'],
-                          '1231231231',
-                        ),
-                        itemCount: charities.length,
+                      child: FutureBuilder(
+                        future: Provider.of<Suggestions>(context, listen: false).userSuggestions(),
+                        builder: (_, snapshot) {
+                          if(snapshot.connectionState == ConnectionState.waiting){
+                            return Loading();
+                          }
+                          else{
+                            final suggestions = Provider.of<Suggestions>(context, listen: false).suggestions;
+                            return ListView.builder(
+                              padding: EdgeInsets.symmetric(horizontal: 10),
+                              physics: BouncingScrollPhysics(),
+                              itemBuilder: (ctx, index) => OrganizationTile(
+                                suggestions[index]['charityName'],
+                                suggestions[index]['categoryName'],
+                                suggestions[index]['imageURL'],
+                                suggestions[index]['ein'],
+                              ),
+                              itemCount: suggestions.length,
+                            );
+                          }
+                        },
                       ),
                     ),
                   ]),

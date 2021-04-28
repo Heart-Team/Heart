@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Filter.dart';
 import 'package:heart_app/Providers/MonthlyPayments.dart';
+import 'package:heart_app/Providers/Suggestions.dart';
 import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/finance_info/MonthlyPayment.dart';
@@ -29,13 +30,13 @@ class HomeScreen extends StatelessWidget {
 
     return Scaffold(
       drawer: MainDrawer(),
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.white, 
       body: Container(
         padding: EdgeInsets.fromLTRB(20, 40, 20, 20),
         child: Column(
           children: [
             Header(),
-            SizedBox(
+            SizedBox( 
               height: 35,
             ),
             SearchBar(),

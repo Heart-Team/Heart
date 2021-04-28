@@ -122,3 +122,14 @@ class _OrganizationTileState extends State<OrganizationTile> {
     );
   }
 }
+
+
+/*
+  what are we filtering on?
+    likes array < 6 we do 1,2,3
+    likes array > 6 we do 1 and 2
+    1) Asset amount
+    2) The survey suggestions (use 3 random micros)
+    3) like micro category 
+
+*/

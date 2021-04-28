@@ -7,11 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:encrypt/encrypt.dart' as Encrypt;
 
 class User with ChangeNotifier {
-  // userID
-  // name/username
-  // email
-  // credit cards
-  // image
 
   final String userId;
   String _fullName;
@@ -20,12 +15,6 @@ class User with ChangeNotifier {
   String _imageUrl = '';
   List<dynamic> _cards = [];
   List<dynamic> _favorites = [];
-
-  // bool _loggedIn = false;
-  // List<String> _relevantMacros = [];
-  // List<Map<String, String>> _relevantMicros = [];
-  // Map<String, dynamic> _surveyResults = {};
-  // Map<String, dynamic>
 
   User(this.userId);
 
@@ -66,7 +55,6 @@ class User with ChangeNotifier {
       _location = res.data['location'];
       _cards = res.data['cards'];
       _favorites = res.data['favorites'];
-      print('favorites: $_favorites');
       notifyListeners();
     } catch (e) {
       print(e);
@@ -265,17 +253,4 @@ class User with ChangeNotifier {
     _favorites.remove(charityID);
     notifyListeners();
   }
-
-  // Future<List<dynamic>> getFavorites() async{
-  //   final firestore = Firestore.instance;
-  //   var data;
-  //   await firestore.collection('Users').document(userId).get().then((snapshot) {
-  //     data = snapshot.data['favorites'];
-  //   });
-  //   // to test out if it does return the favorites array in terminal
-  //   print(data);
-
-  //   // return
-  //   return data;
-  // }
 }
