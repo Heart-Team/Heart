@@ -24,7 +24,7 @@ class _OrganizationTileState extends State<OrganizationTile> {
   @override
   Widget build(BuildContext context) {
     // get the userId here
-    final user = Provider.of<User>(context, listen: false);
+    final user = Provider.of<User>(context);
     var isFavorite = user.favorites.contains(widget.ein);
     
     return Hero(

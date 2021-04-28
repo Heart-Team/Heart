@@ -27,22 +27,20 @@ class MonthlyPayment extends StatelessWidget {
         ),
         child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                organization,
-                style: TextStyle(
-                  fontWeight: FontWeight.w700, 
-                  fontSize: 20,
-                  color: color
+              Expanded(
+                              child: Text(
+                  organization,
+                  style: TextStyle(
+                    fontWeight: FontWeight.w700, 
+                    fontSize: 20,
+                    color: color
+                  ),
                 ),
               ),
               Column(
                 children: [
-                  // Text(
-                  //   perc,
-                  //   style: TextStyle(fontWeight: FontWeight.w500, fontSize: 20),
-                  // ),
                   Text(
                     '\$ ' + payment,
                     textAlign: TextAlign.right,

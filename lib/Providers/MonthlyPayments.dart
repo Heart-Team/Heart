@@ -20,7 +20,7 @@ class MonthlyPayments with ChangeNotifier {
   Future<void> storePayments(Map<dynamic,dynamic> payment) async {
     await Firestore.instance.collection('MonthlyPayments')
         .document(userId)
-        .updateData({'payments': FieldValue.arrayUnion([payment])});
+        .setData({'payments': FieldValue.arrayUnion([payment])}, merge: true);
     _monthlyPayments.add(payment);
   }
 

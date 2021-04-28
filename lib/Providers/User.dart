@@ -255,6 +255,7 @@ class User with ChangeNotifier {
         .document(userId)
         .updateData({'favorites': FieldValue.arrayUnion([charityID])});
     _favorites.add(charityID);
+    notifyListeners();
   }
 
   Future<void> removeFavorite(String charityID) async {
@@ -262,6 +263,7 @@ class User with ChangeNotifier {
         .document(userId)
         .updateData({'favorites': FieldValue.arrayRemove([charityID])});
     _favorites.remove(charityID);
+    notifyListeners();
   }
 
   // Future<List<dynamic>> getFavorites() async{
