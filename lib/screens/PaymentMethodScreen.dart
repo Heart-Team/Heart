@@ -14,7 +14,6 @@ class PayMethodScreen extends StatelessWidget {
 
   static const routeName = '/payment-method';
 
-
   @override
   Widget build(BuildContext context) {
 
