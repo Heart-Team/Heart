@@ -1,11 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Charity.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/saved_charities/ButtonRow.dart';
 import 'package:heart_app/widgets/saved_charities/SavedCharityTile.dart';
+import 'package:provider/provider.dart';
 
 class SavedCharitiesScreen extends StatelessWidget {
 
   static const routeName = '/saved-charities';
+
 
   final savedCharities = [
     {
@@ -34,6 +38,11 @@ class SavedCharitiesScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final deviceHeight = MediaQuery.of(context);
+    final user = Provider.of<User>(context,listen: false);
+
+    final favoriteIds = user.favorites;
+    final charities = [];
+
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -91,9 +100,9 @@ class SavedCharitiesScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               physics: BouncingScrollPhysics(),
               itemBuilder: (ctx, index) => SavedCharityTile(
-                savedCharities[index]['dateAdded'], 
-                savedCharities[index]['name'], 
-                savedCharities[index]['location'], 
+                savedCharities[index]['dateAdded'],
+                savedCharities[index]['charityName'],
+                savedCharities[index]['state'],
               ),
               itemCount: savedCharities.length
             )

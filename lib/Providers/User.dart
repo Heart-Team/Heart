@@ -14,7 +14,7 @@ class User with ChangeNotifier {
   String _location;
   String _imageUrl = '';
   List<dynamic> _cards = [];
-  List<dynamic> _favorites = [];
+  List<Map<dynamic,dynamic>> _favorites = [];
 
   User(this.userId);
 
@@ -238,19 +238,42 @@ class User with ChangeNotifier {
   }
   
   // below should be a function to store an organization to favorites
-  Future<void> addFavorite(String charityID) async {
+  Future<void> addFavorite(String charityID, String charityName, String categoryName, String dateAdded) async {
+    final toAdd = {'charityId':charityID, 'charityName': charityName, 'categoryName': categoryName, 'dateAdded':dateAdded};
     await Firestore.instance.collection('Users')
         .document(userId)
-        .updateData({'favorites': FieldValue.arrayUnion([charityID])});
-    _favorites.add(charityID);
+        .updateData({'favorites': FieldValue.arrayUnion([toAdd])});
+    _favorites.add(toAdd);
     notifyListeners();
   }
 
-  Future<void> removeFavorite(String charityID) async {
+  Future<void> removeFavorite(String charityID, String charityName, String categoryName, String dateAdded) async {
+    final toRemove = {'charityId':charityID, 'charityName':charityName, 'categoryName': categoryName, 'dateAdded':dateAdded};
+
     await Firestore.instance.collection('Users')
         .document(userId)
-        .updateData({'favorites': FieldValue.arrayRemove([charityID])});
-    _favorites.remove(charityID);
+        .updateData({'favorites': FieldValue.arrayRemove([toRemove])});
+    _favorites.remove(toRemove);
     notifyListeners();
   }
+
+  bool isInFavorate(charityId){
+    for (var fav in _favorites){
+      if (fav['charityId'] == charityId){
+        return true;
+      }
+    }
+    return false;
+  }
+
+  List<dynamic> getDistinctFavoriteCategories() {
+    var distinct = [];
+    for (var fav in _favorites){
+      if(!distinct.contains(fav['categoryName'])){
+        distinct.add(fav['categoryName']);
+      }
+    }
+    return distinct;
+  }
+
 }

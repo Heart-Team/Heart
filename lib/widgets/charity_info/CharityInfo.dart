@@ -3,6 +3,7 @@ import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/Website.dart';
 import 'package:heart_app/theme.dart';
+import 'package:heart_app/widgets/utilities/GetDate.dart';
 import 'package:provider/provider.dart';
 
 class CharityInfo extends StatefulWidget {
@@ -21,9 +22,9 @@ class _CharityInfoState extends State<CharityInfo>{
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     final charityInfo = Provider.of<Charity>(context).charityDetails;
-    final user = Provider.of<User>(context, listen: false);
+    final user = Provider.of<User>(context, listen: true);
 
-    var isFavorite = user.favorites.contains(widget.ein);
+    var isFavorite = user.isInFavorate(widget.ein);
 
 
     return Padding(
@@ -61,10 +62,10 @@ class _CharityInfoState extends State<CharityInfo>{
                 onPressed: () async {
                   if (!isFavorite) {
                     // here add the charity into favorites array
-                    await user.addFavorite(widget.ein);
+                    await user.addFavorite(widget.ein, charityInfo['charityName'], charityInfo['categoryName'], GetDate().getDateNow());
                   }else{
                     // here remove the charity from the array
-                    await user.removeFavorite(widget.ein);
+                    await user.removeFavorite(widget.ein, charityInfo['charityName'],charityInfo['categoryName'], GetDate().getDateNow());
                   }
                   setState(() {
                     isFavorite = !isFavorite;
