@@ -2,11 +2,9 @@ import 'package:flushbar/flushbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Auth.dart';
+import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/Providers/Suggestions.dart';
 import 'package:heart_app/Providers/User.dart';
-import 'package:heart_app/screens/AuthScreen.dart';
-import 'package:heart_app/screens/UserDetailsScreen.dart';
-import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/home/OrganizationTile.dart';
 import 'package:heart_app/widgets/profile/Header.dart';
 import 'package:heart_app/widgets/profile/SavedCharitiesTile.dart';
@@ -17,49 +15,18 @@ import '../theme.dart';
 class Profile extends StatelessWidget {
   static const routeName = '/profile';
 
+
+  
+
+
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
-    final savedCharities = [
-      'Animal Charities',
-      'Domestic Violence',
-      'Environmental',
-      'Children',
-      'Technology'
-    ];
-    final charities = [
-      {
-        'name': 'Animals Charity',
-        'category': 'Humanitarian Work',
-        'image':
-            'https://ichef.bbci.co.uk/news/1024/cpsprodpb/151AB/production/_111434468_gettyimages-1143489763.jpg'
-      },
-      {
-        'name': 'Childrens Charity',
-        'category': 'Social work',
-        'image':
-            'https://miro.medium.com/max/11326/1*6vDpSiK73AwHk6kG47ZrqQ.jpeg'
-      },
-      {
-        'name': 'Cancer Awareness',
-        'category': 'Research',
-        'image':
-            'https://www.nfcr.org/wp-content/uploads/2020/03/Cancer-research-is-t-worth-your-dime.jpg'
-      },
-      {
-        'name': 'Veteran Support',
-        'category': 'Social Work',
-        'image':
-            'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
-      },
-      {
-        'name': 'Charity Support',
-        'category': 'Social Work',
-        'image':
-            'https://nvf.org/wp-content/uploads/2016/07/veteran-support.jpg'
-      },
-    ];
-   
+    final user = Provider.of<User>(context,listen: false);
+    final favoriteIds = user.favorites;
+    final folders = user.getDistinctFavoriteCategories();
+
+
     return Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
@@ -115,7 +82,7 @@ class Profile extends StatelessWidget {
                           physics: BouncingScrollPhysics(),
                           padding: EdgeInsets.symmetric(
                               horizontal: 10, vertical: 20),
-                          children: savedCharities
+                          children: folders
                               .map((e) => SavedCharitiesTile(
                                     e,
                                   ))
