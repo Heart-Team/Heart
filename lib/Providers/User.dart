@@ -42,8 +42,8 @@ class User with ChangeNotifier {
     return [..._cards];
   }
 
-  List<dynamic> get favorites {
-    return [..._favorites];
+  List<Map<dynamic,dynamic>> get favorites {
+    return _favorites;
   }
 
   Future<void> getUserInfo() async {
@@ -248,17 +248,25 @@ class User with ChangeNotifier {
   }
 
   Future<void> removeFavorite(String charityID, String charityName, String categoryName, String dateAdded) async {
-    final toRemove = {'charityId':charityID, 'charityName':charityName, 'categoryName': categoryName, 'dateAdded':dateAdded};
+    final toRemove = {'charityId':charityID, 'charityName': charityName, 'categoryName': categoryName, 'dateAdded':dateAdded};
 
+    //TODO:
+    // BUG FIX: need to remove regardless of dateAdded
     await Firestore.instance.collection('Users')
         .document(userId)
         .updateData({'favorites': FieldValue.arrayRemove([toRemove])});
-    _favorites.remove(toRemove);
+
+    for (var fav in favorites){
+      if (fav['charityId']==charityID){
+        _favorites.remove(fav);
+      }
+    }
     notifyListeners();
   }
 
   bool isInFavorate(charityId){
     for (var fav in _favorites){
+      print(fav['charityId']);
       if (fav['charityId'] == charityId){
         return true;
       }
@@ -273,6 +281,7 @@ class User with ChangeNotifier {
         distinct.add(fav['categoryName']);
       }
     }
+    print("distinct folder: ${distinct}");
     return distinct;
   }
 

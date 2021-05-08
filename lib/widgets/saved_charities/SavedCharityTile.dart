@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/theme.dart';
+import 'package:provider/provider.dart';
 
 class SavedCharityTile extends StatelessWidget {
 
+  final String charityId;
   final String dateAdded;
   final String name;
-  final String location;
+  final String category;
+  // final String location;
 
-  SavedCharityTile(this.dateAdded, this.name, this.location);
+  SavedCharityTile(this.charityId, this.name, this.category, this.dateAdded);
 
   @override
   Widget build(BuildContext context) {
+    final user = Provider.of<User>(context);
+
     return Container(
       width: double.infinity,
       margin: EdgeInsets.only(bottom: 15),
@@ -44,12 +50,12 @@ class SavedCharityTile extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                Text(
-                  location,
-                  style: TextStyle(
-                    fontSize: 16,
-                  ),
-                ),
+                // Text(
+                //   location,
+                //   style: TextStyle(
+                //     fontSize: 16,
+                //   ),
+                // ),
               ],
             ),
           ),
@@ -63,7 +69,11 @@ class SavedCharityTile extends StatelessWidget {
               ),
               IconButton(
                 icon: Icon(Icons.delete), 
-                onPressed: (){},
+                onPressed: (){
+                  //TODO:
+                  // BUG FIX: favorite array updated and firebase updated but the tile needs to rebuild
+                  user.removeFavorite(charityId, name, category, dateAdded);
+                },
                 color: Colors.red,
               ),
             ],

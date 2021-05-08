@@ -12,20 +12,20 @@ import 'package:heart_app/widgets/utilities/Loading.dart';
 import 'package:provider/provider.dart';
 import '../theme.dart';
 
-class Profile extends StatelessWidget {
+class Profile extends StatefulWidget {
   static const routeName = '/profile';
 
+  @override
+  _ProfileState createState() => _ProfileState();
+}
 
-  
-
+class _ProfileState extends State<Profile>{
 
   @override
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final user = Provider.of<User>(context,listen: false);
-    final favoriteIds = user.favorites;
     final folders = user.getDistinctFavoriteCategories();
-
 
     return Scaffold(
         backgroundColor: Colors.white,

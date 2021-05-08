@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/saved_charities/ButtonRow.dart';
@@ -10,38 +9,13 @@ class SavedCharitiesScreen extends StatelessWidget {
 
   static const routeName = '/saved-charities';
 
-
-  final savedCharities = [
-    {
-      'dateAdded': '12/10/2020',
-      'name': 'Animal Charity 1',
-      'location': 'New York, NY',
-    },
-    {
-      'dateAdded': '12/20/2020',
-      'name': 'Animal Charity 2',
-      'location': 'New York, NY',
-    },
-    {
-      'dateAdded': '12/30/2020',
-      'name': 'Animal Charity 3',
-      'location': 'New York, NY',
-    },
-    {
-      'dateAdded': '12/40/2020',
-      'name': 'Animal Charity 4',
-      'location': 'New York, NY',
-    }
-  ];
-
   @override
   Widget build(BuildContext context) {
 
     final deviceHeight = MediaQuery.of(context);
     final user = Provider.of<User>(context,listen: false);
 
-    final favoriteIds = user.favorites;
-    final charities = [];
+    final savedCharities = user.favorites;
 
 
     return Scaffold(
@@ -80,7 +54,10 @@ class SavedCharitiesScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    'My Animal\nCharities',
+                    //TODO:
+                    // BUG FIX: needs to pass the folder name from saved charities tile or profile1
+                    //          then we need to only show single tile with categoryName matching the folder name
+                    'My Charities',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.grey[100],
@@ -100,9 +77,10 @@ class SavedCharitiesScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 25, vertical: 20),
               physics: BouncingScrollPhysics(),
               itemBuilder: (ctx, index) => SavedCharityTile(
-                savedCharities[index]['dateAdded'],
+                savedCharities[index]['charityId'],
                 savedCharities[index]['charityName'],
-                savedCharities[index]['state'],
+                savedCharities[index]['categoryName'],
+                savedCharities[index]['dateAdded'],
               ),
               itemCount: savedCharities.length
             )
