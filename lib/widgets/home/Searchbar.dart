@@ -16,7 +16,7 @@ class _SearchBarState extends State<SearchBar> {
   @override
   void initState() {    
     super.initState();
-    Provider.of<Search>(context, listen: false).clearResults();
+    Provider.of<Filter>(context, listen: false).clearResults();
   }
 
   @override
@@ -67,7 +67,7 @@ class _SearchBarState extends State<SearchBar> {
               ),
             ),
             onSubmitted: (val){
-              Provider.of<Search>(context, listen: false).search(searchTextController.text);
+              Provider.of<Filter>(context, listen: false).search(searchTextController.text);
             },
           ),
           Positioned(
@@ -75,7 +75,7 @@ class _SearchBarState extends State<SearchBar> {
             bottom: 0,
             child: GestureDetector(
               onTap: (){
-                Provider.of<Search>(context, listen: false).search(searchTextController.text);
+                Provider.of<Filter>(context, listen: false).search(searchTextController.text);
               },
               child: Container(
                 height: 48,

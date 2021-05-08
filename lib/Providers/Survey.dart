@@ -149,5 +149,4 @@ class Survey with ChangeNotifier {
 /*
   [A, HS, R]
   Range = 0 - 2
-
 */

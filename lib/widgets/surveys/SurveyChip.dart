@@ -9,12 +9,14 @@ class SurveyChip extends StatefulWidget {
 
   final String title;
   final String category;
-  SurveyChip(this.title, {this.category});
+  final bool isFilter;
+  final Function updateSelectedFilters;
+  SurveyChip(this.title, {this.category, this.isFilter, this.updateSelectedFilters});
 }
 
 class _SurveyChipState extends State<SurveyChip> {
   var _isSelected = false;
-  var survey;
+  var survey; 
 
   @override
   void initState() {
@@ -39,10 +41,17 @@ class _SurveyChipState extends State<SurveyChip> {
     });
   }
 
+  void onPress(){
+    setState(() {
+      _isSelected = !_isSelected;
+      widget.updateSelectedFilters('categories', widget.title);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: widget.isFilter ? onPress : onTap,
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 15, vertical: 8),
         decoration: BoxDecoration(
