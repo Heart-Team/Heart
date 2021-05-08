@@ -63,7 +63,7 @@ class SurveyScreen2 extends StatelessWidget {
                             spacing: 15,
                             children: user.relevantMicros.map((e) {
                               return SurveyChip(e['causeName'],
-                                  category: e['category']);
+                                  category: e['category'], isFilter: false,);
                             }).toList()),
                       )),
                 ),
@@ -93,8 +93,7 @@ class SurveyScreen2 extends StatelessWidget {
                                 .popAndPushNamed(TabScreen.routeName);
                           }
                         : null,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
                   ),
                 ),
               ],

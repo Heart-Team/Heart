@@ -65,7 +65,7 @@ class MyApp extends StatelessWidget {
           create: (_) => Charity()
         ),
         ChangeNotifierProvider(
-          create: (_) => Search()
+          create: (_) => Filter()
         ),
         ChangeNotifierProxyProvider<Auth, CartProvider.Cart>(
           create: null,

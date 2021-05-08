@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
-class Search with ChangeNotifier {
+class Filter with ChangeNotifier {
 
   List<Map<String, dynamic>> _searchResults = [];
 
@@ -43,5 +43,8 @@ class Search with ChangeNotifier {
   void clearResults() {
     _searchResults.clear();
   }
+
+
+
 
 }

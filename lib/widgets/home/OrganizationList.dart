@@ -11,7 +11,7 @@ class OrganizationList extends StatelessWidget {
   Widget build(BuildContext context) {
     
     final survey = Provider.of<Survey>(context);
-    final search = Provider.of<Search>(context);
+    final search = Provider.of<Filter>(context);
 
     return search.searchResults.length == 0 ? 
       FutureBuilder(

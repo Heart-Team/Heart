@@ -28,7 +28,7 @@ class HomeScreen extends StatelessWidget {
     Provider.of<User>(context, listen: false).getUserInfo();
     Provider.of<MonthlyPayments>(context,listen: false).getPayments();
 
-    return Scaffold(
+    return Scaffold( 
       drawer: MainDrawer(),
       backgroundColor: Colors.white, 
       body: Container(
