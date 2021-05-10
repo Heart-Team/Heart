@@ -16,7 +16,7 @@ class _FiltersState extends State<Filters> {
   //   // TODO: implement initState
   //   super.initState();
   //   _selectedFilters = {
-  //     'categories': [],
+  //     'categories': [],...
   //     'taxExempt': true,
   //     'location': 'All states',
   //     'rating': '1'
@@ -40,9 +40,6 @@ class _FiltersState extends State<Filters> {
 
   @override
   Widget build(BuildContext context) {
-
-    final device = MediaQuery.of(context);
-
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -54,14 +51,14 @@ class _FiltersState extends State<Filters> {
               value: 'Sort By',
               elevation: 16,
               items: ['Sort By', 'Names', 'Causes']
-                  .map((e) => DropdownMenuItem(
-                        value: e,
-                        child: Text(
-                          e,
-                          style: TextStyle(color: Colors.grey),
-                        ),
-                      ))
-                  .toList(),
+                .map((e) => DropdownMenuItem(
+                  value: e,
+                  child: Text(
+                    e,
+                    style: TextStyle(color: Colors.grey),
+                  ),
+                )
+              ).toList(),
               onChanged: (value) {
                 if (value == 'Names') {
                   //sort by names
