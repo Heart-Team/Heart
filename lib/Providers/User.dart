@@ -13,7 +13,7 @@ class User with ChangeNotifier {
   String _location;
   String _imageUrl = '';
   List<dynamic> _cards = [];
-  List<Map<dynamic,dynamic>> _favorites = [];
+  List<dynamic> _favorites = [];
 
   User(this.userId);
 
@@ -41,7 +41,7 @@ class User with ChangeNotifier {
     return [..._cards];
   }
 
-  List<Map<dynamic,dynamic>> get favorites {
+  List<dynamic> get favorites {
     return [..._favorites];
   }
 

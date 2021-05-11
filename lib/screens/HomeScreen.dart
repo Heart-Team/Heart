@@ -19,7 +19,7 @@ import '../widgets/home/Searchbar.dart';
 import '../Providers/User.dart';
 import 'dart:collection';
 
-
+ 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -27,7 +27,7 @@ class HomeScreen extends StatelessWidget {
     print('Homescreen rebuil');
     Provider.of<User>(context, listen: false).getUserInfo();
     Provider.of<MonthlyPayments>(context,listen: false).getPayments();
-
+    print('favorties -> ${Provider.of<User>(context, listen: false).favorites}');
     return Scaffold( 
       drawer: MainDrawer(),
       backgroundColor: Colors.white, 

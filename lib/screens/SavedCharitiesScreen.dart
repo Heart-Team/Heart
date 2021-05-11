@@ -9,8 +9,8 @@ class SavedCharitiesScreen extends StatelessWidget {
 
   static const routeName = '/saved-charities';
 
-  // String folderName;
-  // SavedCharitiesScreen(this.folderName);
+  String folderName;
+  SavedCharitiesScreen({this.folderName});
 
   @override
   Widget build(BuildContext context) {
@@ -18,8 +18,8 @@ class SavedCharitiesScreen extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context);
     final user = Provider.of<User>(context,listen: true);
 
-    final savedCharities = user.favorites;
-    // final savedCharities = user.getSavedCharitiesInFolder(folderName);
+    // final savedCharities = user.favorites;
+    final savedCharities = user.getSavedCharitiesInFolder(folderName);
 
 
     return Scaffold(
@@ -30,7 +30,7 @@ class SavedCharitiesScreen extends StatelessWidget {
           Container(
             height: deviceHeight.size.height * 0.3,
             width: double.infinity,
-            child: Stack(
+            child: Stack( 
               children: [
                 Positioned(
                   child: Container(
@@ -61,8 +61,7 @@ class SavedCharitiesScreen extends StatelessWidget {
                     //TODO:
                     // BUG FIX: needs to pass the folder name from saved charities tile or profile1
                     //          then we need to only show single tile with categoryName matching the folder name
-                    // 'My ${folderName} Charities'
-                    'My Charities',
+                    'My ${folderName} Charities',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.grey[100],

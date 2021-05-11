@@ -28,22 +28,16 @@ class Suggestions extends ChangeNotifier {
       });
     }
     try {
-      if(favorites.length < 6){
-        for(int i = 3; i >= 0; i--){
-          int index = random(i + 1);
-          final res = await firestore.collection('Organizations')
-            .where('assetAmount', isLessThanOrEqualTo: 5369831)
-            .where('causeName', isEqualTo: _micros[index])
-            .limit(3)
-            .getDocuments();
-          res.documents.forEach((element) {
-            _suggestions.add(element.data);
-          }); 
-        } 
-      }
-      else{
-        // pick six from the liked stuff
-        // add the micro category as a field to the favorites
+      for(int i = 3; i >= 0; i--){
+        int index = random(i + 1);
+        final res = await firestore.collection('Organizations')
+          .where('assetAmount', isLessThanOrEqualTo: 5369831)
+          .where('causeName', isEqualTo: _micros[index])
+          .limit(3)
+          .getDocuments();
+        res.documents.forEach((element) {
+          _suggestions.add(element.data);
+        }); 
       } 
       // notifyListeners();
     } catch (e) {

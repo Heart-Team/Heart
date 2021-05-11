@@ -17,7 +17,7 @@ class SavedCharitiesTile extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         Navigator.of(context).push(
-          CupertinoPageRoute(builder: (_) => SavedCharitiesScreen())
+          CupertinoPageRoute(builder: (_) => SavedCharitiesScreen(folderName: name))
         );
       },
       child: Container(

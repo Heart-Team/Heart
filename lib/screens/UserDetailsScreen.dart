@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Suggestions.dart';
+import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/screens/EditInfoScreen.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
@@ -50,6 +51,7 @@ class UserDetailsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final deviceSize = MediaQuery.of(context).size;
     final user = Provider.of<User>(context);
+    final survey = Provider.of<Survey>(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -156,10 +158,13 @@ class UserDetailsScreen extends StatelessWidget {
                                 fontWeight: FontWeight.w600,
                                 color: AppTheme().primaryColor),
                           ),
-                          onTap: () => Navigator.of(context).pushNamed(
-                            SurveyScreen.routeName,
-                            arguments: 'editing' 
-                          )
+                          onTap: (){
+                            survey.clear();
+                            Navigator.of(context).pushNamed(
+                              SurveyScreen.routeName,
+                              arguments: 'editing' 
+                            );
+                          }
                         )
                       ],
                     ),
