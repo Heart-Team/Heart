@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 class Filter with ChangeNotifier {
 
   List<Map<String, dynamic>> _searchResults = [];
+  String _searchText = '';
   bool _isFiltering = false;
 
   bool get isFiltering {
@@ -12,6 +13,10 @@ class Filter with ChangeNotifier {
 
   List<Map<String, dynamic>> get searchResults {
     return [..._searchResults];
+  }
+
+  String get searchText {
+    return _searchText;
   }
 
   Future<void> search(String query) async {
@@ -56,10 +61,11 @@ class Filter with ChangeNotifier {
   }
 
   void clearFiltering(){
-    print('I am being called');
     _isFiltering = false;
     notifyListeners();
   }
+
+  updateSearchText(String newText) => _searchText = newText;
 
   List<Map<String, dynamic>> filter(dynamic filters, List<dynamic> charities){
     final res = charities.where((element){

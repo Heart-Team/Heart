@@ -66,8 +66,6 @@ class FinanceChartState extends State<FinanceChart> {
       final double radius = isTouched ? 80 : 70;
 
       for (var payment in monthlyPayments) {
-        print("payment in chart\n");
-        print(payment);
         return PieChartSectionData(
           color: colors[i%colors.length],
           value: double.parse(monthlyPayments[i]['amount']),

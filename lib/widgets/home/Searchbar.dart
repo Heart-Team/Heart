@@ -67,6 +67,7 @@ class _SearchBarState extends State<SearchBar> {
               ),
             ),
             onSubmitted: (val){
+              Provider.of<Filter>(context, listen: false).updateSearchText(searchTextController.text);
               Provider.of<Filter>(context, listen: false).search(searchTextController.text);
             },
           ),

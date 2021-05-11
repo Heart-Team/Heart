@@ -108,7 +108,6 @@ class _FilterOptionsState extends State<FilterOptions> {
       else
         _selectedFilters[key] = value;
 
-      print(_selectedFilters);
     });
   }
 

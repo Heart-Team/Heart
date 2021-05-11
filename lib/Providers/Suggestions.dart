@@ -20,7 +20,6 @@ class Suggestions extends ChangeNotifier {
 
   Future<void> userSuggestions() async {
     final firestore = Firestore.instance;
-    print('favorites: $favorites');
     if(_micros.isEmpty){
       final res = await firestore.collection('Users').document(userId).get();
       res.data['surveyResults'].forEach((key, value){

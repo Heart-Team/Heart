@@ -88,7 +88,6 @@ class _AddCardDialogState extends State<AddCardDialog> {
                       EdgeInsets.symmetric(vertical: 13, horizontal: 10)
               ),
               validator: (value) {
-                print(value.trim().split(' '));
                 if(value.isEmpty || value.trim().split(' ').length == 1){
                   return "Please Enter Your Full Name";
                 }

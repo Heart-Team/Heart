@@ -264,9 +264,7 @@ class User with ChangeNotifier {
   }
 
   bool isInFavorite(String charityId){
-    print('favorite len:${_favorites.length}');
     for (var fav in _favorites){
-      print('favorite id:${fav['charityId']}');
       if (fav['charityId'] == charityId){
         return true;
       }
@@ -281,7 +279,6 @@ class User with ChangeNotifier {
         distinct.add(fav['categoryName']);
       }
     }
-    print("distinct folder: ${distinct}");
     return distinct;
   }
 

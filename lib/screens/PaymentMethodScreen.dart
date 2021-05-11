@@ -94,10 +94,6 @@ class PayMethodScreen extends StatelessWidget {
                         for (var eachCartItem in cartData){
                           final title = eachCartItem["title"];
                           final amount = eachCartItem["amount"];
-                          // print('cart item to checkout:');
-                          // print(title);
-                          // print(amount);
-                          // final monthlyPay = MonthlyPayment(title, amount, (colors..shuffle()).first);
                           monthlyPaymentProviders.storePayments( {'charity':title,'amount':amount});
                         }
 

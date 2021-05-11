@@ -27,7 +27,6 @@ class _OrganizationTileState extends State<OrganizationTile> {
     // get the userId here
     final user = Provider.of<User>(context, listen: true);
     var isFavorite = user.isInFavorite(widget.ein);
-    print("isFavorite: ${isFavorite}");
 
     return Hero(
       tag: widget.ein,

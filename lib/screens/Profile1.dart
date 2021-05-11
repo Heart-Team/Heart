@@ -149,7 +149,6 @@ class _ProfileState extends State<Profile>{
                           Navigator.of(context).popAndPushNamed('/');
                         // Navigator.of(context).pop();
                       } catch (e) {
-                        print(e);
                         Flushbar(
                           messageText: Text(
                             'Something went wrong logging out',

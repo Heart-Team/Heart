@@ -13,7 +13,6 @@ class Filters extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final filter = Provider.of<Filter>(context);
-    print('rebuilding');
     return Row(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
