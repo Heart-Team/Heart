@@ -8,7 +8,7 @@ class MyDropDown extends StatelessWidget {
   final Function updateSelectedFilters;
   final String objKey;
 
-  MyDropDown(this.hint, this.value, this.items, this.updateSelectedFilters, this.objKey);
+  MyDropDown(this.hint, this.value, this.items, this.updateSelectedFilters, {this.objKey});
 
   @override
   Widget build(BuildContext context) {

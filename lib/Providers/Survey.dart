@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
+import 'package:heart_app/Providers/Filter.dart';
 import 'package:heart_app/screens/SurveyScreen1.dart';
 import 'package:heart_app/screens/TabsScreen.dart';
 
@@ -102,7 +101,6 @@ class Survey with ChangeNotifier {
 
   Future<void> homeRecommendations() async {
     final firestore = Firestore.instance;
-
     try {
       if (isFirstLoad) {
         final res = await firestore.collection('Users').document(_userId).get();
@@ -128,6 +126,11 @@ class Survey with ChangeNotifier {
     } catch (e) {
       print(e);
     }
+  }
+
+  void filterRecommendations(dynamic filters, List<dynamic> charities){
+    _recommendations = Filter().filter(filters, charities);
+    notifyListeners();
   }
 
   void addMicro(String macro, String micro) {
