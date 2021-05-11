@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +42,7 @@ class User with ChangeNotifier {
   }
 
   List<Map<dynamic,dynamic>> get favorites {
-    return _favorites;
+    return [..._favorites];
   }
 
   Future<void> getUserInfo() async {
@@ -264,9 +263,10 @@ class User with ChangeNotifier {
     notifyListeners();
   }
 
-  bool isInFavorate(charityId){
+  bool isInFavorite(String charityId){
+    print('favorite len:${_favorites.length}');
     for (var fav in _favorites){
-      print(fav['charityId']);
+      print('favorite id:${fav['charityId']}');
       if (fav['charityId'] == charityId){
         return true;
       }
@@ -283,6 +283,16 @@ class User with ChangeNotifier {
     }
     print("distinct folder: ${distinct}");
     return distinct;
+  }
+
+  List<Map<dynamic, dynamic>> getSavedCharitiesInFolder(String folderName){
+    List<Map<dynamic, dynamic>> charities = [];
+    for (var fav in _favorites){
+      if(fav['categoryName']==folderName){
+        charities.add(fav);
+      }
+    }
+    return charities;
   }
 
 }
