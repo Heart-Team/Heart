@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Filter.dart';
+import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/home/DropdownButton.dart';
 import 'package:heart_app/widgets/surveys/SurveyChip.dart';
+import 'package:provider/provider.dart';
 
 class FilterOptions extends StatefulWidget {
   @override
@@ -24,7 +27,7 @@ class _FilterOptionsState extends State<FilterOptions> {
     'Research and Public Policy',
   ];
   final states = [
-    {'name': 'All States', 'value': 'All states'},
+    {'name': 'All States', 'value': ''},
     {'name':'ALABAMA', 'value':'AL'},
     {'name':'ALASKA', 'value':'AK'},
     {'name':'AMERICAN SAMOA', 'value':'AS'},
@@ -90,7 +93,7 @@ class _FilterOptionsState extends State<FilterOptions> {
   Map<String, dynamic> _selectedFilters = {
     'categories': [],
     'taxExempt': true,
-    'location': 'All states',
+    'location': '',
     'rating': '1'
   };
 
@@ -111,6 +114,10 @@ class _FilterOptionsState extends State<FilterOptions> {
 
   @override
   Widget build(BuildContext context) {
+
+    final filters = Provider.of<Filter>(context, listen: false);
+    final survey = Provider.of<Survey>(context, listen: false);
+
     return Container(
       width: double.infinity,
       child: SingleChildScrollView(
@@ -175,7 +182,7 @@ class _FilterOptionsState extends State<FilterOptions> {
               _selectedFilters['location'], 
               states,
               updateSelectedFilters, 
-              'location'
+              objKey: 'location',
             ),
             SizedBox(
               height: 10,
@@ -193,8 +200,53 @@ class _FilterOptionsState extends State<FilterOptions> {
               _selectedFilters['rating'], 
               rating, 
               updateSelectedFilters, 
-              'rating'
+              objKey: 'rating',
             ),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: TextButton(
+                    child: Text(
+                      'Apply',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(AppTheme().primaryColor),
+                    ),
+                    onPressed: (){
+                      if(filters.searchResults.isEmpty)
+                        survey.filterRecommendations(_selectedFilters, survey.recommendations);
+                      else
+                        filters.filterSearch(_selectedFilters, filters.searchResults);
+                        
+                      filters.setFiltering();
+                      Navigator.of(context).pop();
+                    }
+                  ), 
+                ),
+                SizedBox(width: 10),
+                Expanded(
+                  child: TextButton(
+                    child: Text(
+                      'Cancel',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 16
+                      ),
+                    ),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all(Colors.grey[400]),
+                    ),
+                    onPressed: () => Navigator.of(context).pop()
+                  ),
+                ),
+              ],
+            )
           ],
         ),
       ),

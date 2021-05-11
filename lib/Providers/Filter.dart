@@ -4,6 +4,11 @@ import 'package:flutter/material.dart';
 class Filter with ChangeNotifier {
 
   List<Map<String, dynamic>> _searchResults = [];
+  bool _isFiltering = false;
+
+  bool get isFiltering {
+    return _isFiltering;
+  }
 
   List<Map<String, dynamic>> get searchResults {
     return [..._searchResults];
@@ -28,7 +33,8 @@ class Filter with ChangeNotifier {
               _searchResults.add(element.data);
             });
             notifyListeners();
-          });
+          }
+        );
       } catch (e) {
         print(e.message);
       }
@@ -42,9 +48,31 @@ class Filter with ChangeNotifier {
 
   void clearResults() {
     _searchResults.clear();
+  }  
+
+  void setFiltering(){
+    _isFiltering = true;
+    notifyListeners();
   }
 
+  void clearFiltering(){
+    print('I am being called');
+    _isFiltering = false;
+    notifyListeners();
+  }
 
+  List<Map<String, dynamic>> filter(dynamic filters, List<dynamic> charities){
+    final res = charities.where((element){
+      return 
+        (element['categoryName'].isNotEmpty && filters['categories'].contains(element['categoryName'])) &&
+        (filters['location'] == '' || element['state'] == filters['location']) &&
+        element['rating'] >= double.parse(filters['rating']); 
+    });    
+    return res.toList(); 
+  }
 
-
+  void filterSearch(dynamic filters, List<dynamic> charities){
+    _searchResults = filter(filters, charities);
+    notifyListeners();
+  }
 }

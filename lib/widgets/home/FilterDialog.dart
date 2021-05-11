@@ -11,28 +11,7 @@ class FilterDialog extends StatelessWidget{
         Alert(
           context: context,
           title: 'Filters',
-          buttons: [
-            DialogButton(
-              child: Text(
-                "Apply",
-                style:
-                    TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: AppTheme().primaryColor,
-              radius: BorderRadius.circular(10.0),
-            ),
-            DialogButton(
-              child: Text(
-                "Cancel",
-                style:
-                    TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              onPressed: () => Navigator.pop(context),
-              color: Colors.grey,
-              radius: BorderRadius.circular(10.0),
-            ),
-          ],
+          buttons: [],
           content: FilterOptions(),
           style: AlertStyle(
             animationType: AnimationType.grow,
