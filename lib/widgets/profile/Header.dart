@@ -11,7 +11,6 @@ class Header extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final user = Provider.of<User>(context);
-    print('image: ${user.imageUrl}');
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,

@@ -25,7 +25,6 @@ class _SurveyChipState extends State<SurveyChip> {
   }
 
   void onTap() {
-    print(survey.totalMicrosSelected);
     setState(() {
       if (survey.totalMicrosSelected < 8 && !_isSelected) {
         _isSelected = true;

@@ -55,13 +55,11 @@ class Survey with ChangeNotifier {
 
   void addMacro(String macro) {
     _relevantMacros.add(macro);
-    print(_relevantMacros);
     notifyListeners();
   }
 
   void removeMacro(String macro) {
     _relevantMacros.remove(macro);
-    print(_relevantMacros);
     notifyListeners();
   }
 
@@ -86,7 +84,6 @@ class Survey with ChangeNotifier {
   Future<void> updateSurveyResults() async {
     final firestore = Firestore.instance;
     _surveyResults.removeWhere((key, value) => value.length == 0);
-    print(_surveyResults);
     try {
       await firestore
           .collection('Users')
@@ -130,6 +127,11 @@ class Survey with ChangeNotifier {
 
   void filterRecommendations(dynamic filters, List<dynamic> charities){
     _recommendations = Filter().filter(filters, charities);
+    notifyListeners();
+  }
+
+  void resetRecommendations(){
+    isFirstLoad = true;
     notifyListeners();
   }
 

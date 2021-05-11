@@ -28,11 +28,10 @@ class MonthlyPayments with ChangeNotifier {
     final firestore = Firestore.instance;
     try {
       firestore.collection('MonthlyPayments').document(userId)
-          .get().then((val){
-            _monthlyPayments=val.data['payments'];
-            print("===================\n monthly payments\n");
-            print(_monthlyPayments);
-          });
+          .get();
+          // .then((val){
+          //   print(_monthlyPayments);
+          // });
     } catch (e) {
       print(e.message);
     }

@@ -19,7 +19,6 @@ class _ChangePasswordDialogState extends State<ChangePasswordDialog> {
     final isValid = _formKey.currentState.validate();
     if(isValid){
       final res = await Provider.of<User>(context, listen: false).updatePassword(newPassword);
-      print('before flushbar');
       Navigator.of(context).pop();
       Flushbar(
         messageText: Text(

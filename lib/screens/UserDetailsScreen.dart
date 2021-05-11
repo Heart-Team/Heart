@@ -184,7 +184,6 @@ class UserDetailsScreen extends StatelessWidget {
                       itemScrollController: _itemScrollController,
                       physics: BouncingScrollPhysics(),
                       itemBuilder: (ctx, index){
-                        print(user.cards); 
                         if(index < user.cards.length)
                           return CreditCard(
                             user.cards[index]['cardInfo']['cardNumber'],
