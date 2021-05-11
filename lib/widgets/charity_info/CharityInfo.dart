@@ -24,7 +24,7 @@ class _CharityInfoState extends State<CharityInfo>{
     final charityInfo = Provider.of<Charity>(context).charityDetails;
     final user = Provider.of<User>(context, listen: true);
 
-    var isFavorite = user.isInFavorate(widget.ein);
+    var isFavorite = user.isInFavorite(widget.ein);
 
 
     return Padding(
