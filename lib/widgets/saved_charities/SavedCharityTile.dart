@@ -1,7 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:heart_app/Providers/Charity.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/theme.dart';
 import 'package:provider/provider.dart';
+import 'package:flutter_share/flutter_share.dart';
 
 class SavedCharityTile extends StatelessWidget {
 
@@ -9,9 +12,24 @@ class SavedCharityTile extends StatelessWidget {
   final String dateAdded;
   final String name;
   final String category;
-  // final String location;
 
   SavedCharityTile(this.charityId, this.name, this.category, this.dateAdded);
+
+  Future<void> share() async {
+    String charityUrl;
+    await Firestore.instance.collection('Organizations').document(charityId)
+        .collection('Details').document('description')
+        .get().then((value) {
+       charityUrl = value['website'];
+    });
+    await FlutterShare.share(
+        title: 'Share charity with others!',
+        text: 'Check out this charity I found on Heart! ${name}',
+        linkUrl: charityUrl,
+    );
+    print('shared charityUrl: ${charityUrl}');
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -50,12 +68,6 @@ class SavedCharityTile extends StatelessWidget {
                     fontSize: 20,
                   ),
                 ),
-                // Text(
-                //   location,
-                //   style: TextStyle(
-                //     fontSize: 16,
-                //   ),
-                // ),
               ],
             ),
           ),
@@ -65,13 +77,13 @@ class SavedCharityTile extends StatelessWidget {
                 icon: Icon(Icons.share), 
                 color: Colors.blue,
                 padding: EdgeInsets.zero,
-                onPressed: (){}
+                onPressed: (){
+                  share();
+                }
               ),
               IconButton(
                 icon: Icon(Icons.delete), 
                 onPressed: (){
-                  //TODO:
-                  // BUG FIX: favorite array updated and firebase updated but the tile needs to rebuild
                   user.removeFavorite(charityId, name, category, dateAdded);
                 },
                 color: Colors.red,
