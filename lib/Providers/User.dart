@@ -291,5 +291,4 @@ class User with ChangeNotifier {
     }
     return charities;
   }
-
 }

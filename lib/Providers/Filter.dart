@@ -81,4 +81,18 @@ class Filter with ChangeNotifier {
     _searchResults = filter(filters, charities);
     notifyListeners();
   }
+
+  List<Map<String, dynamic>> sortBy(String sortOption, List<dynamic> charities){
+    if(sortOption == 'names')
+      charities.sort((a, b) => a['charityName'].compareTo(b['charityName']));
+    else
+      charities.sort((a, b) => a['categoryName'].compareTo(b['categoryName']));
+
+    return [...charities];
+  }
+
+  void sortSearch(String sortOption, List<dynamic> charities){
+    _searchResults = sortBy(sortOption, charities);
+    notifyListeners();
+  }
 }

@@ -130,8 +130,14 @@ class Survey with ChangeNotifier {
     notifyListeners();
   }
 
-  void resetRecommendations(){
+  void reset(){
     isFirstLoad = true;
+    _recommendations.clear();
+    notifyListeners();
+  }
+
+  void sortRecommendations(String sortOption, List<dynamic> charities){
+    _recommendations = Filter().sortBy(sortOption, charities);
     notifyListeners();
   }
 

@@ -12,7 +12,7 @@ class _SortByButtonState extends State<SortByButton> {
   final options = [
     {'name': 'Sort By', 'value': ''},
     {'name': 'Names', 'value': 'names'},
-    {'name': 'Causes', 'value': 'causes'},
+    {'name': 'Cause', 'value': 'categories'},
   ];
 
   void updateSortBy(String objKey, String val){
@@ -32,6 +32,7 @@ class _SortByButtonState extends State<SortByButton> {
           options,
           updateSortBy,
           objKey: 'sortBy',
+          isSort: true,
         ),
       ),
     ); 
