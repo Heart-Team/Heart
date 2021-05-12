@@ -5,6 +5,7 @@ import 'package:heart_app/widgets/saved_charities/ButtonRow.dart';
 import 'package:heart_app/widgets/saved_charities/SavedCharityTile.dart';
 import 'package:provider/provider.dart';
 
+
 class SavedCharitiesScreen extends StatelessWidget {
 
   static const routeName = '/saved-charities';
