@@ -10,7 +10,7 @@ class ClearFilter extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         if(filter.searchText.trim().isEmpty)
-          Provider.of<Survey>(context, listen: false).resetRecommendations();
+          Provider.of<Survey>(context, listen: false).reset();
         else
           filter.search(filter.searchText.trim());
         
