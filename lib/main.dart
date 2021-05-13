@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/Auth.dart';
 import 'package:heart_app/Providers/Charity.dart';
@@ -9,10 +8,8 @@ import 'package:heart_app/Providers/Survey.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/Providers/Cart.dart' as CartProvider;
 import 'package:heart_app/screens/Website.dart';
-import 'package:heart_app/theme.dart';
 import 'package:heart_app/widgets/utilities/Loading.dart';
 import 'package:provider/provider.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 
 // screens
 import 'package:heart_app/screens/CharityInfoScreen.dart';
@@ -30,8 +27,7 @@ import 'package:heart_app/screens/Cart.dart';
 import 'package:heart_app/screens/PaymentMethodScreen.dart';
 import 'screens/SurveyScreen1.dart';
 import 'screens/AuthScreen.dart';
-import 'screens/SearchScreen.dart';
-import 'package:heart_app/screens/Website.dart';
+
 
 void main() {
   runApp(MyApp());

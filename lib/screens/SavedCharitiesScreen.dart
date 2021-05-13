@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
-import 'package:heart_app/widgets/saved_charities/ButtonRow.dart';
 import 'package:heart_app/widgets/saved_charities/SavedCharityTile.dart';
 import 'package:provider/provider.dart';
 
+import '../theme.dart';
 
-class SavedCharitiesScreen extends StatelessWidget {
+
+class SavedCharitiesScreen extends StatefulWidget {
 
   static const routeName = '/saved-charities';
 
@@ -14,13 +15,19 @@ class SavedCharitiesScreen extends StatelessWidget {
   SavedCharitiesScreen({this.folderName});
 
   @override
+  _SavedCharitiesState createState() => _SavedCharitiesState();
+}
+
+class _SavedCharitiesState extends State<SavedCharitiesScreen>{
+  var _allSelected = true;
+
+  @override
   Widget build(BuildContext context) {
 
     final deviceHeight = MediaQuery.of(context);
     final user = Provider.of<User>(context,listen: true);
 
-    // final savedCharities = user.favorites;
-    final savedCharities = user.getSavedCharitiesInFolder(folderName);
+    final savedCharities = _allSelected? user.getSavedCharitiesInFolder(widget.folderName) : user.getRecentlyAdded(widget.folderName);
 
 
     return Scaffold(
@@ -59,10 +66,7 @@ class SavedCharitiesScreen extends StatelessWidget {
                 ),
                 Center(
                   child: Text(
-                    //TODO:
-                    // BUG FIX: needs to pass the folder name from saved charities tile or profile1
-                    //          then we need to only show single tile with categoryName matching the folder name
-                    'My ${folderName} Charities',
+                    'My ${widget.folderName} Charities',
                     textAlign: TextAlign.center,
                     style: TextStyle(
                       color: Colors.grey[100],
@@ -75,7 +79,64 @@ class SavedCharitiesScreen extends StatelessWidget {
             ),
           ),
           SizedBox(height: 30),
-          ButtonRow(),
+          Row(
+            children: [
+              SizedBox(width: 25),
+              GestureDetector(
+                child: Container(
+                  child: Text('All',
+                    style: TextStyle(
+                        fontSize: 16,
+                        color: _allSelected ? Colors.white : Colors.black
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                  decoration: BoxDecoration(
+                      color: _allSelected ? AppTheme().primaryColor : Colors.white,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12.withOpacity(0.1),
+                            blurRadius: 15
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                ),
+                onTap: (){
+                  setState(() {
+                    _allSelected = true;
+                  });
+                },
+              ),
+              SizedBox(width: 15),
+              GestureDetector(
+                child: Container(
+                  child: Text('Recently Added',
+                    style: TextStyle(
+                        color: _allSelected ? Colors.black : Colors.white,
+                        fontSize: 16
+                    ),
+                  ),
+                  padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
+                  decoration: BoxDecoration(
+                      color: _allSelected ? Colors.white : AppTheme().primaryColor,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black12.withOpacity(0.1),
+                            blurRadius: 15
+                        )
+                      ],
+                      borderRadius: BorderRadius.circular(10)
+                  ),
+                ),
+                onTap: (){
+                  setState(() {
+                    _allSelected = false;
+                  });
+                },
+              )
+            ],
+          ),
           SizedBox(height: 30,),
           Expanded(
             child: ListView.builder(
