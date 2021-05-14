@@ -12,14 +12,16 @@ class SavedCharitiesScreen extends StatefulWidget {
   static const routeName = '/saved-charities';
 
   String folderName;
+
   SavedCharitiesScreen({this.folderName});
+
 
   @override
   _SavedCharitiesState createState() => _SavedCharitiesState();
 }
 
 class _SavedCharitiesState extends State<SavedCharitiesScreen>{
-  var _allSelected = true;
+  var allSelected = true;
 
   @override
   Widget build(BuildContext context) {
@@ -27,8 +29,8 @@ class _SavedCharitiesState extends State<SavedCharitiesScreen>{
     final deviceHeight = MediaQuery.of(context);
     final user = Provider.of<User>(context,listen: true);
 
-    final savedCharities = _allSelected? user.getSavedCharitiesInFolder(widget.folderName) : user.getRecentlyAdded(widget.folderName);
-
+    final savedCharities = allSelected? user.getSavedCharitiesInFolder(widget.folderName) : user.getRecentlyAdded(widget.folderName);
+    print("length of savedCharities: ${savedCharities.length}");
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -87,12 +89,12 @@ class _SavedCharitiesState extends State<SavedCharitiesScreen>{
                   child: Text('All',
                     style: TextStyle(
                         fontSize: 16,
-                        color: _allSelected ? Colors.white : Colors.black
+                        color: allSelected ? Colors.white : Colors.black
                     ),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
                   decoration: BoxDecoration(
-                      color: _allSelected ? AppTheme().primaryColor : Colors.white,
+                      color: allSelected ? AppTheme().primaryColor : Colors.white,
                       boxShadow: [
                         BoxShadow(
                             color: Colors.black12.withOpacity(0.1),
@@ -104,7 +106,7 @@ class _SavedCharitiesState extends State<SavedCharitiesScreen>{
                 ),
                 onTap: (){
                   setState(() {
-                    _allSelected = true;
+                    allSelected = true;
                   });
                 },
               ),
@@ -113,13 +115,13 @@ class _SavedCharitiesState extends State<SavedCharitiesScreen>{
                 child: Container(
                   child: Text('Recently Added',
                     style: TextStyle(
-                        color: _allSelected ? Colors.black : Colors.white,
+                        color: allSelected ? Colors.black : Colors.white,
                         fontSize: 16
                     ),
                   ),
                   padding: EdgeInsets.symmetric(horizontal: 25, vertical: 8),
                   decoration: BoxDecoration(
-                      color: _allSelected ? Colors.white : AppTheme().primaryColor,
+                      color: allSelected ? Colors.white : AppTheme().primaryColor,
                       boxShadow: [
                         BoxShadow(
                             color: Colors.black12.withOpacity(0.1),
@@ -131,7 +133,7 @@ class _SavedCharitiesState extends State<SavedCharitiesScreen>{
                 ),
                 onTap: (){
                   setState(() {
-                    _allSelected = false;
+                    allSelected = false;
                   });
                 },
               )

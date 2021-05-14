@@ -289,22 +289,23 @@ class User with ChangeNotifier {
         charities.add(fav);
       }
     }
+    print("charities to be shown: ${charities}");
     return charities;
   }
 
-  //TODO:
-  // BUG FIX: datetime parsing and difference is wrong
+
   List<Map<dynamic, dynamic>> getRecentlyAdded(String folderName) {
     List<Map<dynamic, dynamic>> charities = [];
     for (var fav in _favorites) {
-      print("date added: ${DateTime.parse(fav['dateAdded'])}");
-      final difference = DateTime.parse(fav['dateAdded']).difference(DateTime.now()).inDays;
-      print("difference in days: ${difference}");
-      if (fav['categoryName'] == folderName && difference < 8) {
-        charities.add(fav);
+      if (fav['categoryName'] == folderName) {
+        final difference = DateTime.now().difference(DateTime.parse(fav['dateAdded'])).inDays;
+        print("difference in days: ${difference.toInt()}");
+        if(difference.toInt() < 8) {
+          charities.add(fav);
+        }
       }
-      return charities;
     }
+    return charities;
   }
 
 }
