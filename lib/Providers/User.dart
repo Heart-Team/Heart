@@ -289,6 +289,22 @@ class User with ChangeNotifier {
         charities.add(fav);
       }
     }
+    print("charities to be shown: ${charities}");
+    return charities;
+  }
+
+
+  List<Map<dynamic, dynamic>> getRecentlyAdded(String folderName) {
+    List<Map<dynamic, dynamic>> charities = [];
+    for (var fav in _favorites) {
+      if (fav['categoryName'] == folderName) {
+        final difference = DateTime.now().difference(DateTime.parse(fav['dateAdded'])).inDays;
+        print("difference in days: ${difference.toInt()}");
+        if(difference.toInt() < 8) {
+          charities.add(fav);
+        }
+      }
+    }
     return charities;
   }
 }
