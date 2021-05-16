@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_share/flutter_share.dart';
 import 'package:heart_app/Providers/User.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/saved_charities/SavedCharityTile.dart';
@@ -23,6 +25,7 @@ class SavedCharitiesScreen extends StatefulWidget {
 class _SavedCharitiesState extends State<SavedCharitiesScreen>{
   var allSelected = true;
 
+
   @override
   Widget build(BuildContext context) {
 
@@ -31,6 +34,27 @@ class _SavedCharitiesState extends State<SavedCharitiesScreen>{
 
     final savedCharities = allSelected? user.getSavedCharitiesInFolder(widget.folderName) : user.getRecentlyAdded(widget.folderName);
     print("length of savedCharities: ${savedCharities.length}");
+
+    Future<void> share() async {
+      String shareText = 'Check out these charities I found on Heart!\n';
+      // List<dynamic> charityUrls;
+      var ref = Firestore.instance.collection('Organizations');
+      for (var charity in savedCharities){
+        String charityUrl;
+        await ref.document(charity['charityId']).collection('Details').document('description')
+            .get().then((value) {
+          charityUrl = value['website'];
+          // charityUrls.add(charityUrl);
+          shareText += '${charityUrl}\n';
+          });
+      }
+
+      await FlutterShare.share(
+        title: 'Share your ${widget.folderName} charity folder with others!',
+        text: shareText,
+      );
+      // print('shared charityUrl: ${charityUrl}');
+    }
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -136,8 +160,17 @@ class _SavedCharitiesState extends State<SavedCharitiesScreen>{
                     allSelected = false;
                   });
                 },
-              )
+              ),
+              SizedBox(width: 15),
+              IconButton(
+                  icon: Icon(Icons.share),
+                  color: AppTheme().primaryColor,
+                  padding: EdgeInsets.zero,
+                  onPressed: (){
+                    share();
+                  })
             ],
+
           ),
           SizedBox(height: 30,),
           Expanded(
