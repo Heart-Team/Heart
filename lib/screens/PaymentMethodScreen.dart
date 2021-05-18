@@ -34,7 +34,10 @@ class PayMethodScreen extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "Payment Method",
-              style: TextStyle(fontSize: 25),
+              style: TextStyle(
+                fontSize: 25,
+                fontWeight: FontWeight.w600
+              ),
             ),
           ),
           CreditCardSlider(),
@@ -46,6 +49,7 @@ class PayMethodScreen extends StatelessWidget {
                 return CartList(
                   cart[index]['title'],
                   cart[index]['amount'],
+                  key: UniqueKey(),
                 );
               },
               itemCount: cartProvider.cartCharities.length,
@@ -88,13 +92,14 @@ class PayMethodScreen extends StatelessWidget {
                       ],
                     ),
                     child: GestureDetector(
-                      onTap: () {
+                      onTap: () async {
                         // here collect all the checkout data and store to have monthly chart
                         final cartData =  cartProvider.cartCharities;
                         for (var eachCartItem in cartData){
                           final title = eachCartItem["title"];
                           final amount = eachCartItem["amount"];
-                          monthlyPaymentProviders.storePayments( {'charity':title,'amount':amount});
+                          await monthlyPaymentProviders.storePayments( {'charity':title,'amount':amount});
+                          await cartProvider.clearCart();
                         }
 
                         Navigator.pushReplacement(

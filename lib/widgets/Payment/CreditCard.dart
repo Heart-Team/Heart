@@ -172,7 +172,7 @@ class _CreditCardState extends State<CreditCard> {
                         ),
                       ],
                     ),
-                    if (widget.index != null)
+                    if (widget.cardsLength != null)
                     Container(
                       child: Row(
                         children: [

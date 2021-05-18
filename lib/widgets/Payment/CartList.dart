@@ -4,7 +4,7 @@ class CartList extends StatelessWidget {
   final String title;
   final String amount;
 
-  CartList(this.title, this.amount);
+  CartList(this.title, this.amount, {Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

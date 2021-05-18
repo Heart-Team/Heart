@@ -28,26 +28,29 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context, listen: false);
     cardWidgets = [];
+    print('user card -> ${user.cards}');
+    print('user.length -> ${user.cards.length}');
     for (int i = 0; i < user.cards.length; i++) {
       cardWidgets.add(
         CreditCard(
-          user.cards[i]['cardNumber'], 
-          user.cards[i]['expDate'], 
-          user.cards[i]['cardNumber'],  
-          user.cards[i]['cardType'], 
+          user.cards[i]['cardInfo']['cardNumber'], 
+          user.cards[i]['cardInfo']['expDate'], 
+          user.cards[i]['cardInfo']['fullName'],  
+          user.cards[i]['cardInfo']['type'], 
           index: i,
         )
       );
     }
 
-    return Column(
+    return user.cards.length > 0 ? Column(
       children: <Widget>[
         CarouselSlider(
           options: CarouselOptions(
-            height: 200.0,
+            height: 225.0,
             autoPlayCurve: Curves.fastOutSlowIn,
+            enableInfiniteScroll: false,
             pauseAutoPlayOnTouch: true,
-            aspectRatio: 2.0,
+            scrollPhysics: BouncingScrollPhysics(),
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
@@ -82,6 +85,17 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
           }),
         ),
       ],
+    ) : Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Text(
+          'You have no saved credit cards',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey
+          )
+        ),
     );
   }
 }

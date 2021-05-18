@@ -8,7 +8,7 @@ class CartData extends StatefulWidget {
   final String img;
   final String ein;
 
-  CartData(this.ein ,this.title, this.amount, this.img);
+  CartData(this.ein ,this.title, this.amount, this.img, {Key key}) : super(key: key);
 
   @override
   _CartDataState createState() => _CartDataState();
@@ -29,7 +29,7 @@ class _CartDataState extends State<CartData> {
     final cartProvider = Provider.of<Cart>(context, listen: false);
 
     return Dismissible(
-      key: UniqueKey(),
+      key: widget.key,
       direction: DismissDirection.endToStart,
       background: Container(
         child: Icon(
@@ -41,8 +41,8 @@ class _CartDataState extends State<CartData> {
         alignment: Alignment.centerRight,
         padding: const EdgeInsets.only(right: 30)
       ),
-      onDismissed: (_){
-        cartProvider.removeItem(widget.ein);
+      onDismissed: (_) async {
+        await cartProvider.removeItem(widget.ein);
       },
           child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 15),
@@ -74,15 +74,12 @@ class _CartDataState extends State<CartData> {
                               TextStyle(fontSize: 20, fontWeight: FontWeight.w600),
                         ),
                       ),
-                      Text(
-                        widget.ein
-                      ),
-                      Container(
+                      Container( 
                         alignment: Alignment.bottomLeft,
                         child: Row(
                           // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Container(
+                            Container( 
                               alignment: Alignment.topLeft,
                               child: Text(
                                 "Amount ",

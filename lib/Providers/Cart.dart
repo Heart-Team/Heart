@@ -12,6 +12,7 @@ class Cart with ChangeNotifier {
   }
 
   double get totalSum {
+    _totalSum = 0;
     cartCharities.forEach((element) {
       _totalSum += double.parse(element['amount']);
     });
@@ -100,6 +101,16 @@ class Cart with ChangeNotifier {
       _cartCharities[index].update('amount', (value) => newAmount);
     }catch(e){
       print(e);
+    }
+  }
+
+  Future<void> clearCart() async {
+    final firesetore = Firestore.instance;
+    try {
+      await firesetore.collection('Cart').document(userId).delete();
+      _cartCharities.clear();
+    } catch (e) {
+      print(e.message);
     }
   }
 }

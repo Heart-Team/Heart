@@ -43,7 +43,7 @@ class _FinanceScreenState extends State<FinanceScreen> {
             padding: EdgeInsets.only(top: deviceSize.height * 0.07, bottom: 20),
             alignment: Alignment.topCenter,
             child: Text('Monthly Payment',
-                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w500)),
+                style: TextStyle(fontSize: 30, fontWeight: FontWeight.w600)),
           ),
           FinanceChart(colors, paymentProvider.monthlyPayments),
           Expanded(

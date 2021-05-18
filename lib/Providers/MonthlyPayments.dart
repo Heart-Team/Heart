@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:heart_app/widgets/finance_info/MonthlyPayment.dart';
@@ -27,11 +26,9 @@ class MonthlyPayments with ChangeNotifier {
   Future<void> getPayments() async{
     final firestore = Firestore.instance;
     try {
-      firestore.collection('MonthlyPayments').document(userId)
-          .get();
-          // .then((val){
-          //   print(_monthlyPayments);
-          // });
+      _monthlyPayments.clear();
+      final res = await firestore.collection('MonthlyPayments').document(userId).get();
+      _monthlyPayments.addAll(res.data['payments']);
     } catch (e) {
       print(e.message);
     }
