@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:heart_app/Providers/User.dart';
+import 'package:provider/provider.dart';
 import './CreditCard.dart';
 
 class CreditCardSlider extends StatefulWidget {
@@ -12,25 +14,7 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
   int _currentIndex = 0;
   int indexMap = 0;
 
-  final creditCards = [
-    {
-      'cardNumber': '1234 1234 1234 1234',
-      'expDate': '12/2022',
-      'cardType': 'visa'
-    },
-    {
-      'cardNumber': '1234 1234 1234 1234',
-      'expDate': '12/2022',
-      'cardType': 'mastercard'
-    },
-    {
-      'cardNumber': '1234 1234 1234 1234',
-      'expDate': '12/2022',
-      'cardType': 'mastercard'
-    },
-  ];
-
-  List cardWidgets = [];
+  List<dynamic> cardWidgets = [];
 
   List<T> map<T>(List list, Function handler) {
     List<T> result = [];
@@ -42,24 +26,31 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
 
   @override
   Widget build(BuildContext context) {
-
+    final user = Provider.of<User>(context, listen: false);
     cardWidgets = [];
-    for (int i = 0; i < creditCards.length; i++) {
-      cardWidgets.add(CreditCard(
-          creditCards[i]['cardNumber'], creditCards[i]['expDate'], 'hi', 'visa'
+    print('user card -> ${user.cards}');
+    print('user.length -> ${user.cards.length}');
+    for (int i = 0; i < user.cards.length; i++) {
+      cardWidgets.add(
+        CreditCard(
+          user.cards[i]['cardInfo']['cardNumber'], 
+          user.cards[i]['cardInfo']['expDate'], 
+          user.cards[i]['cardInfo']['fullName'],  
+          user.cards[i]['cardInfo']['type'], 
+          index: i,
         )
       );
     }
 
-
-    return Column(
+    return user.cards.length > 0 ? Column(
       children: <Widget>[
         CarouselSlider(
           options: CarouselOptions(
-            height: 200.0,
+            height: 225.0,
             autoPlayCurve: Curves.fastOutSlowIn,
+            enableInfiniteScroll: false,
             pauseAutoPlayOnTouch: true,
-            aspectRatio: 2.0,
+            scrollPhysics: BouncingScrollPhysics(),
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
@@ -76,6 +67,7 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
             }); 
           }).toList(),
         ),
+        // dots
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: map<Widget>(cardWidgets, (index, url) {
@@ -93,7 +85,17 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
           }),
         ),
       ],
+    ) : Padding(
+      padding: const EdgeInsets.all(24.0),
+      child: Text(
+          'You have no saved credit cards',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            fontSize: 22,
+            fontWeight: FontWeight.w600,
+            color: Colors.grey
+          )
+        ),
     );
-         
   }
 }

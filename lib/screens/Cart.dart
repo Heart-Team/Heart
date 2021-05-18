@@ -79,6 +79,7 @@ class _CartState extends State<Cart> {
                             cart[index]['title'],
                             cart[index]['amount'],
                             cart[index]['imageUrl'],
+                            key: UniqueKey()
                           );
                         },
                         itemCount: cartData.cartCharities.length,

@@ -172,7 +172,7 @@ class _CreditCardState extends State<CreditCard> {
                         ),
                       ],
                     ),
-                    if (widget.index != null)
+                    if (widget.cardsLength != null)
                     Container(
                       child: Row(
                         children: [
@@ -364,6 +364,8 @@ class _CreditCardState extends State<CreditCard> {
   Widget build(BuildContext context) {         
     final billingInfo = Provider.of<User>(context, listen: false).cards[widget.index]['billingInfo'];
     final cardInfo = Provider.of<User>(context, listen: false).cards[widget.index]['cardInfo'];
+    print(billingInfo);
+    print(cardInfo);
     return FlipCard(
         key: cardKey,
         flipOnTouch: false,

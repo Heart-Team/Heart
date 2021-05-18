@@ -77,7 +77,7 @@ class _ProfileState extends State<Profile>{
                     Container(
                       child: Expanded(
                         flex: 1,
-                        child: ListView(
+                        child: folders.length > 0 ? ListView(
                           scrollDirection: Axis.horizontal,
                           physics: BouncingScrollPhysics(),
                           padding: EdgeInsets.symmetric(
@@ -87,7 +87,14 @@ class _ProfileState extends State<Profile>{
                                     e,
                                   ))
                               .toList(),
-                        ),
+                        ) : Center(child: Text(
+                          'No Saved Charities',
+                          style: TextStyle(
+                            color: Colors.grey,
+                            fontWeight: FontWeight.w600,
+                            fontSize: 20
+                          )
+                        )),
                       ),
                     ),
                     Container(
