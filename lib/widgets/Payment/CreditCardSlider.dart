@@ -28,8 +28,6 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
   Widget build(BuildContext context) {
     final user = Provider.of<User>(context, listen: false);
     cardWidgets = [];
-    print('user card -> ${user.cards}');
-    print('user.length -> ${user.cards.length}');
     for (int i = 0; i < user.cards.length; i++) {
       cardWidgets.add(
         CreditCard(

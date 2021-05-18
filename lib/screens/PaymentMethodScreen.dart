@@ -19,6 +19,11 @@ class PayMethodScreen extends StatelessWidget {
 
     final cartProvider = Provider.of<Cart>(context, listen: false);
     final monthlyPaymentProviders = Provider.of<MonthlyPayments>(context,listen: false);
+    Map<String, dynamic> activeCard = {};
+    void setActiveCard(Map<String, dynamic>selectedCard){
+      activeCard = selectedCard;
+      print(activeCard);
+    }
     // final user = Provider.of<User>(context,listen: false);
 
     return Scaffold(
