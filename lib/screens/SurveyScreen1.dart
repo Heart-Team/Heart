@@ -129,21 +129,22 @@ class SurveyScreen extends StatelessWidget {
                   ],
                 )
               ),
-              Positioned(child: 
-                IconButton(
-                  icon: Icon(
-                    Icons.keyboard_backspace,
-                    size: 30,
-                    color: AppTheme().primaryColor,
+              if(productId != null)
+                Positioned(child: 
+                  IconButton(
+                    icon: Icon(
+                      Icons.keyboard_backspace,
+                      size: 30,
+                      color: AppTheme().primaryColor,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                      Provider.of<Survey>(context, listen: false).clear();
+                    }   
                   ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                    Provider.of<Survey>(context, listen: false).clear();
-                  }   
-                ),
-                top: 35,
-                left: 10
-              )
+                  top: 35,
+                  left: 10
+                )
           ],
         )
       );

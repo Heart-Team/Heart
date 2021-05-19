@@ -8,6 +8,10 @@ import './CreditCard.dart';
 class CreditCardSlider extends StatefulWidget {
   @override
   _CreditCardSliderState createState() => _CreditCardSliderState();
+
+  final Function setActiveCard;
+
+  CreditCardSlider(this.setActiveCard);
 }
 
 class _CreditCardSliderState extends State<CreditCardSlider> {
@@ -52,6 +56,7 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
             onPageChanged: (index, reason) {
               setState(() {
                 _currentIndex = index;
+                widget.setActiveCard(user.getCardDetails(index));
               });
             },
           ),
@@ -64,24 +69,7 @@ class _CreditCardSliderState extends State<CreditCardSlider> {
               );
             }); 
           }).toList(),
-        ),
-        // dots
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: map<Widget>(cardWidgets, (index, url) {
-            return Container(
-              width: 10.0,
-              height: 10.0,
-              margin: EdgeInsets.symmetric(vertical: 10.0, horizontal: 2.0),
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: _currentIndex == index
-                    ? Colors.blueAccent
-                    : Colors.grey,
-              ),
-            );
-          }),
-        ),
+        ), 
       ],
     ) : Padding(
       padding: const EdgeInsets.all(24.0),

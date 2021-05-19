@@ -7,8 +7,10 @@ import 'package:heart_app/screens/Sucess.dart';
 import 'package:heart_app/widgets/MainDrawer.dart';
 import 'package:heart_app/widgets/Payment/CartList.dart';
 import 'package:heart_app/theme.dart';
+import 'package:heart_app/widgets/Payment/CheckoutForm.dart';
 import 'package:heart_app/widgets/Payment/CreditCardSlider.dart';
 import 'package:provider/provider.dart';
+import 'package:rflutter_alert/rflutter_alert.dart';
 
 class PayMethodScreen extends StatelessWidget {
 
@@ -18,14 +20,14 @@ class PayMethodScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final cartProvider = Provider.of<Cart>(context, listen: false);
-    final monthlyPaymentProviders = Provider.of<MonthlyPayments>(context,listen: false);
-    Map<String, dynamic> activeCard = {};
+    final user = Provider.of<User>(context, listen: false);
+    String cvc;
+    Map<String, dynamic> activeCard = user.getCardDetails(0);
+
     void setActiveCard(Map<String, dynamic>selectedCard){
       activeCard = selectedCard;
-      print(activeCard);
     }
-    // final user = Provider.of<User>(context,listen: false);
-
+    
     return Scaffold(
       backgroundColor: Colors.white,
       extendBody: true,
@@ -45,7 +47,7 @@ class PayMethodScreen extends StatelessWidget {
               ),
             ),
           ),
-          CreditCardSlider(),
+          CreditCardSlider(setActiveCard),
           Expanded(
             child: ListView.builder(
               physics: BouncingScrollPhysics(),
@@ -84,39 +86,53 @@ class PayMethodScreen extends StatelessWidget {
                       Text("\$${cartProvider.totalSum.toStringAsFixed(2)}", style: TextStyle(fontSize: 20))
                     ],
                   ),
-                  Container(
-                    margin: EdgeInsets.only(top: 15),
-                    padding: EdgeInsets.symmetric(horizontal: 30, vertical: 7),
-                    decoration: BoxDecoration(
-                      color: AppTheme().primaryColor,
-                      borderRadius: BorderRadius.circular(10),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.black12.withOpacity(0.25),
-                            blurRadius: 20)
-                      ],
+                  GestureDetector(
+                    onTap: (){
+                      Alert(
+                  context: context,
+                  title: 'Your 3 Digit CVC code',
+                  buttons: [],
+                  content: Container(
+                    margin: EdgeInsets.symmetric(vertical: 20),
+                    child: CheckoutForm(
+                        amount: cartProvider.totalSum.toStringAsFixed(2),
+                        cardNumber: activeCard['cardInfo']['cardNumber'],
+                        email: user.email,
+                        fullName: user.fullName,
+                        expDate: activeCard['cardInfo']['expDate'],
+                      )
                     ),
-                    child: GestureDetector(
-                      onTap: () async {
-                        // here collect all the checkout data and store to have monthly chart
-                        final cartData =  cartProvider.cartCharities;
-                        for (var eachCartItem in cartData){
-                          final title = eachCartItem["title"];
-                          final amount = eachCartItem["amount"];
-                          await monthlyPaymentProviders.storePayments( {'charity':title,'amount':amount});
-                          await cartProvider.clearCart();
-                        }
-
-                        Navigator.pushReplacement(
-                          context, 
-                          CupertinoPageRoute(builder: (_) => Suc())
-                        );
-                      },
-                      child: Text(
-                        "Checkout",
-                        style: TextStyle(color: Colors.white, fontSize: 20),
+                    style: AlertStyle(
+                    animationType: AnimationType.grow,
+                    backgroundColor: Colors.white.withOpacity(0.85),
+                    overlayColor: Colors.black12.withOpacity(0.8),
+                    titleStyle: TextStyle(
+                        color: Colors.black87,
+                        fontSize: 26,
+                        fontWeight: FontWeight.w600),
+                    )).show();
+                    },
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15),
+                      padding: EdgeInsets.symmetric(horizontal: 50, vertical: 7),
+                      decoration: BoxDecoration(
+                        color: AppTheme().primaryColor,
+                        borderRadius: BorderRadius.circular(10),
+                        boxShadow: [
+                          BoxShadow(
+                              color: Colors.black12.withOpacity(0.25),
+                              blurRadius: 20)
+                          ],
                       ),
-                    ),
+                      child: Text(
+                        'Next',
+                        style: TextStyle(
+                          fontSize: 18,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w500
+                        )
+                      ),
+                    )
                   ),
                 ],
               ))
