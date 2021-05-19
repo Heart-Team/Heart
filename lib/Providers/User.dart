@@ -1,9 +1,13 @@
+import 'dart:convert';
 import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
+import 'package:flushbar/flushbar.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:encrypt/encrypt.dart' as Encrypt;
+import 'package:stripe_payment/stripe_payment.dart';
+import 'package:http/http.dart' as http;
 
 class User with ChangeNotifier {
 
@@ -186,6 +190,10 @@ class User with ChangeNotifier {
     }
   }
 
+  Map<String, dynamic> getCardDetails(int index){
+    return _cards[index];
+  }
+
   Future<void> updateCard(
     String fullName,
     String cardNumber,
@@ -289,7 +297,6 @@ class User with ChangeNotifier {
         charities.add(fav);
       }
     }
-    print("charities to be shown: ${charities}");
     return charities;
   }
 
@@ -299,12 +306,71 @@ class User with ChangeNotifier {
     for (var fav in _favorites) {
       if (fav['categoryName'] == folderName) {
         final difference = DateTime.now().difference(DateTime.parse(fav['dateAdded'])).inDays;
-        print("difference in days: ${difference.toInt()}");
         if(difference.toInt() < 8) {
           charities.add(fav);
         }
       }
     }
     return charities;
+  }
+
+  Future<void> processPayment({
+    String cardNumber,
+    String expDate,
+    String cvc,
+    String email, 
+    String fullName,
+    String amount, 
+    String description,
+    BuildContext context,
+  }) async {
+    final url = 'http://10.0.2.2:8000/payment';
+    final amt = double.parse(amount) * 100;
+    final expDateSplit = expDate.split('/');
+    final expMonth = int.parse(expDateSplit[0]);
+    final expYear = int.parse(expDateSplit[1].substring(2));
+
+    try {
+      final token = await StripePayment.createTokenWithCard(
+        CreditCard(
+          number: decrypt(cardNumber),
+          expMonth: expMonth,
+          expYear: expYear,
+          cvc: cvc,
+        )
+      );
+      final body = {
+        "email": email,
+        "token": token.tokenId,
+        "name": fullName,
+        "amount": amt,
+        "description": description
+      };
+      final header = {
+        "Content-Type": 'application/json'
+      };
+      final response = await http.post(
+        Uri.parse(url),
+        headers: header,
+        encoding: Encoding.getByName('utf-8'),
+        body: json.encode(body)
+      ); 
+      print(response);
+    } catch (e) {
+      Flushbar(
+        messageText: Text(
+          'There was an error processing this transaction, try again later',
+          style: TextStyle(color: Colors.white),
+        ),
+        borderRadius: 10,
+        backgroundColor: Colors.red,
+        margin: EdgeInsets.all(10),
+        duration: Duration(seconds: 3),
+        icon: Icon(
+          Icons.error_outline,
+          color: Colors.white,
+        ),
+      ).show(context);
+    }
   }
 }

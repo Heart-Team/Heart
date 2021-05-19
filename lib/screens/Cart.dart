@@ -7,6 +7,7 @@ import "package:heart_app/widgets/cart/EmptyCart.dart";
 import "package:heart_app/widgets/cart/CartData.dart";
 import 'package:provider/provider.dart';
 import 'package:heart_app/Providers/Cart.dart' as CartProvider;
+import 'package:stripe_payment/stripe_payment.dart';
 // import "package:heart_app/bottomnav/BottomNavigation.dart";
 
 
@@ -27,6 +28,12 @@ class _CartState extends State<Cart> {
     if(cartData.cartCharities.length == 0){
       cartData.getCharities();
     }
+    StripePayment.setOptions(
+      StripeOptions(
+        publishableKey: 'pk_test_51IijcAClIzB3w4r9Ki73khklq1BBzeaFnhWc2rA4myzg4L541iSYEKivTAgHhzmCFnP1OH2YyYQcvVd2jLOs27ue00wF42a3ZO',
+        androidPayMode: 'test',
+      )
+    );
   }
 
   @override

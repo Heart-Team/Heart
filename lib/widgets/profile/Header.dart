@@ -17,7 +17,7 @@ class Header extends StatelessWidget {
       children: [
         Center(
           child: CircleAvatar(
-            backgroundImage: user.imageUrl.isEmpty ? AssetImage(
+            backgroundImage: user.imageUrl != null && user.imageUrl.isEmpty ? AssetImage(
               "assets/images/user/blank_user.png") : NetworkImage(user.imageUrl),
             radius: 45,
           ),
