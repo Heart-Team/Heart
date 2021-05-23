@@ -355,7 +355,7 @@ class User with ChangeNotifier {
         encoding: Encoding.getByName('utf-8'),
         body: json.encode(body)
       ); 
-      print(response);
+      print(response.body);
     } catch (e) {
       Flushbar(
         messageText: Text(

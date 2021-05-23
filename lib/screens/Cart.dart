@@ -111,9 +111,7 @@ class _CartState extends State<Cart> {
                             context, 
                             '/', 
                             (route) => false
-                          ) : Navigator.of(context).push(
-                            CupertinoPageRoute(builder: (_) => PayMethodScreen())
-                          );
+                          ) : Navigator.of(context).pushNamed(PayMethodScreen.routeName);
                         },
                         child: Text(
                           cartData.cartCharities.isEmpty ? "Go Now" : "Next",

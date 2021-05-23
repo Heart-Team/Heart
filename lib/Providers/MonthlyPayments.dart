@@ -30,7 +30,7 @@ class MonthlyPayments with ChangeNotifier {
       final res = await firestore.collection('MonthlyPayments').document(userId).get();
       _monthlyPayments.addAll(res.data['payments']);
     } catch (e) {
-      print(e.message);
+      print(e);
     }
   }
 
